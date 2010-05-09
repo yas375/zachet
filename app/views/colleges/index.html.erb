@@ -1,0 +1,18 @@
+<h1>Все ВУЗы</h1>
+<% if @colleges.any? %>
+  <table>
+    <tr>
+      <th>ВУЗ</th>
+      <th>Поддомен</th>
+    </tr>
+    <% @colleges.each do |college| %>
+      <tr class="<%= cycle('list-line-odd', 'list-line-even') %>">
+        <td><%= link_to '<abbr title="' + college.name + '">' + college.abbr + '</abbr>', edit_college_path(college) -%></td>
+        <td><%=h college.subdomain -%></td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <p>Еще не добавлено ни одного ВУЗа</p>
+<% end %>
+<%= link_to 'Добавить ВУЗ', new_college_path %>

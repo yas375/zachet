@@ -1,0 +1,7 @@
+<h1>Добавление нового ВУЗа</h1>
+
+<% form_for @college, :url => colleges_path do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :object => f %>
+  <%= f.submit "Создать" %>
+<% end %>

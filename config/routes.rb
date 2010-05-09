@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :account, :controller => "users"
 
   map.resources :users    
-
+  map.resources :colleges
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
