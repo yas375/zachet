@@ -1,0 +1,9 @@
+/.idea
+/config/app_config.yml
+/config/database.yml
+/coverage
+/log/*
+/mkmf.log
+/nbproject
+/public/system
+/tmp/*
