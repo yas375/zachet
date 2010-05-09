@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100509120038) do
+ActiveRecord::Schema.define(:version => 20100509141701) do
 
   create_table "colleges", :force => true do |t|
     t.string   "subdomain"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20100509120038) do
     t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "college_id"
   end
 
 end

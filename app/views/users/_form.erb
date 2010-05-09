@@ -9,3 +9,10 @@
 <br />
 <%= form.label :password_confirmation %><br />
 <%= form.password_field :password_confirmation %><br />
+
+<br />
+<%= form.label :college, "ВУЗ" %>
+<%= form.select :college_id,
+              available_colleges,
+              :include_blank => true
+%>
