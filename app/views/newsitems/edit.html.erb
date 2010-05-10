@@ -1,0 +1,12 @@
+<h1>Editing newsitem</h1>
+
+<% form_for(@newsitem) do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :object => f %>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @newsitem %> |
+<%= link_to 'Back', newsitems_path %>
