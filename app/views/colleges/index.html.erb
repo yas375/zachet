@@ -1,18 +1,48 @@
-<h1>Все ВУЗы</h1>
-<% if @colleges.any? %>
-  <table>
-    <tr>
-      <th>ВУЗ</th>
-      <th>Поддомен</th>
-    </tr>
-    <% @colleges.each do |college| %>
-      <tr class="<%= cycle('list-line-odd', 'list-line-even') %>">
-        <td><%= link_to '<abbr title="' + college.name + '">' + college.abbr + '</abbr>', edit_college_path(college) -%></td>
-        <td><%=h college.subdomain -%></td>
-      </tr>
-    <% end %>
-  </table>
-<% else %>
-  <p>Еще не добавлено ни одного ВУЗа</p>
-<% end %>
-<%= link_to 'Добавить ВУЗ', new_college_path %>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+	    <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", colleges_path  %></li>
+  		<li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_college_path %></li>
+    </ul>
+  </div>          
+  <div class="content">          
+    <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Colleges</h2>
+    <div class="inner">
+      <table class="table">
+        <tr>             
+          <th class="first">ID</th>
+										<th>
+					<%= t("activerecord.attributes.college.subdomain", :default => t("activerecord.labels.subdomain", :default => "Subdomain")) %>
+</th>
+					          <th><%= t("web-app-theme.created_at", :default => "Created at")  %></th>
+          <th class="last">&nbsp;</th>
+        </tr>
+        <% @colleges.each do |college| -%>
+        <tr class="<%= cycle("odd", "even") %>">
+          <td>
+            <%= college.id %>
+          </td>
+										<td>
+						<%= link_to college.subdomain, college_path(college) %>
+					</td>
+										<td>
+            <%= college.created_at %>
+          </td>
+          <td class="last">
+            <%= link_to "#{t("web-app-theme.show", :default => "Show")}", college_path(college) %> |
+            <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_college_path(college) %> |
+            <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", college_path(college), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+          </td>
+        </tr>          
+        <% end -%>
+      </table>
+      <div class="actions-bar wat-cf">
+        <div class="actions">
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

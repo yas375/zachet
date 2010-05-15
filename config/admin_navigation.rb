@@ -1,5 +1,6 @@
 # Configures your navigation
-SimpleNavigation::Configuration.run do |navigation|  
+SimpleNavigation::Configuration.run do |navigation|
+  navigation.selected_class = 'active'  
   # Specify a custom renderer if needed. 
   # The default renderer is SimpleNavigation::Renderer::List which renders HTML lists.
   # navigation.renderer = Your::Custom::Renderer
@@ -34,7 +35,8 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :news, 'Новости', newsitems_path do |sub_nav|
       # Add an item to the sub navigation (same params again)
       sub_nav.item :new, 'Новое', new_newsitem_path
-    end
+    end 
+    primary.item :colleges, 'ВУЗы', colleges_path
   
     # You can also specify a condition-proc that needs to be fullfilled to display an item.
     # Conditions are part of the options. They are evaluated in the context of the views,

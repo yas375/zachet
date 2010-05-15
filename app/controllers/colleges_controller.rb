@@ -1,4 +1,5 @@
 class CollegesController < ApplicationController
+  layout 'admin'
   def new
      @college = College.new
    end
@@ -33,5 +34,12 @@ class CollegesController < ApplicationController
      else
        render :action => :edit
      end
+   end
+   
+   def destroy
+     @college = College.find(params[:id])
+     @college.destroy
+
+     redirect_to(colleges_url)
    end
 end

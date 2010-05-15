@@ -1,18 +1,39 @@
-<p>
-  <b>Title:</b>
-  <%=h @newsitem.title %>
-</p>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first"><%= link_to "#{t("web-app-theme.list", :default => "List")}", newsitems_path  %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_newsitem_path %></li>
+      <li class="active"><%= link_to "#{t("web-app-theme.show", :default => "Show")}", newsitem_path %></li>
+    </ul>
+  </div>          
+  <div class="content">
+    <div class="inner">
+      
+        <p>
+          <b><%= t("activerecord.attributes.newsitem.title", :default => t("activerecord.labels.title", :default => "Title")) %>:</b>
+          <%= @newsitem.title %>
+        </p>
 
-<p>
-  <b>Body:</b>
-  <%=h @newsitem.body %>
-</p>
+        <p>
+          <b><%= t("activerecord.attributes.newsitem.body", :default => t("activerecord.labels.body", :default => "Body")) %>:</b>
+          <%= @newsitem.body %>
+        </p>
 
-<p>
-  <b>Published:</b>
-  <%=h @newsitem.published %>
-</p>
+        <p>
+          <b><%= t("activerecord.attributes.newsitem.published", :default => t("activerecord.labels.published", :default => "Published")) %>:</b>
+          <%= @newsitem.published %>
+        </p>
 
+        <p>
+          <b><%= t("activerecord.attributes.newsitem.user_id", :default => t("activerecord.labels.user_id", :default => "User")) %>:</b>
+          <%= @newsitem.user_id %>
+        </p>
+      <div class="wat-cf">
+        <%= link_to "#{image_tag("web-app-theme/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}")} #{t("web-app-theme.edit", :default=> "Edit")}", edit_newsitem_path(@newsitem), :class => "button" %> 
+        <%= link_to "#{image_tag("web-app-theme/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}")} #{t("web-app-theme.delete", :default => "Delete")}", newsitem_path(@newsitem), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+      </div>      
+    </div>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_newsitem_path(@newsitem) %> |
-<%= link_to 'Back', newsitems_path %>
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

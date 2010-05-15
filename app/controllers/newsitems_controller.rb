@@ -1,28 +1,19 @@
 class NewsitemsController < ApplicationController
+  layout 'admin'
   # GET /newsitems
   def index
     @newsitems = Newsitem.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @newsitems }
-    end
   end
 
   # GET /newsitems/1
   def show
     @newsitem = Newsitem.find(params[:id])
+    render :layout => 'application', :html => @newsitem 
   end
 
   # GET /newsitems/new
-  # GET /newsitems/new.xml
   def new
     @newsitem = Newsitem.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @newsitem }
-    end
   end
 
   # GET /newsitems/1/edit
@@ -44,31 +35,22 @@ class NewsitemsController < ApplicationController
   end
 
   # PUT /newsitems/1
-  # PUT /newsitems/1.xml
   def update
     @newsitem = Newsitem.find(params[:id])
 
-    respond_to do |format|
-      if @newsitem.update_attributes(params[:newsitem])
-        flash[:notice] = 'Newsitem was successfully updated.'
-        format.html { redirect_to(@newsitem) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @newsitem.errors, :status => :unprocessable_entity }
-      end
+    if @newsitem.update_attributes(params[:newsitem])
+      flash[:notice] = 'Newsitem was successfully updated.'
+      redirect_to(@newsitem)
+    else
+      render :action => "edit"
     end
   end
 
   # DELETE /newsitems/1
-  # DELETE /newsitems/1.xml
   def destroy
     @newsitem = Newsitem.find(params[:id])
     @newsitem.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(newsitems_url) }
-      format.xml  { head :ok }
-    end
+    redirect_to(newsitems_url)
   end
 end
