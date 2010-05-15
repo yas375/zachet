@@ -1,5 +1,4 @@
-class NewsitemsController < ApplicationController
-  layout 'admin'
+class Admin::NewsitemsController < Admin::AdminController
   # GET /newsitems
   def index
     @newsitems = Newsitem.all
@@ -8,7 +7,6 @@ class NewsitemsController < ApplicationController
   # GET /newsitems/1
   def show
     @newsitem = Newsitem.find(params[:id])
-    render :layout => 'application', :html => @newsitem 
   end
 
   # GET /newsitems/new
@@ -28,7 +26,7 @@ class NewsitemsController < ApplicationController
 
     if @newsitem.save
       flash[:notice] = 'Newsitem was successfully created.'
-      redirect_to(@newsitem)
+      redirect_to admin_newsitem_url(@newsitem) 
     else
       render :action => "new"
     end
@@ -40,7 +38,7 @@ class NewsitemsController < ApplicationController
 
     if @newsitem.update_attributes(params[:newsitem])
       flash[:notice] = 'Newsitem was successfully updated.'
-      redirect_to(@newsitem)
+      redirect_to admin_newsitem_url(@newsitem)
     else
       render :action => "edit"
     end
@@ -51,6 +49,6 @@ class NewsitemsController < ApplicationController
     @newsitem = Newsitem.find(params[:id])
     @newsitem.destroy
 
-    redirect_to(newsitems_url)
+    redirect_to(admin_newsitems_url)
   end
 end

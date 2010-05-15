@@ -1,8 +1,8 @@
 <div class="block">
   <div class="secondary-navigation">
     <ul class="wat-cf">
-	    <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", newsitems_path  %></li>
-  		<li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_newsitem_path %></li>
+	    <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", admin_newsitems_path  %></li>
+  		<li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_admin_newsitem_path %></li>
     </ul>
   </div>          
   <div class="content">          
@@ -23,15 +23,15 @@
             <%= newsitem.id %>
           </td>
 										<td>
-						<%= link_to newsitem.title, newsitem_path(newsitem) %>
+						<%= link_to newsitem.title, admin_newsitem_path(newsitem) %>
 					</td>
 										<td>
             <%= newsitem.created_at %>
           </td>
           <td class="last">
-            <%= link_to "#{t("web-app-theme.show", :default => "Show")}", newsitem_path(newsitem) %> |
-            <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_newsitem_path(newsitem) %> |
-            <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", newsitem_path(newsitem), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+            <%= link_to "#{t("web-app-theme.show", :default => "Show")}", admin_newsitem_path(newsitem) %> |
+            <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_admin_newsitem_path(newsitem) %> |
+            <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", admin_newsitem_path(newsitem), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
           </td>
         </tr>          
         <% end -%>

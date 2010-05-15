@@ -1,11 +1,14 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :newsitems, :as => "news"
+  map.namespace :admin do |admin|
+    admin.resources :newsitems, :as => 'news'
+    admin.resources :colleges
+  end
 
   map.resource :user_session
   map.resource :account, :controller => "users"
 
   map.resources :users    
-  map.resources :colleges
+  
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

@@ -1,5 +1,4 @@
-class CollegesController < ApplicationController
-  layout 'admin'
+class Admin::CollegesController < Admin::AdminController
   def new
      @college = College.new
    end
@@ -8,7 +7,7 @@ class CollegesController < ApplicationController
      @college = College.new(params[:college])
      if @college.save
        flash[:notice] = "ВУЗ #{@college.abbr} успешно добавилен"
-       redirect_back_or_default colleges_url
+       redirect_to admin_college_url(@college)
      else
        render :action => :new
      end
@@ -19,18 +18,19 @@ class CollegesController < ApplicationController
    end
 
    def show
-     @college = College.find
+     @college = College.find(params[:id])
    end
 
    def edit
-     @college = College.find
+     @college = College.find(params[:id])
    end
 
    def update
-     @user = College.find # makes our views "cleaner" and more consistent
-     if @college.update_attributes(params[:user])
+     @college = College.find(params[:id])
+
+     if @college.update_attributes(params[:college])
        flash[:notice] = "ВУЗ успешно обновлен"
-       redirect_to account_url
+       redirect_to admin_college_url(@college)
      else
        render :action => :edit
      end
@@ -40,6 +40,6 @@ class CollegesController < ApplicationController
      @college = College.find(params[:id])
      @college.destroy
 
-     redirect_to(colleges_url)
+     redirect_to(admin_colleges_url)
    end
 end

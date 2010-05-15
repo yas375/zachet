@@ -1,8 +1,8 @@
 <div class="block">
   <div class="secondary-navigation">
     <ul class="wat-cf">
-	    <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", colleges_path  %></li>
-  		<li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_college_path %></li>
+	    <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", admin_colleges_path  %></li>
+  		<li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_admin_college_path %></li>
     </ul>
   </div>          
   <div class="content">          
@@ -23,15 +23,15 @@
             <%= college.id %>
           </td>
 										<td>
-						<%= link_to college.subdomain, college_path(college) %>
+						<%= link_to college.subdomain, admin_college_path(college) %>
 					</td>
 										<td>
             <%= college.created_at %>
           </td>
           <td class="last">
-            <%= link_to "#{t("web-app-theme.show", :default => "Show")}", college_path(college) %> |
-            <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_college_path(college) %> |
-            <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", college_path(college), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+            <%= link_to "#{t("web-app-theme.show", :default => "Show")}", admin_college_path(college) %> |
+            <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_admin_college_path(college) %> |
+            <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", admin_college_path(college), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
           </td>
         </tr>          
         <% end -%>

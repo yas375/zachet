@@ -29,14 +29,16 @@ SimpleNavigation::Configuration.run do |navigation|
     # url - the address that the generated item links to. You can also use url_helpers (named routes, restful routes helper, url_for etc.)
     # options - can be used to specify attributes that will be included in the rendered navigation item (e.g. id, class etc.)
     #
-    primary.item :users, 'Пользователи', users_path
+    #primary.item :users, 'Пользователи', users_path
     
     # Add an item which has a sub navigation (same params, but with block)
-    primary.item :news, 'Новости', newsitems_path do |sub_nav|
+    primary.item :news, 'Новости', admin_newsitems_path do |sub_nav|
       # Add an item to the sub navigation (same params again)
-      sub_nav.item :new, 'Новое', new_newsitem_path
+      sub_nav.item :new_newsitem, 'Новое', new_admin_newsitem_path
+      #sub_nav.item :show_newsitem, 'Show', admin_newsitem_path
+      #sub_nav.item :edit, 'Редактирование', edit_admin_newsitem_path
     end 
-    primary.item :colleges, 'ВУЗы', colleges_path
+    primary.item :colleges, 'ВУЗы', admin_colleges_path
   
     # You can also specify a condition-proc that needs to be fullfilled to display an item.
     # Conditions are part of the options. They are evaluated in the context of the views,

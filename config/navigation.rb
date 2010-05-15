@@ -31,11 +31,6 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :users, 'Пользователи', users_path
     
     # Add an item which has a sub navigation (same params, but with block)
-    primary.item :news, 'Новости', newsitems_path do |sub_nav|
-      # Add an item to the sub navigation (same params again)
-      sub_nav.item :new, 'Новое', new_newsitem_path
-    end
-  
     # You can also specify a condition-proc that needs to be fullfilled to display an item.
     # Conditions are part of the options. They are evaluated in the context of the views,
     # thus you can use all the methods and vars you have available in the views.
