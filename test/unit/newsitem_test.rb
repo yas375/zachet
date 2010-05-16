@@ -8,5 +8,6 @@ class NewsitemTest < ActiveSupport::TestCase
     assert !news.valid?
     assert news.errors.invalid?(:title)
     assert news.errors.invalid?(:body)
+    assert news.errors.invalid?(:user)
   end
 end
