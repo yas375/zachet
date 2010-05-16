@@ -1,13 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  subdomain: MyString
-  abbr: MyString
-  name: MyString
-  user: 
+bsu:
+  subdomain: bsu
+  abbr: БГУ
+  name: Белорусский Государственный Университет
 
-two:
-  subdomain: MyString
-  abbr: MyString
-  name: MyString
-  user: 
+bsuir:
+  subdomain: bsuir
+  abbr: БГУИР
+  name: Белорусский Государственный Университет Информатики и Радиоэлектроники

@@ -1,9 +1,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  college: 
-  newsitem: 
+  college: 1
+  newsitem: 2
 
 two:
-  college: 
-  newsitem: 
+  college: 2
+  newsitem: 2
