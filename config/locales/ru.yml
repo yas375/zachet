@@ -1,0 +1,15 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+ru:
+  web-app-theme:
+    save: Сохранить
+    cancel: Отмена
+    list: Список
+    edit: Редактировать
+    new: Создать
+    show: Показать
+    delete: Удалить
+    confirm: Уверен?
+    created_at: Создано
+    all: Все
