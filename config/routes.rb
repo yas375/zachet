@@ -1,11 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
+    admin.admin '', :controller => 'admin', :action => 'index', :name_prefix => ''
     admin.resources :newsitems, :as => 'news'
     admin.resources :colleges
   end
 
   map.resource :user_session
-  map.resource :account, :controller => "users"
+  map.resource :account, :controller => 'users'
 
   map.resources :users    
   
