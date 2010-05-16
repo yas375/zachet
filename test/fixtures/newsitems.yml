@@ -1,13 +1,19 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  title: MyString
-  body: MyText
+opening:
+  title: Мы открылись
+  body: Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. 
   user: 1
-  published: false
+  published: true
 
-two:
-  title: MyString
-  body: MyText
+lorem:
+  title: Lorem ipsum dolor sit amet
+  body: Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. 
+  user: 1
+  published: true
+
+joke:
+  title: Всем студентам проезд будет бесплатный
+  body: Ну размеется это шутка и всё. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. 
   user: 1
   published: false

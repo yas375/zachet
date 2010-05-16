@@ -7,3 +7,7 @@ one:
 two:
   college: 2
   newsitem: 2
+
+two:
+  college: 1
+  newsitem: 3
