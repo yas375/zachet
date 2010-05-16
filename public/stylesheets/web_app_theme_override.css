@@ -1,1 +1,5 @@
 /* Override here any style definide by web-app-theme */
+UL{list-style-position: outside; margin-left: 15px;}
+
+TABLE.table TR.green-row TD{background-color: #0f9;}
+TABLE.table TR.unpublished TD{color: #bbb; background-color: #eee;}

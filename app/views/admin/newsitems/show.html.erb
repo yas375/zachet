@@ -8,26 +8,11 @@
   </div>          
   <div class="content">
     <div class="inner">
-      
-        <p>
-          <b><%= t("activerecord.attributes.newsitem.title", :default => t("activerecord.labels.title", :default => "Title")) %>:</b>
-          <%= @newsitem.title %>
-        </p>
-
-        <p>
-          <b><%= t("activerecord.attributes.newsitem.body", :default => t("activerecord.labels.body", :default => "Body")) %>:</b>
-          <%= @newsitem.body %>
-        </p>
-
-        <p>
-          <b><%= t("activerecord.attributes.newsitem.published", :default => t("activerecord.labels.published", :default => "Published")) %>:</b>
-          <%= @newsitem.published %>
-        </p>
-
-        <p>
-          <b><%= t("activerecord.attributes.newsitem.user_id", :default => t("activerecord.labels.user_id", :default => "User")) %>:</b>
-          <%= @newsitem.user_id %>
-        </p>
+      <h1><%= @newsitem.title %></h1>
+      <div class="text">
+        <%= @newsitem.body %>
+      </div>
+      <br />
       <div class="wat-cf">
         <%= link_to "#{image_tag("web-app-theme/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}")} #{t("web-app-theme.edit", :default=> "Edit")}", edit_admin_newsitem_path(@newsitem), :class => "button" %> 
         <%= link_to "#{image_tag("web-app-theme/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}")} #{t("web-app-theme.delete", :default => "Delete")}", admin_newsitem_path(@newsitem), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
@@ -36,4 +21,22 @@
   </div>
 </div>
 
-<% content_for :sidebar, render(:partial => 'sidebar') -%>
+<% content_for :sidebar do -%>
+<div class="block">
+  <h3>Информация</h3>
+  <div class="content">
+    <p>
+      <ul>
+        <%= "<li>Новость относится к #{@newsitem.colleges.collect(&:abbr).join(', ')}</li>" if @newsitem.colleges.any? %>
+        <%= "<li>Автор: #{@newsitem.author}</li>" %>
+        <%= "<li>Дата: #{@newsitem.created_at}</li>" %>
+        <% if @newsitem.published? %>
+          <li>Опубликовано</li>
+        <% else %>
+          <li><b>Не опубликовано</b></li>
+        <% end %>
+      </ul>
+    </p>
+  </div>
+</div>
+<% end %>

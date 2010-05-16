@@ -13,3 +13,10 @@ ru:
     confirm: Уверен?
     created_at: Создано
     all: Все
+  activerecord:
+    labels:
+      title: Название
+      body: Текст
+      published: Опубликовано
+      colleges: ВУЗы
+      author:  Автор
