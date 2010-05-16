@@ -6,6 +6,20 @@ RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+# fix warning: 
+#    /Users/yas/.rvm/gems/ree-1.8.7-2010.01/gems/rails-2.3.5/lib/rails/gem_dependency.rb:119:Warning: 
+#    Gem::Dependency#version_requirements is deprecated and will be removed on or after August 2010.  Use #requirement
+if Gem::VERSION >= "1.3.6"
+  module Rails
+    class GemDependency
+      def requirement
+        r = super
+        (r == Gem::Requirement.default) ? nil : r
+      end
+    end
+  end
+end
+
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
