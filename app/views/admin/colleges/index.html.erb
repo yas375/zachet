@@ -6,22 +6,17 @@
     </ul>
   </div>
   <div class="content">
-    <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Colleges</h2>
+    <h2 class="title">Учебные заведения</h2>
     <div class="inner">
       <table class="table">
         <tr>
-          <th class="first">ID</th>
-          <th><%= t("activerecord.attributes.college.subdomain", :default => t("activerecord.labels.subdomain", :default => "Subdomain")) %></th>
-          <th><%= t("web-app-theme.created_at", :default => "Created at")  %></th>
+          <th>Название</th>
           <th class="last">&nbsp;</th>
         </tr>
         <% @colleges.each do |college| -%>
           <tr class="<%= cycle("odd", "even") %>">
-            <td><%= college.id %></td>
-            <td><%= link_to college.subdomain, admin_college_path(college) %></td>
-            <td><%= college.created_at %></td>
+            <td><%= link_to college.name, admin_college_path(college) %></td>
             <td class="last">
-              <%= link_to "#{t("web-app-theme.show", :default => "Show")}", admin_college_path(college) %> |
               <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_admin_college_path(college) %> |
               <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", admin_college_path(college), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
             </td>

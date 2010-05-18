@@ -20,3 +20,6 @@ ru:
       published: Опубликовано
       colleges: ВУЗы
       author:  Автор
+      subdomain: Поддомен
+      abbr: Аббревиатура
+      name: Название
