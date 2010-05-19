@@ -5,4 +5,5 @@ class College < ActiveRecord::Base
 
   has_many :news_colleges, :dependent => :destroy
   has_many :newsitems, :through => :news_colleges
+  has_many :disciplines, :dependent => :destroy
 end

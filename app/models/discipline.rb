@@ -1,3 +1,4 @@
 class Discipline < ActiveRecord::Base
-  attr_accessible :name, :abbr, :college
+  belongs_to :college
+  validates_presence_of :name, :college
 end
