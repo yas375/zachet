@@ -38,8 +38,13 @@ SimpleNavigation::Configuration.run do |navigation|
       #sub_nav.item :show_newsitem, 'Show', admin_newsitem_path
       #sub_nav.item :edit, 'Редактирование', edit_admin_newsitem_path
     end 
-    primary.item :colleges, 'ВУЗы', admin_colleges_path
-  
+    primary.item :colleges, 'ВУЗы', admin_colleges_path do |colleges|
+      colleges.item :all_colleges, 'Все', admin_colleges_path
+      College.all(:include => :disciplines).each do |college|
+        colleges.item :"#{college.abbr}", college.abbr, admin_college_path(college)
+      end
+    end
+
     # You can also specify a condition-proc that needs to be fullfilled to display an item.
     # Conditions are part of the options. They are evaluated in the context of the views,
     # thus you can use all the methods and vars you have available in the views.

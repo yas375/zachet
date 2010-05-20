@@ -1,6 +1,6 @@
 class Admin::DisciplinesController < Admin::AdminController
   def index
-    @disciplines = Discipline.all
+    @disciplines = Discipline.all(:conditions => {:college_id => params[:college_id]})
   end
 
   def show

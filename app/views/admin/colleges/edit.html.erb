@@ -1,10 +1,7 @@
 <div class="block">
   <div class="secondary-navigation">
-    <ul class="wat-cf">
-      <li class="first"><%= link_to "#{t("web-app-theme.list", :default => "List")}", admin_colleges_path  %></li>
-      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_admin_college_path %></li>
-      <li class="active"><%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_admin_college_path %></li>
-    </ul>
+    <%= render_navigation(:context => :admin, :level => 2) %>
+    <div class="clear"></div>
   </div>          
   <div class="content">            
     <h2 class="title"><%= t("web-app-theme.edit", :default => "Edit") %> College</h2>
