@@ -7,6 +7,10 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
+  map.subdomain :model => :college do |college|
+    college.college '', :controller => 'home'
+  end
+
   map.resource :user_session
   map.resource :account, :controller => 'users'
 

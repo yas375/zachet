@@ -36,6 +36,7 @@ Rails::Initializer.run do |config|
   config.gem 'authlogic'
   config.gem 'russian'
   config.gem 'simple-navigation'
+  config.gem 'subdomain_routes'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
