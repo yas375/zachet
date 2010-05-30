@@ -17,6 +17,14 @@
         <h1><%=h yield(:title) %></h1>
       <%- end -%>
       
+      <%= render_cell :news, :latest, {:college => params[:college_id]} %>
+      <table class="news">
+        <tr>
+          <td><%= render_cell :news, :global %></td>
+          <td><%= render_cell :news, :local, {:college => params[:college_id]} %></td>
+        </tr>
+      </table>
+
       <%= yield %>
     </div>
   </body>
