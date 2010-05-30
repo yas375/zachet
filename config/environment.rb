@@ -37,6 +37,7 @@ Rails::Initializer.run do |config|
   config.gem 'cells'
   config.gem 'friendly_id'
   config.gem 'russian'
+  config.gem 'searchlogic'
   config.gem 'simple-navigation'
   config.gem 'subdomain_routes'
 

@@ -1,0 +1,12 @@
+<h1><%= @all ? 'Новости вузов' : 'Новости вуза' %></h1>
+<% newslist = @news.all(:include => :colleges) %>
+<% if newslist.any? %>
+  <ul>
+    <% newslist.each do |news| %>
+      <li>
+        <span style="color: grey"><%= news.colleges.collect { |c| c.abbr }.join(', ') %>:</span>
+        <%= news.created_at.strftime('%d.%m %H:%M') %> <%= news.title %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

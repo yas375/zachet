@@ -1,0 +1,9 @@
+<h1>Новости портала</h1>
+<% newslist = @news.all %>
+<% if newslist.any? %>
+  <ul>
+    <% newslist.each do |news| %>
+      <li><%= news.created_at.strftime('%d.%m %H:%M') %> <%= news.title %></li>
+    <% end %>
+  </ul>
+<% end %>
