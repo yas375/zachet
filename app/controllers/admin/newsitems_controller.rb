@@ -26,7 +26,7 @@ class Admin::NewsitemsController < Admin::AdminController
 
     if @newsitem.save
       flash[:notice] = 'Newsitem was successfully created.'
-      redirect_to admin_newsitem_url(@newsitem) 
+      redirect_to admin_newsitems_url
     else
       render :action => "new"
     end
@@ -38,7 +38,7 @@ class Admin::NewsitemsController < Admin::AdminController
 
     if @newsitem.update_attributes(params[:newsitem])
       flash[:notice] = 'Newsitem was successfully updated.'
-      redirect_to admin_newsitem_url(@newsitem)
+      redirect_to admin_newsitems_url
     else
       render :action => "edit"
     end
