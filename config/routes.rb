@@ -7,8 +7,12 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
-  map.subdomain :model => :college do |college|
-    college.college '', :controller => 'home'
+  map.subdomain 'helper.yas'.split('.').first, :name => nil do |home|
+    home.root :controller => 'home'
+  end
+
+  map.subdomain :model => :college, :name => nil do |college|
+    college.college '', :controller => 'colleges', :action => 'show'
   end
 
   map.resource :user_session
@@ -49,7 +53,6 @@ ActionController::Routing::Routes.draw do |map|
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   # map.root :controller => "welcome"
-  map.root :controller => "home"
 
   # See how all your routes lay out with "rake routes"
 

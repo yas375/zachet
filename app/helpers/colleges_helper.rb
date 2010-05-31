@@ -1,5 +1,5 @@
 module CollegesHelper
-  def available_colleges
-    College.all.collect{|a| [a.abbr, a.id]}
+  def current_college_url
+    college_url(:college_id => params[:college_id])
   end
 end

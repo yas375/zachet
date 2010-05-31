@@ -1,0 +1,6 @@
+<h1>ВУЗы</h1>
+<ul>
+  <% @colleges.each do |college| %>
+    <li><%= link_to college.abbr, {:controller => 'home', :action => 'index', :subdomains => college.subdomain} %></li>
+  <% end %>
+</ul>
