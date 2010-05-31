@@ -7,19 +7,15 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
-  map.subdomain 'helper.yas'.split('.').first, :name => nil do |home|
-    home.root :controller => 'home'
-  end
-
-  map.subdomain :model => :college, :name => nil do |college|
-    college.college '', :controller => 'colleges', :action => 'show'
-  end
+  map.college_root '', :controller => 'colleges', :action => 'show', :conditions => { :subdomain => /.+/ }
 
   map.resource :user_session
   map.resource :account, :controller => 'users'
 
-  map.resources :users    
+  map.resources :users
   
+  map.root :controller => "home"
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

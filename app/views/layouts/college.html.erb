@@ -21,8 +21,8 @@
       <%#= render_cell :news, :latest, {:college => params[:college_id]} %>
       <table class="news">
         <tr>
-          <td><%#= render_cell :news, :global %></td>
-          <td><%#= render_cell :news, :local, {:college => params[:college_id]} %></td>
+          <td><%= render_cell :news, :global %></td>
+          <td><%= render_cell :news, :local, {:college => current_subdomain} %></td>
         </tr>
       </table>
 
