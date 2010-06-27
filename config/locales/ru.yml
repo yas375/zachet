@@ -33,9 +33,9 @@ ru:
     labels:
       subdomain: 'Поддомен'
       abbr: 'Аббревиатура'
+      name: 'Название'
 
       college:
-        abbr: 'Аббревиатура'
         name: 'Полное название'
 
     hints:

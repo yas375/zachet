@@ -3,8 +3,8 @@
     = render_navigation(:context => :admin, :level => 2)
     .clear
   .content
-    %h2.title Новый ВУЗ
+    %h2.title Новый предмет
     .inner
-      - semantic_form_for @college, :url => admin_colleges_path do |f|
+      - semantic_form_for @discipline, :url => admin_college_disciplines_path(params[:college_id]) do |f|
         = render :partial => "form", :locals => {:f => f}
 

@@ -8,18 +8,15 @@
       %p
         = link_to root_url(:subdomain => @college.subdomain), root_url(:subdomain => @college.subdomain)
       .wat-cf
-        = link_to "#{image_tag("web-app-theme/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}")} #{t("web-app-theme.edit", :default=> "Edit")}", edit_admin_college_path(@college), :class => "button"
-        = link_to "#{image_tag("web-app-theme/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}")} #{t("web-app-theme.delete", :default => "Delete")}", admin_college_path(@college), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
-- content_for :sidebar do
-  .block
-    %h3
-      Статистика
-    .content
-      %p
-      %table.table
-        %tr
-          %td
-            Предметов
-          %td
-            = link_to @college.disciplines.count, admin_college_disciplines_path(@college)
+        = link_to "#{image_tag("web-app-theme/application_edit.png", :alt => "Редактировать информацию")} Редактировать информацию", edit_admin_college_path(@college), :class => "button"
+        = link_to "#{image_tag("web-app-theme/cross.png", :alt => "Удалить ВУЗ")} Удалить ВУЗ", admin_college_path(@college), :method => "delete", :class => "button", :confirm => "Уверен?"
+
+.block
+  .content
+    .inner
+      %h3 Предметы
+      - d_count = @college.disciplines.count
+      %p= link_to "#{d_count} #{Russian.p(d_count, 'предмет', 'предмета', 'предметов')}", admin_college_disciplines_path(@college)
+      .wat-cf
+        = link_to "#{image_tag("web-app-theme/application_edit.png", :alt => "Добавить предмет")} Добавить предмет", new_admin_college_discipline_path(@college), :class => "button"
 

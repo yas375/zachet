@@ -35,7 +35,7 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :colleges, 'ВУЗы', admin_colleges_path do |colleges|
       colleges.item :all_colleges, 'Все', admin_colleges_path
       College.all(:include => :disciplines).each do |college|
-        colleges.item :"college_#{college.subdomain}", college.abbr, admin_college_path(college)
+        colleges.item :"college_#{college.id}", college.abbr, admin_college_path(college)
       end
     end
 
