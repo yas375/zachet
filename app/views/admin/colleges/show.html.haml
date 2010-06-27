@@ -3,13 +3,10 @@
     = render_navigation(:context => :admin, :level => 2)
     .clear
   .content
+    %h2.title= @college.name
     .inner
       %p
-        = @college.subdomain
-      %p
-        = @college.abbr
-      %p
-        = @college.name
+        = link_to root_url(:subdomain => @college.subdomain), root_url(:subdomain => @college.subdomain)
       .wat-cf
         = link_to "#{image_tag("web-app-theme/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}")} #{t("web-app-theme.edit", :default=> "Edit")}", edit_admin_college_path(@college), :class => "button"
         = link_to "#{image_tag("web-app-theme/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}")} #{t("web-app-theme.delete", :default => "Delete")}", admin_college_path(@college), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"

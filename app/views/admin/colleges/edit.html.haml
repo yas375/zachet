@@ -3,11 +3,8 @@
     = render_navigation(:context => :admin, :level => 2)
     .clear
   .content
-    %h2.title
-      = t("web-app-theme.edit", :default => "Edit") 
-      College
+    %h2.title Редактирование
     .inner
       - semantic_form_for @college, :url => admin_college_path(@college) do |f|
         = render :partial => "form", :locals => {:f => f}
 
-- content_for :sidebar, render(:partial => 'sidebar')

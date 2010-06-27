@@ -1,12 +1,13 @@
 class Admin::CollegesController < Admin::AdminController
   def new
+     current_navigation :colleges
      @college = College.new
    end
 
    def create
      @college = College.new(params[:college])
      if @college.save
-       flash[:notice] = "ВУЗ #{@college.abbr} успешно добавилен"
+       flash[:notice] = "ВУЗ #{@college.abbr} успешно добавлен"
        redirect_to admin_college_url(@college)
      else
        render :action => :new
@@ -23,6 +24,7 @@ class Admin::CollegesController < Admin::AdminController
 
    def edit
      @college = College.find(params[:id])
+     current_navigation :"college_#{@college.subdomain}"
    end
 
    def update

@@ -32,17 +32,18 @@ SimpleNavigation::Configuration.run do |navigation|
     #primary.item :users, 'Пользователи', users_path
 
     # Add an item which has a sub navigation (same params, but with block)
+    primary.item :colleges, 'ВУЗы', admin_colleges_path do |colleges|
+      colleges.item :all_colleges, 'Все', admin_colleges_path
+      College.all(:include => :disciplines).each do |college|
+        colleges.item :"college_#{college.subdomain}", college.abbr, admin_college_path(college)
+      end
+    end
+
     primary.item :news, 'Новости', admin_newsitems_path do |sub_nav|
       # Add an item to the sub navigation (same params again)
       sub_nav.item :new_newsitem, 'Новое', new_admin_newsitem_path
       #sub_nav.item :show_newsitem, 'Show', admin_newsitem_path
       #sub_nav.item :edit, 'Редактирование', edit_admin_newsitem_path
-    end
-    primary.item :colleges, 'ВУЗы', admin_colleges_path do |colleges|
-      colleges.item :all_colleges, 'Все', admin_colleges_path
-      College.all(:include => :disciplines).each do |college|
-        colleges.item :"#{college.abbr}", college.abbr, admin_college_path(college)
-      end
     end
 
     # You can also specify a condition-proc that needs to be fullfilled to display an item.

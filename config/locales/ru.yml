@@ -23,3 +23,23 @@ ru:
       subdomain: Поддомен
       abbr: Аббревиатура
       name: Название
+
+  formtastic:
+    actions:
+      college:
+        create: 'Добавить ВУЗ'
+        update: 'Обновить ВУЗ'
+
+    labels:
+      subdomain: 'Поддомен'
+      abbr: 'Аббревиатура'
+
+      college:
+        abbr: 'Аббревиатура'
+        name: 'Полное название'
+
+    hints:
+      college:
+        subdomain: 'Например: <i>bsu</i>'
+        abbr: 'Например: <i>БГУ</i>'
+        name: 'Например: <i>Белорусский Государственный Университет</i>'
