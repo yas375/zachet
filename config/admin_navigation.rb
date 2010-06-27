@@ -1,17 +1,17 @@
 # Configures your navigation
 SimpleNavigation::Configuration.run do |navigation|
-  navigation.selected_class = 'active'  
-  # Specify a custom renderer if needed. 
+  navigation.selected_class = 'active'
+  # Specify a custom renderer if needed.
   # The default renderer is SimpleNavigation::Renderer::List which renders HTML lists.
   # navigation.renderer = Your::Custom::Renderer
-  
+
   # Specify the class that will be applied to active navigation items. Defaults to 'selected'
   # navigation.selected_class = 'your_selected_class'
-    
+
   # Item keys are normally added to list items as id.
   # This setting turns that off
   # navigation.autogenerate_item_ids = false
-  
+
   # You can override the default logic that is used to autogenerate the item ids.
   # To do this, define a Proc which takes the key of the current item as argument.
   # The example below would add a prefix to each key.
@@ -30,14 +30,14 @@ SimpleNavigation::Configuration.run do |navigation|
     # options - can be used to specify attributes that will be included in the rendered navigation item (e.g. id, class etc.)
     #
     #primary.item :users, 'Пользователи', users_path
-    
+
     # Add an item which has a sub navigation (same params, but with block)
     primary.item :news, 'Новости', admin_newsitems_path do |sub_nav|
       # Add an item to the sub navigation (same params again)
       sub_nav.item :new_newsitem, 'Новое', new_admin_newsitem_path
       #sub_nav.item :show_newsitem, 'Show', admin_newsitem_path
       #sub_nav.item :edit, 'Редактирование', edit_admin_newsitem_path
-    end 
+    end
     primary.item :colleges, 'ВУЗы', admin_colleges_path do |colleges|
       colleges.item :all_colleges, 'Все', admin_colleges_path
       College.all(:include => :disciplines).each do |college|
@@ -55,10 +55,10 @@ SimpleNavigation::Configuration.run do |navigation|
     # works for all levels of the menu
     # primary.dom_id = 'menu-id'
     # primary.dom_class = 'menu-class'
-    
+
     # You can turn off auto highlighting for a specific level
     # primary.auto_highlight = false
-  
+
   end
-  
+
 end

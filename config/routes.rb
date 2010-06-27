@@ -7,13 +7,20 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
-  map.college_root '', :controller => 'colleges', :action => 'show', :conditions => { :subdomain => /.+/ }
+  #map.college_root '', :controller => 'colleges', :action => 'show', :conditions => { :subdomain => /.+/ }
+
+  #map.with_options :conditions => {:subdomain => /.+/} do |college|
+    #college.resources :newsitems, :only => [:index, :show], :as => 'news'
+  #end
+
+
+  map.resources :newsitems, :only => [:index, :show], :as => 'news'
 
   map.resource :user_session
   map.resource :account, :controller => 'users'
 
   map.resources :users
-  
+
   map.root :controller => "home"
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -34,7 +41,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Sample resource route with sub-resources:
   #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-  
+
   # Sample resource route with more complex sub-resources
   #   map.resources :products do |products|
   #     products.resources :comments

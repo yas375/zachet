@@ -8,6 +8,7 @@
   </head>
   <body>
     <%= "sub: #{current_subdomain} ; domain: #{current_domain}" %>
+
     <div id="container">
       <%- flash.each do |name, msg| -%>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
@@ -20,8 +21,8 @@
       <%#= render_cell :news, :latest %>
       <table class="news">
         <tr>
-          <td><%#= render_cell :news, :global, {:without_first => true} %></td>
-          <td><%#= render_cell :news, :local %></td>
+          <td><%= render_cell :news, :global, {:without_first => true} %></td>
+          <td><%= render_cell :news, :local %></td>
         </tr>
       </table>
       
