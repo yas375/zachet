@@ -26,9 +26,14 @@ ru:
 
   formtastic:
     actions:
+      create: 'Создать'
+      update: 'Обновить'
+
       college:
         create: 'Добавить ВУЗ'
         update: 'Обновить ВУЗ'
+      discipline:
+        create: 'Добавить предмет'
 
     labels:
       subdomain: 'Поддомен'
