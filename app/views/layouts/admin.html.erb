@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Alma Mater</title>
+	<title>Zachet.org</title>
 	<%= stylesheet_link_tag "web_app_theme", "web_app_theme_override", "themes/warehouse/style", :cache => true %>
         <%= formtastic_stylesheet_link_tag %>
 </head>
 <body>
   <div id="container">
     <div id="header">
-      <h1><a href="/admin">Alma Mater</a></h1>
+      <h1><a href="/admin">Zachet.org</a></h1>
       <div id="user-navigation">
         <ul class="wat-cf">
           <li><a href="#"><%= t("web-app-theme.profile", :default => "Profile") %></a></li>
@@ -34,7 +34,7 @@
         <%= yield %>
         <div id="footer">
           <div class="block">
-            <p>Copyright &copy; <%= Time.now.year %> Alma Mater.</p>
+            <p>Copyright &copy; <%= Time.now.year %> Zachet.org</p>
           </div>      
         </div>
       </div>
