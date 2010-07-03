@@ -1,8 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  name: 'Высшая математика'
-
-two:
-  name: 'Компьютерные Информационные Технологии'
-  abbr: 'КИТ'

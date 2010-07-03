@@ -1,36 +1,27 @@
 require 'spec_helper'
-
 describe College do
-  fixtures :colleges
+  context "validations" do
+    it "should require abbr, name and subdomain" do
+      should validate_presence_of :abbr, :name, :subdomain
+    end
 
-  before(:each) do
-    @new_college = {:subdomain => 'asd',
-                    :abbr => 'АСД',
-                    :name => 'Полное Название'}
-    @college = College.new(@new_college)
-  end
+    it "should be uniquieness values of attr, name and subdomain" do
+      Factory.create(:college)
+      should validate_uniqueness_of :abbr, :name, :subdomain, :case_sensitive => false
+    end
 
-  it "should create new college" do
-    @college.should be_valid
-  end
+    it "should allow only a-z for subdomain" do
+      college = Factory.build(:college)
+      college.should be_valid
 
-  it "subdomain should be uniq and only latic small letters are allowed" do
-    @college.subdomain = colleges(:bsu).subdomain.upcase
-    @college.should_not be_valid
-    @college.errors.on(:subdomain).should_not be_nil
+      college.subdomain = 'as.sa'
+      college.should have(1).error_on(:subdomain)
 
-    @college.subdomain = 'ФыAas'
-    @college.should_not be_valid
-    @college.errors.on(:subdomain).should_not be_nil
-  end
+      college.subdomain = 'ASD'
+      college.should have(1).error_on(:subdomain)
 
-  it "abbr and name should be uniq" do
-    @college.abbr = colleges(:bsu).abbr.upcase
-    @college.should_not be_valid
-    @college.errors.on(:abbr).should_not be_nil
-
-    @college.name = colleges(:bsu).name.upcase
-    @college.should_not be_valid
-    @college.errors.on(:name).should_not be_nil
+      college.subdomain = 'фыв'
+      college.should have(1).error_on(:subdomain)
+    end
   end
 end
