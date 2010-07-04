@@ -18,3 +18,9 @@ Factory.define :faculty do |f|
   f.college   { |a| a.association(:college) }
 end
 #---------------------------------------------------------------------
+Factory.define :department do |f|
+  f.name      { Faker::Lorem.sentence[3, 5] }
+  f.abbr      { Faker::Lorem.words[1].upcase }
+  f.faculty   { |a| a.association(:faculty) }
+end
+#---------------------------------------------------------------------
