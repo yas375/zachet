@@ -1,4 +1,8 @@
 - f.inputs do
   = f.input :name
   = f.input :abbr, :required => false
-= f.buttons
+  = f.input :faculty, :collection => Faculty.by_college(params[:college_id])
+- f.buttons do
+  = f.commit_button
+  - unless @department.new_record?
+    = link_to "#{image_tag 'web-app-theme/cross.png'} Удалить кафедру", admin_college_department_path, :method => :delete, :confirm => "Уверен?", :class => 'button'

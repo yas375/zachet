@@ -4,9 +4,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :newsitems, :as => 'news'
     admin.resources :colleges do |college|
       college.resources :disciplines, :except => [:show]
-      college.resources :faculties, :except => [:show] do |faculty|
-        faculty.resources :departments, :except => [:show]
-      end
+      college.resources :faculties, :except => [:show]
+      college.resources :departments, :except => [:index, :show]
     end
   end
 

@@ -3,7 +3,7 @@ class Admin::FacultiesController < Admin::AdminController
   before_filter :get_all_faculties, :only => [:new, :create]
 
   def index
-    @faculties = Faculty.all(:conditions => {:college_id => params[:college_id]}, :order => :name)
+    @faculties = Faculty.all(:conditions => {:college_id => params[:college_id]}, :order => :name, :include => [:college, :departments])
   end
 
   def new
@@ -15,7 +15,7 @@ class Admin::FacultiesController < Admin::AdminController
     @faculty.college_id = params[:college_id]
     if @faculty.save
       flash[:notice] = "Факультет добавлен"
-      redirect_to :action => :new
+      redirect_to :action => :index
     else
       render :action => :new
     end

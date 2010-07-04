@@ -3,7 +3,7 @@
     = render_navigation(:context => :admin, :level => 2)
     .clear
   .content
-    %h2.title Факультеты
+    %h2.title Факультеты и кафедры
     .inner
       %table.table
         %tr
@@ -13,11 +13,14 @@
             &nbsp;
         - @faculties.each do |faculty|
           %tr
-            %td= faculty.name
+            %td
+              = faculty.name
+              - if faculty.departments.any?
+                %ul
+                  - faculty.departments.each do |department|
+                    %li= link_to department.name, edit_admin_college_department_path(params[:college_id], department)
             %td= faculty.abbr
             %td.last
-              = link_to "Кафедры", admin_college_faculty_departments_path(faculty.college, faculty)
-              |
               = link_to "Редактировать", edit_admin_college_faculty_path(faculty.college, faculty)
               |
               = link_to "Удалить", admin_college_faculty_path(faculty.college, faculty), :method => :delete, :confirm => "Уверен?"
@@ -26,4 +29,5 @@
         .actions
           .create_button
             = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить факультет", new_admin_college_faculty_path, :class => 'button'
+            = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить кафедру", new_admin_college_department_path, :class => 'button'
             .clear

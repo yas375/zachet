@@ -5,6 +5,5 @@
   .content
     %h2.title Редактирование факультета
     .inner
-      - semantic_form_for @faculty, :url => admin_college_faculty_path(params[:college_id], @faculty) do |f|
+      - semantic_form_for @department, :url => admin_college_department_path(params[:college_id], @department) do |f|
         = render :partial => "form", :locals => {:f => f}
-

@@ -39,6 +39,7 @@ ru:
       subdomain: 'Поддомен'
       abbr: 'Аббревиатура'
       name: 'Название'
+      faculty: 'Факультет'
 
       college:
         name: 'Полное название'
