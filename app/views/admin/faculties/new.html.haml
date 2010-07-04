@@ -1,0 +1,20 @@
+.block
+  .secondary-navigation
+    = render_navigation(:context => :admin, :level => 2)
+    .clear
+  .content
+    %h2.title Новый факультет
+    .inner
+      - semantic_form_for @faculty, :url => admin_college_faculties_path(params[:college_id]) do |f|
+        = render :partial => "form", :locals => {:f => f}
+
+- if (faculties = @faculties).any?
+  .block
+    .content
+      %h2.title Уже имеющиеся факультеты
+      .inner
+        %ul
+          - faculties.each do |faculty|
+            %li
+              = link_to faculty.name, edit_admin_college_faculty_path(faculty.college, faculty)
+              = " (#{faculty.abbr})" unless faculty.abbr.blank?

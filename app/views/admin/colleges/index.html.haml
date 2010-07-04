@@ -17,8 +17,6 @@
             %td
               = link_to college.name, admin_college_path(college)
             %td.last
-              = link_to 'Предметы', admin_college_disciplines_path(college)
-              |
               = link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_admin_college_path(college)
               |
               = link_to "#{t("web-app-theme.delete", :default => "Delete")}", admin_college_path(college), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"

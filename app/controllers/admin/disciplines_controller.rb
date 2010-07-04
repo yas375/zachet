@@ -41,6 +41,8 @@ class Admin::DisciplinesController < Admin::AdminController
     redirect_to admin_college_disciplines_path
   end
 
+  private
+
   def set_current_navigation
     current_navigation :"college_#{params[:college_id]}"
   end
