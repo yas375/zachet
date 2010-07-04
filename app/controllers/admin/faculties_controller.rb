@@ -15,9 +15,9 @@ class Admin::FacultiesController < Admin::AdminController
     @faculty.college_id = params[:college_id]
     if @faculty.save
       flash[:notice] = "Факультет добавлен"
-      redirect_to new_admin_college_faculty_path(params[:college_id])
+      redirect_to :action => :new
     else
-      render :action => 'new'
+      render :action => :new
     end
   end
 
@@ -29,9 +29,9 @@ class Admin::FacultiesController < Admin::AdminController
     @faculty = Faculty.find(params[:id])
     if @faculty.update_attributes(params[:faculty])
       flash[:notice] = "Факультет обновлён"
-      redirect_to admin_college_faculties_path(params[:college_id])
+      redirect_to :action => :index
     else
-      render :action => 'edit'
+      render :action => :edit
     end
   end
 
@@ -39,7 +39,7 @@ class Admin::FacultiesController < Admin::AdminController
     @faculty = Faculty.find(params[:id])
     @faculty.destroy
     flash[:notice] = "Факультет удалён"
-    redirect_to admin_college_faculties_path
+    redirect_to :action => :index
   end
 
   private

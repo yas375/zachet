@@ -13,10 +13,10 @@ class Admin::DisciplinesController < Admin::AdminController
     @discipline = Discipline.new(params[:discipline])
     @discipline.college_id = params[:college_id]
     if @discipline.save
-      flash[:notice] = "Successfully created discipline."
-      redirect_to new_admin_college_discipline_path(params[:college_id])
+      flash[:notice] = "Предмет добавлен"
+      redirect_to :action => :new
     else
-      render :action => 'new'
+      render :action => :new
     end
   end
 
@@ -27,18 +27,18 @@ class Admin::DisciplinesController < Admin::AdminController
   def update
     @discipline = Discipline.find(params[:id])
     if @discipline.update_attributes(params[:discipline])
-      flash[:notice] = "Successfully updated discipline."
-      redirect_to admin_college_disciplines_path(params[:college_id])
+      flash[:notice] = "Предмет обновлён"
+      redirect_to :index
     else
-      render :action => 'edit'
+      render :action => :edit
     end
   end
 
   def destroy
     @discipline = Discipline.find(params[:id])
     @discipline.destroy
-    flash[:notice] = "Successfully destroyed discipline."
-    redirect_to admin_college_disciplines_path
+    flash[:notice] = "Предмет удалён"
+    redirect_to :action => :index
   end
 
   private
