@@ -1,0 +1,20 @@
+.block
+  .secondary-navigation
+    = render_navigation(:context => :admin, :level => 2)
+    .clear
+  .content
+    %h2.title Новая кафедра
+    .inner
+      - semantic_form_for @department, :url => admin_college_faculty_departments_path(params[:college_id], params[:faculty_id]) do |f|
+        = render :partial => "form", :locals => {:f => f}
+
+- if (departments = @departments).any?
+  .block
+    .content
+      %h2.title Уже имеющиеся кафедры
+      .inner
+        %ul
+          - departments.each do |department|
+            %li
+              -# FIXME instead of adding include to controller, try add to model 'has_one :college, :through => :faculty'
+              = link_to department.name, edit_admin_college_faculty_department_path(department.faculty.college, departent.faculty, department)

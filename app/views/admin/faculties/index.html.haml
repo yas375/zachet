@@ -16,9 +16,11 @@
             %td= faculty.name
             %td= faculty.abbr
             %td.last
-              = link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_admin_college_faculty_path(faculty.college, faculty)
+              = link_to "Кафедры", admin_college_faculty_departments_path(faculty.college, faculty)
               |
-              = link_to "#{t("web-app-theme.delete", :default => "Delete")}", admin_college_faculty_path(faculty.college, faculty), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
+              = link_to "Редактировать", edit_admin_college_faculty_path(faculty.college, faculty)
+              |
+              = link_to "Удалить", admin_college_faculty_path(faculty.college, faculty), :method => :delete, :confirm => "Уверен?"
       
       .actions-bar.wat-cf
         .actions

@@ -1,0 +1,28 @@
+.block
+  .secondary-navigation
+    = render_navigation(:context => :admin, :level => 2)
+    .clear
+  .content
+    %h2.title Факультеты
+    .inner
+      %table.table
+        %tr
+          %th Название
+          %th Аббревиатура
+          %th.last
+            &nbsp;
+        - @departments.each do |department|
+          %tr
+            %td= department.name
+            %td= department.abbr
+            %td.last
+              -# TODO check sql. may be it will be good to add includes in controller
+              = link_to "Редактировать", edit_admin_college_faculty_department_path(department.faculty.college, department.faculty, department)
+              |
+              = link_to "Удалить", admin_college_faculty_department_path(department.faculty.college, department.faculty, department), :method => :delete, :confirm => "Уверен?"
+      
+      .actions-bar.wat-cf
+        .actions
+          .create_button
+            = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить кафедру", new_admin_college_faculty_department_path, :class => 'button'
+            .clear
