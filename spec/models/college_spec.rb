@@ -14,14 +14,10 @@ describe College do
       college = Factory.build(:college)
       college.should be_valid
 
-      college.subdomain = 'as.sa'
-      college.should have(1).error_on(:subdomain)
-
-      college.subdomain = 'ASD'
-      college.should have(1).error_on(:subdomain)
-
-      college.subdomain = 'фыв'
-      college.should have(1).error_on(:subdomain)
+      ['as.sa', 'ASD', 'фывф'].each do |sub|
+        college.subdomain = sub
+        college.should have(1).error_on(:subdomain)
+      end
     end
   end
 end
