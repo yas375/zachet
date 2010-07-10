@@ -9,4 +9,6 @@ class College < ActiveRecord::Base
   has_many :disciplines, :dependent => :destroy
   has_many :faculties, :dependent => :destroy
   has_many :departments, :through => :faculties
+  has_many :teacher_jobs, :dependent => :destroy
+  has_many :teachers, :through => :teacher_jobs
 end

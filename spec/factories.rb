@@ -32,3 +32,9 @@ Factory.define :teacher do |f|
   f.text             { "<p>#{Faker::Lorem.paragraphs(7).join('</p><p>')}</p>" }
 end
 #---------------------------------------------------------------------
+Factory.define :teacher_job do |f|
+  f.teacher      { |a| a.association(:teacher) }
+  f.college      { |a| a.association(:college) }
+  f.department   { |a| a.association(:department) }
+end
+#---------------------------------------------------------------------

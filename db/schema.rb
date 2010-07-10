@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100710211805) do
+ActiveRecord::Schema.define(:version => 20100710214853) do
 
   create_table "colleges", :force => true do |t|
     t.string   "subdomain"
@@ -54,7 +54,14 @@ ActiveRecord::Schema.define(:version => 20100710211805) do
     t.boolean  "published"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
+  end
+
+  create_table "teacher_jobs", :force => true do |t|
+    t.integer  "teacher_id",    :null => false
+    t.integer  "college_id",    :null => false
+    t.integer  "department_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "teachers", :force => true do |t|

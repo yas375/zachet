@@ -1,6 +1,9 @@
 class Teacher < ActiveRecord::Base
   validates_presence_of :last_name
 
+  has_many :teacher_jobs, :dependent => :destroy
+  has_many :colleges, :through => :teacher_jobs
+
 
   def name
     res = last_name
