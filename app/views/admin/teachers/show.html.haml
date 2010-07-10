@@ -1,0 +1,10 @@
+.block
+  .secondary-navigation
+    = render_navigation(:context => :admin, :level => 2)
+    .clear
+  .content
+    %h2.title= @teacher.name
+    .inner
+      .wat-cf
+        = link_to "#{image_tag("web-app-theme/application_edit.png", :alt => "Редактировать информацию")} Редактировать информацию", edit_admin_teacher_path(@teacher), :class => "button"
+        = link_to "#{image_tag("web-app-theme/cross.png", :alt => "Удалить")} Удалить", admin_teacher_path(@teacher), :method => "delete", :class => "button", :confirm => "Уверен?"

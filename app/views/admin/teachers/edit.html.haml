@@ -1,0 +1,10 @@
+.block
+  .secondary-navigation
+    = render_navigation(:context => :admin, :level => 2)
+    .clear
+  .content
+    %h2.title Редактирование
+    .inner
+      - semantic_form_for @teacher, :url => admin_teacher_path(@teacher) do |f|
+        = render :partial => "form", :locals => {:f => f}
+

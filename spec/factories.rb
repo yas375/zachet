@@ -24,3 +24,11 @@ Factory.define :department do |f|
   f.faculty   { |a| a.association(:faculty) }
 end
 #---------------------------------------------------------------------
+Factory.define :teacher do |f|
+  f.first_name       { Faker::Name.first_name }
+  f.middle_name      { Faker::Name.first_name }
+  f.last_name        { Faker::Name.last_name }
+  f.email            { Faker::Internet.email }
+  f.text             { "<p>#{Faker::Lorem.paragraphs(7).join('</p><p>')}</p>" }
+end
+#---------------------------------------------------------------------

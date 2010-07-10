@@ -1,0 +1,28 @@
+.block
+  .secondary-navigation
+    = render_navigation(:context => :admin, :level => 2)
+    .clear
+  .content
+    %h2.title
+      Преподаватели
+    .inner
+      %table.table
+        %tr
+          %th
+            ФИО
+          %th.last
+            \&nbsp;
+        - @teachers.each do |teacher|
+          %tr{ :class => cycle("odd", "even") }
+            %td
+              = link_to teacher.name, admin_teacher_path(teacher)
+            %td.last
+              = link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_admin_teacher_path(teacher)
+              |
+              = link_to "#{t("web-app-theme.delete", :default => "Delete")}", admin_teacher_path(teacher), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
+      .actions-bar.wat-cf
+        .actions
+          .create_button
+            = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить преподавателя", new_admin_teacher_path, :class => 'button'
+            .clear
+

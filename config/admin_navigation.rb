@@ -46,6 +46,8 @@ SimpleNavigation::Configuration.run do |navigation|
       #sub_nav.item :edit, 'Редактирование', edit_admin_newsitem_path
     end
 
+    primary.item :teachers, 'Преподаватели', admin_teachers_path
+
     # You can also specify a condition-proc that needs to be fullfilled to display an item.
     # Conditions are part of the options. They are evaluated in the context of the views,
     # thus you can use all the methods and vars you have available in the views.

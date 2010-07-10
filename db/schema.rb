@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100704130324) do
+ActiveRecord::Schema.define(:version => 20100710211805) do
 
   create_table "colleges", :force => true do |t|
     t.string   "subdomain"
@@ -61,7 +61,6 @@ ActiveRecord::Schema.define(:version => 20100704130324) do
     t.string   "first_name"
     t.string   "middle_name"
     t.string   "last_name"
-    t.string   "degree"
     t.string   "email"
     t.text     "text"
     t.datetime "created_at"
