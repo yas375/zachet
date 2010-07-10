@@ -37,6 +37,16 @@ test:
   password:
   socket: /tmp/mysql.sock
 
+test:
+  adapter: mysql
+  encoding: utf8
+  reconnect: false
+  database: helper_test2
+  pool: 5
+  username: root
+  password:
+  socket: /tmp/mysql.sock
+
 production:
   adapter: mysql
   encoding: utf8
