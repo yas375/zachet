@@ -16,7 +16,7 @@ class Admin::TeachersController < Admin::AdminController
   end
 
   def index
-    @teachers = Teacher.all(:include => :colleges)
+    @teachers = Teacher.all(:include => {:teacher_jobs => :college})
   end
 
   def show
