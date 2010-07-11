@@ -1,6 +1,7 @@
 class Admin::TeachersController < Admin::AdminController
+  before_filter :set_current_navigation
+
   def new
-     current_navigation :teachers
      @teacher = Teacher.new
   end
 
@@ -42,5 +43,11 @@ class Admin::TeachersController < Admin::AdminController
     @teacher.destroy
 
     redirect_to :action => :index
+  end
+
+  private
+
+  def set_current_navigation
+    current_navigation :teachers
   end
 end
