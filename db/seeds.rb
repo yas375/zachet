@@ -37,3 +37,11 @@ prep_1 = Teacher.create!(:last_name => 'Иванов', :middle_name => 'Петр
 job_1 = TeacherJob.create!(:teacher => batin, :college => bsuir, :department => itas)
 job_2 = TeacherJob.create!(:teacher => prep_1, :college => bsu)
 job_3 = TeacherJob.create!(:teacher => prep_1, :college => bsuir, :department => iit)
+
+# add disciplines for some jobs
+teacher_subj_1 = TeacherSubject.create!(:discipline => matem, :teacher_job => job_1)
+teacher_subj_2 = TeacherSubject.create!(:discipline => fizika, :teacher_job => job_3)
+teacher_subj_3 = TeacherSubject.create!(:discipline => matem_bsu, :teacher_job => job_2)
+teacher_subj_4 = TeacherSubject.create!(:discipline => asu, :teacher_job => job_3)
+teacher_subj_5 = TeacherSubject.create!(:discipline => asu, :teacher_job => job_1)
+teacher_subj_6 = TeacherSubject.create!(:discipline => matem, :teacher_job => job_3)

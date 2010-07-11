@@ -38,3 +38,8 @@ Factory.define :teacher_job do |f|
   f.department   { |a| a.association(:department) }
 end
 #---------------------------------------------------------------------
+Factory.define :teacher_subject do |f|
+  f.discipline      { |a| a.association(:discipline) }
+  f.teacher_job     { |a| a.association(:teacher_job) }
+end
+#---------------------------------------------------------------------
