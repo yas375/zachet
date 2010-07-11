@@ -8,18 +8,18 @@ class Admin::TeachersController < Admin::AdminController
     @teacher = Teacher.new(params[:teacher])
     if @teacher.save
       flash[:notice] = "Преподаватель #{@teacher.last_name} успешно добавлен"
-      redirect_to :action => :index
+      redirect_to :action => :show
     else
       render :action => :new
     end
   end
 
   def index
-    @teachers = Teacher.all
+    @teachers = Teacher.all(:include => :colleges)
   end
 
   def show
-    @teacher = Teacher.find(params[:id])
+    @teacher = Teacher.find(params[:id], :include => {:teacher_jobs => [:college, {:teacher_subjects => :discipline}]})
   end
 
   def edit
@@ -31,7 +31,7 @@ class Admin::TeachersController < Admin::AdminController
 
     if @teacher.update_attributes(params[:teacher])
       flash[:notice] = "Преподаватель успешно обновлен"
-      redirect_to :action => :index
+      redirect_to :action => :show
     else
       render :action => :edit
     end

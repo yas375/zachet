@@ -3,6 +3,8 @@ class Teacher < ActiveRecord::Base
 
   has_many :teacher_jobs, :dependent => :destroy
   has_many :colleges, :through => :teacher_jobs
+  has_many :teacher_subjects, :dependent => :destroy
+
 
 
   def name

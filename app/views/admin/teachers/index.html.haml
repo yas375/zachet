@@ -8,14 +8,14 @@
     .inner
       %table.table
         %tr
-          %th
-            ФИО
+          %th ФИО
+          %th Где работает
           %th.last
             \&nbsp;
         - @teachers.each do |teacher|
           %tr{ :class => cycle("odd", "even") }
-            %td
-              = link_to teacher.name, admin_teacher_path(teacher)
+            %td= link_to teacher.name, admin_teacher_path(teacher)
+            %td= teacher.colleges.collect(&:abbr).join(', ')
             %td.last
               = link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_admin_teacher_path(teacher)
               |
