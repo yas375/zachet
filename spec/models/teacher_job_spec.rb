@@ -15,7 +15,7 @@ describe TeacherJob do
 
   context "validations" do
     it "should require teacher and college" do
-      should validate_presence_of :teacher, :college
+      should validate_presence_of :college
     end
   end
 end

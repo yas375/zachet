@@ -6,5 +6,6 @@ class TeacherJob < ActiveRecord::Base
   has_many :teacher_subjects, :dependent => :destroy
   has_many :disciplines, :through => :teacher_subjects
 
-  validates_presence_of :teacher, :college
+  validates_presence_of :college
+  validates_uniqueness_of :college_id, :scope => :teacher_id
 end
