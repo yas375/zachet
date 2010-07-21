@@ -4,8 +4,9 @@
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-Type" }
     %title
       Zachet.org
-    = stylesheet_link_tag "web_app_theme", "web_app_theme_override", "themes/warehouse/style", :cache => true
+    = stylesheet_link_tag "web_app_theme", "web_app_theme_override", "themes/warehouse/style", :cache => "cache_admin"
     = formtastic_stylesheet_link_tag
+    = javascript_include_tag "jquery", "jrails", "admin", :cache => "cache_admin"
   %body
     #container
       #header

@@ -37,6 +37,7 @@ Rails::Initializer.run do |config|
   config.gem 'cells'
   config.gem 'friendly_id'
   config.gem 'formtastic'
+  config.gem 'jrails'
   config.gem 'haml'
   config.gem 'russian'
   config.gem 'searchlogic'
