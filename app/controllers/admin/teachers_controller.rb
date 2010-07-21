@@ -3,13 +3,14 @@ class Admin::TeachersController < Admin::AdminController
 
   def new
      @teacher = Teacher.new
+     1.times { @teacher.teacher_jobs.build }
   end
 
   def create
     @teacher = Teacher.new(params[:teacher])
     if @teacher.save
       flash[:notice] = "Преподаватель #{@teacher.last_name} успешно добавлен"
-      redirect_to :action => :show
+      redirect_to :action => :index
     else
       render :action => :new
     end
@@ -43,6 +44,11 @@ class Admin::TeachersController < Admin::AdminController
     @teacher.destroy
 
     redirect_to :action => :index
+  end
+
+  def get_departments
+    @college = College.find(params[:college_id])
+    @departments = Department.by_college(@college).all
   end
 
   private

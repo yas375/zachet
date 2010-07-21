@@ -4,4 +4,13 @@ class Department < ActiveRecord::Base
 
   belongs_to :faculty
   has_one :college, :through => :faculty
+
+  named_scope :by_college, lambda { |college_id| {:joins => "LEFT JOIN faculties f ON departments.faculty_id = f.id",
+                                                  :conditions => ["f.college_id = ?", college_id]} }
+
+  def title
+    t = name
+    t << " #{abbr})" unless abbr.blank?
+    t
+  end
 end

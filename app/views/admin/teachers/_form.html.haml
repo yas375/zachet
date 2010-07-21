@@ -4,4 +4,23 @@
   = f.input :middle_name, :required => false
   = f.input :email, :required => false
   = f.input :text, :required => false
+%div.teacher_jobs
+  - f.semantic_fields_for :teacher_jobs do |job|
+    = render :partial => 'teacher_job_fields', :locals => { :f => job }
+  = link_to_add_fields "Добавить работу", f, :teacher_jobs
+
 = f.buttons
+
+:javascript
+  (function ($) {
+    $(function () {
+      $(document.body).delegate('.teacher_work_college', 'change', function () {
+        var select = $(this);
+        var child_index = select.attr('name').match(/\[(\d+)\]/)[1];
+        var url = select.attr('data-url');
+        $.get(select.attr('data-url'), {college_id: select.val(), child_index: child_index}, function (response_html) {
+          select.closest('.job_name').next('.job_details').html(response_html);
+        });
+      });
+    });
+  })(jQuery);

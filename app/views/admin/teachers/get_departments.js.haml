@@ -1,0 +1,4 @@
+- semantic_fields_for "teacher[teacher_jobs_attributes][#{params[:child_index]}]", @college.teacher_jobs.build do |job|
+  -job.inputs do
+    = job.input :department_id, :as => :select, :collection => @college.departments.all.collect { |a| [a.title, a.id] }, :label => 'Кафедра'
+    %li= link_to_function "Удалить", 'remove_job(this)'

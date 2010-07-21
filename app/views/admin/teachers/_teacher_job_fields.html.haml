@@ -1,0 +1,8 @@
+.job
+  - f.inputs :class => 'job_name' do
+    = f.input :college_id, :as => :select, :collection => College.all.collect { |a| [a.abbr, a.id] }, :include_blank => f.object.new_record?, :label => 'ВУЗ', :input_html => {:class => 'teacher_work_college', :"data-url" => get_departments_admin_teachers_path }
+  - f.inputs :class => 'job_details' do
+    - unless f.object.new_record?
+      = f.input :department_id, :as => :select, :collection => f.object.college.departments.all.collect { |a| [a.title, a.id] }, :label => 'Кафедра'
+      = f.input :_destroy, :as => :hidden
+      %li= link_to_function "Удалить", 'remove_job(this)'

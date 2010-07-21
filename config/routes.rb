@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
       college.resources :faculties, :except => [:show]
       college.resources :departments, :except => [:index, :show]
     end
-    admin.resources :teachers
+    admin.resources :teachers, :collection => {:get_departments => :get}
   end
 
   #map.college_root '', :controller => 'colleges', :action => 'show', :conditions => { :subdomain => /.+/ }
