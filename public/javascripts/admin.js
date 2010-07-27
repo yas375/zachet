@@ -9,3 +9,14 @@ function remove_job(link) {
   var container = $(link).parents(".job").hide();
   $("input[type=hidden]", container).val("1");
 }
+
+$(function() {
+  $('select.comboselect').livequery(function(){
+    $(this).comboselect({
+      sort: 'both',
+      addbtn: ' > ',
+      rembtn: ' < '
+    });
+  });
+});
+
