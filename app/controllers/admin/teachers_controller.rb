@@ -30,6 +30,11 @@ class Admin::TeachersController < Admin::AdminController
 
   def update
     @teacher = Teacher.find(params[:id])
+    params[:teacher][:teacher_jobs_attributes].each do |a, job|
+      if job[:id] && !job[:discipline_ids]
+        @teacher.teacher_jobs.find(job[:id]).teacher_subjects.destroy_all
+      end
+    end
 
     if @teacher.update_attributes(params[:teacher])
       flash[:notice] = "Преподаватель успешно обновлен"

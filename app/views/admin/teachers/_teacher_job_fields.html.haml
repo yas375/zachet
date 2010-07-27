@@ -4,6 +4,6 @@
   - f.inputs :class => 'job_details' do
     - unless f.object.new_record?
       = f.input :department_id, :as => :select, :collection => f.object.college.departments.all.collect { |a| [a.title, a.id] }, :label => 'Кафедра'
-      = f.input :discipline_ids, :as => :select, :collection => f.object.college.disciplines.all.collect { |a| [a.name, a.id] }, :include_blank => false, :multiple => true, :label => 'Предметы'
+      = f.input :discipline_ids, :as => :comboselect, :collection => f.object.college.disciplines.all.collect { |a| [a.name, a.id] }, :label => 'Предметы'
       = f.input :_destroy, :as => :hidden
       %li= link_to_function "Удалить", 'remove_job(this)'
