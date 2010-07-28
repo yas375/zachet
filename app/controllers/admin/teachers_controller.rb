@@ -3,6 +3,7 @@ class Admin::TeachersController < Admin::AdminController
 
   def new
      @teacher = Teacher.new
+     1.times { @teacher.teacher_photos.build }
      1.times { @teacher.teacher_jobs.build }
   end
 

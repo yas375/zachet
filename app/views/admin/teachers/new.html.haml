@@ -5,6 +5,6 @@
   .content
     %h2.title Новый ВУЗ
     .inner
-      - semantic_form_for @teacher, :url => admin_teachers_path do |f|
+      - semantic_form_for @teacher, :url => admin_teachers_path, :html => {:multipart => true} do |f|
         = render :partial => "form", :locals => {:f => f}
 

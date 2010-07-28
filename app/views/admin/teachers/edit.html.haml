@@ -5,6 +5,6 @@
   .content
     %h2.title Редактирование
     .inner
-      - semantic_form_for @teacher, :url => admin_teacher_path(@teacher) do |f|
+      - semantic_form_for @teacher, :url => admin_teacher_path(@teacher), :html => {:multipart => true} do |f|
         = render :partial => "form", :locals => {:f => f}
 

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100711070947) do
+ActiveRecord::Schema.define(:version => 20100728173437) do
 
   create_table "colleges", :force => true do |t|
     t.string   "subdomain"
@@ -60,6 +60,16 @@ ActiveRecord::Schema.define(:version => 20100711070947) do
     t.integer  "teacher_id",    :null => false
     t.integer  "college_id",    :null => false
     t.integer  "department_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teacher_photos", :force => true do |t|
+    t.integer  "teacher_id"
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

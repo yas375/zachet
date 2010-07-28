@@ -4,7 +4,7 @@ UL{list-style-position: outside; margin-left: 15px;}
 TABLE.table TR.green-row TD{background-color: #0f9;}
 TABLE.table TR.unpublished TD{color: #bbb; background-color: #eee;}
 
-.teacher_jobs{border: 1px solid #f0f0f0; margin-bottom: 20px; padding: 10px}
-.teacher_jobs .job{margin-bottom: 20px;}
-.teacher_jobs .job li{margin-bottom: 10px;}
+.form_container{border: 1px solid #f0f0f0; margin-bottom: 20px; padding: 10px}
+.form_container .item{margin-bottom: 20px;}
+.form_container .item li{margin-bottom: 10px;}
 

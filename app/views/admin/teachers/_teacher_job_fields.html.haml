@@ -1,4 +1,4 @@
-.job
+.item.job
   - f.inputs :class => 'job_name' do
     = f.input :college_id, :as => :select, :collection => College.all.collect { |a| [a.abbr, a.id] }, :include_blank => f.object.new_record?, :label => 'ВУЗ', :input_html => {:class => 'teacher_work_college', :"data-url" => get_departments_admin_teachers_path }
   - f.inputs :class => 'job_details' do

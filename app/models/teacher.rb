@@ -5,6 +5,9 @@ class Teacher < ActiveRecord::Base
   accepts_nested_attributes_for :teacher_jobs, :reject_if => proc { |j| j[:college_id].blank? }, :allow_destroy => true
   has_many :teacher_subjects, :through => :teacher_jobs
 
+  has_many :teacher_photos, :dependent => :destroy
+  accepts_nested_attributes_for :teacher_photos, :allow_destroy => true
+
   def name
     res = last_name
     unless first_name.blank?
