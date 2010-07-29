@@ -45,6 +45,7 @@ ru:
       last_name: 'Фамилия'
       text: 'Описание'
       email: 'E-mail'
+      picture: 'Изображение'
 
       college:
         name: 'Полное название'

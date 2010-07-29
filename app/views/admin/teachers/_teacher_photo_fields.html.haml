@@ -1,8 +1,9 @@
-.item.photo
-  - f.inputs :class => 'photo_file' do
-    = f.input :picture
-  - f.inputs :class => 'photo_details' do
-    - unless f.object.new_record?
+.photo
+  - if f.object.new_record?
+    - f.inputs :class => 'photo_file' do
+      = f.input :picture
+  - else
+    - f.inputs :class => 'photo_details' do
       = image_tag f.object.picture.url(:thumb)
       = f.input :_destroy, :as => :hidden
       %li= link_to_function "Удалить", 'remove_photo(this)'
