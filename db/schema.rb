@@ -9,12 +9,52 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100728173437) do
+ActiveRecord::Schema.define(:version => 20100807203100) do
 
   create_table "colleges", :force => true do |t|
     t.string   "subdomain"
     t.string   "abbr"
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "content_cribs", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "author_id"
+    t.integer  "discipline_id"
+    t.integer  "teacher_id"
+    t.boolean  "commented",     :default => false, :null => false
+    t.boolean  "published",     :default => false, :null => false
+    t.boolean  "promoted",      :default => false, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "content_manuals", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "type"
+    t.integer  "author_id"
+    t.integer  "discipline_id"
+    t.boolean  "commented",     :default => false, :null => false
+    t.boolean  "published",     :default => false, :null => false
+    t.boolean  "promoted",      :default => false, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "content_synopses", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "year"
+    t.integer  "author_id"
+    t.integer  "discipline_id"
+    t.integer  "teacher_id"
+    t.boolean  "commented",     :default => false, :null => false
+    t.boolean  "published",     :default => false, :null => false
+    t.boolean  "promoted",      :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
