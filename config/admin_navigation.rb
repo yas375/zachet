@@ -33,9 +33,14 @@ SimpleNavigation::Configuration.run do |navigation|
 
     # Add an item which has a sub navigation (same params, but with block)
     primary.item :colleges, 'ВУЗы', admin_colleges_path do |colleges|
-      colleges.item :all_colleges, 'Все', admin_colleges_path
+      colleges.item :all_colleges, 'Все универы', admin_colleges_path
       College.all(:include => :disciplines).each do |college|
-        colleges.item :"college_#{college.id}", college.abbr, admin_college_path(college)
+        colleges.item :"college_#{college.id}", college.abbr, admin_college_path(college) do |category|
+          category.item :"college_#{college.id}_show", 'Просмотр', admin_college_path(college)
+          category.item :"college_#{college.id}_edit", 'Редактировать', edit_admin_college_path(college)
+          category.item :"college_#{college.id}_disciplines", 'Предметы', admin_college_disciplines_path(college)
+          category.item :"college_#{college.id}_faculties", 'Факультеты', admin_college_faculties_path(college)
+        end
       end
     end
 

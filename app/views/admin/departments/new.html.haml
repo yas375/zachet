@@ -1,10 +1,5 @@
-.block
-  .secondary-navigation
-    = render_navigation(:context => :admin, :level => 2)
-    .clear
-  .content
-    %h2.title Новая кафедра
-    .inner
-      - semantic_form_for @department, :url => admin_college_departments_path(params[:college_id]) do |f|
-        = render :partial => "form", :locals => {:f => f}
-
+- render :layout => 'admin/colleges/layout' do
+  %h2.title Новая кафедра
+  .inner
+    - semantic_form_for @department, :url => admin_college_departments_path(params[:college_id]) do |f|
+      = render :partial => "form", :locals => {:f => f}

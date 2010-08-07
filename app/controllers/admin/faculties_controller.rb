@@ -45,7 +45,7 @@ class Admin::FacultiesController < Admin::AdminController
   private
 
   def set_current_navigation
-    current_navigation :"college_#{params[:college_id]}"
+    current_navigation :"college_#{params[:college_id]}_faculties"
   end
 
   def get_all_faculties

@@ -1,28 +1,24 @@
-.block
-  .secondary-navigation
-    = render_navigation(:context => :admin, :level => 2)
-    .clear
-  .content
-    %h2.title
-      Учебные заведения
-    .inner
-      %table.table
-        %tr
-          %th
-            Название
-          %th.last
-            \&nbsp;
-        - @colleges.each do |college|
-          %tr{ :class => cycle("odd", "even") }
-            %td
-              = link_to college.name, admin_college_path(college)
-            %td.last
-              = link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_admin_college_path(college)
-              |
-              = link_to "#{t("web-app-theme.delete", :default => "Delete")}", admin_college_path(college), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
-      .actions-bar.wat-cf
-        .actions
-          .create_button
-            = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить ВУЗ", new_admin_college_path, :class => 'button'
-            .clear
+- render :layout => 'admin/colleges/layout' do
+  %h2.title
+    Учебные заведения
+  .inner
+    %table.table
+      %tr
+        %th
+          Название
+        %th.last
+          \&nbsp;
+      - @colleges.each do |college|
+        %tr{ :class => cycle("odd", "even") }
+          %td
+            = link_to college.name, admin_college_path(college)
+          %td.last
+            = link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_admin_college_path(college)
+            |
+            = link_to "#{t("web-app-theme.delete", :default => "Delete")}", admin_college_path(college), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
+    .actions-bar.wat-cf
+      .actions
+        .create_button
+          = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить ВУЗ", new_admin_college_path, :class => 'button'
+          .clear
 

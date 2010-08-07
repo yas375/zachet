@@ -1,20 +1,16 @@
-.block
-  .secondary-navigation
-    -#= render_navigation(:context => :admin, :level => 2)
-    .clear
-  .content
-    %h2.title= @teacher.name
-    .inner
-      = "<p><b>Email</b>: #{@teacher.email}</p>" unless @teacher.email.empty?
-      = @teacher.text
-      .wat-cf
-        = link_to "#{image_tag("web-app-theme/application_edit.png", :alt => "Редактировать информацию")} Редактировать информацию", edit_admin_teacher_path(@teacher), :class => "button"
-        = link_to "#{image_tag("web-app-theme/cross.png", :alt => "Удалить")} Удалить", admin_teacher_path(@teacher), :method => "delete", :class => "button", :confirm => "Уверен?"
+- render :layout => 'admin/colleges/layout' do
+  %h2.title= @teacher.name
+  .inner
+    = "<p><b>Email</b>: #{@teacher.email}</p>" unless @teacher.email.empty?
+    = @teacher.text
+    .wat-cf
+      = link_to "#{image_tag("web-app-theme/application_edit.png", :alt => "Редактировать информацию")} Редактировать информацию", edit_admin_teacher_path(@teacher), :class => "button"
+      = link_to "#{image_tag("web-app-theme/cross.png", :alt => "Удалить")} Удалить", admin_teacher_path(@teacher), :method => "delete", :class => "button", :confirm => "Уверен?"
 
-      %h3 Читаемые дисциплины
-      - @teacher.teacher_jobs.each do |job|
-        %h4= job.college.abbr
-        - if job.teacher_subjects.any?
-          %ul
-            - job.teacher_subjects.each do |s_discipline|
-              %li= s_discipline.discipline.name
+    %h3 Читаемые дисциплины
+    - @teacher.teacher_jobs.each do |job|
+      %h4= job.college.abbr
+      - if job.teacher_subjects.any?
+        %ul
+          - job.teacher_subjects.each do |s_discipline|
+            %li= s_discipline.discipline.name

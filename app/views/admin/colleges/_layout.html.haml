@@ -1,0 +1,9 @@
+.block
+  .secondary-navigation
+    = render_navigation(:context => :admin, :level => 3)
+    .clear
+  .content= yield
+
+- content_for :sidebar do
+  .block.colleges_menu
+    = render_navigation(:context => :admin, :level => 2)

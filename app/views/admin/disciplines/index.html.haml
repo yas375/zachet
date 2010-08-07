@@ -1,27 +1,23 @@
-.block
-  .secondary-navigation
-    = render_navigation(:context => :admin, :level => 2)
-    .clear
-  .content
-    %h2.title Предметы
-    .inner
-      %table.table
+- render :layout => 'admin/colleges/layout' do
+  %h2.title Предметы
+  .inner
+    %table.table
+      %tr
+        %th Название
+        %th Аббревиатура
+        %th.last
+          &nbsp;
+      - @disciplines.each do |discipline|
         %tr
-          %th Название
-          %th Аббревиатура
-          %th.last
-            &nbsp;
-        - @disciplines.each do |discipline|
-          %tr
-            %td= discipline.name
-            %td= discipline.abbr
-            %td.last
-              = link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_admin_college_discipline_path(discipline.college, discipline)
-              |
-              = link_to "#{t("web-app-theme.delete", :default => "Delete")}", admin_college_discipline_path(discipline.college, discipline), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
-      
-      .actions-bar.wat-cf
-        .actions
-          .create_button
-            = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить предмет", new_admin_college_discipline_path, :class => 'button'
-            .clear
+          %td= discipline.name
+          %td= discipline.abbr
+          %td.last
+            = link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_admin_college_discipline_path(discipline.college, discipline)
+            |
+            = link_to "#{t("web-app-theme.delete", :default => "Delete")}", admin_college_discipline_path(discipline.college, discipline), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
+
+    .actions-bar.wat-cf
+      .actions
+        .create_button
+          = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить предмет", new_admin_college_discipline_path, :class => 'button'
+          .clear

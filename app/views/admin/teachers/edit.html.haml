@@ -1,10 +1,5 @@
-.block
-  .secondary-navigation
-    = render_navigation(:context => :admin, :level => 2)
-    .clear
-  .content
-    %h2.title Редактирование
-    .inner
-      - semantic_form_for @teacher, :url => admin_teacher_path(@teacher), :html => {:multipart => true} do |f|
-        = render :partial => "form", :locals => {:f => f}
-
+- render :layout => 'admin/colleges/layout' do
+  %h2.title Редактирование
+  .inner
+    - semantic_form_for @teacher, :url => admin_teacher_path(@teacher), :html => {:multipart => true} do |f|
+      = render :partial => "form", :locals => {:f => f}

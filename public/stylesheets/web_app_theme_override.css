@@ -8,3 +8,9 @@ TABLE.table TR.unpublished TD{color: #bbb; background-color: #eee;}
 .form_container .item{margin-bottom: 20px;}
 .form_container .item li{margin-bottom: 10px;}
 
+#sidebar .colleges_menu {}
+#sidebar .colleges_menu UL{list-style: none; margin: 0px;}
+#sidebar .colleges_menu UL LI{list-style: none; border-bottom: 1px solid #aaa;}
+#sidebar .colleges_menu UL LI A{display: block; padding: 15px; font-size: 18px!important;}
+#sidebar .colleges_menu UL LI A:hover {text-decoration: none; background-color: #ddd}
+#sidebar .colleges_menu UL LI A.active, .colleges_menu UL LI A.active:hover {background-color: #aaa; color: #fff}

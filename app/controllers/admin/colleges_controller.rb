@@ -32,7 +32,7 @@ class Admin::CollegesController < Admin::AdminController
 
     if @college.update_attributes(params[:college])
       flash[:notice] = "ВУЗ успешно обновлен"
-      redirect_to :action => :index
+      redirect_to :action => :show
     else
       render :action => :edit
     end

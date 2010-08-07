@@ -1,15 +1,11 @@
-.block
-  .secondary-navigation
-    = render_navigation(:context => :admin, :level => 2)
-    .clear
-  .content
-    %h2.title= @college.name
-    .inner
-      %p
-        = link_to root_url(:subdomain => @college.subdomain), root_url(:subdomain => @college.subdomain)
-      .wat-cf
-        = link_to "#{image_tag("web-app-theme/application_edit.png", :alt => "Редактировать информацию")} Редактировать информацию", edit_admin_college_path(@college), :class => "button"
-        = link_to "#{image_tag("web-app-theme/cross.png", :alt => "Удалить ВУЗ")} Удалить ВУЗ", admin_college_path(@college), :method => "delete", :class => "button", :confirm => "Уверен?"
+- render :layout => 'admin/colleges/layout' do
+  %h2.title= @college.name
+  .inner
+    %p
+      = link_to root_url(:subdomain => @college.subdomain), root_url(:subdomain => @college.subdomain)
+    .wat-cf
+      = link_to "#{image_tag("web-app-theme/application_edit.png", :alt => "Редактировать информацию")} Редактировать информацию", edit_admin_college_path(@college), :class => "button"
+      = link_to "#{image_tag("web-app-theme/cross.png", :alt => "Удалить ВУЗ")} Удалить ВУЗ", admin_college_path(@college), :method => "delete", :class => "button", :confirm => "Уверен?"
 
 .block
   .content
