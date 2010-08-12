@@ -25,3 +25,9 @@
       .wat-cf
         = link_to "#{image_tag("web-app-theme/application_edit.png", :alt => "Добавить факультет")} Добавить факультет", new_admin_college_faculty_path(@college), :class => "button"
 
+.block
+  .content
+    .inner
+      %h3 Материалы
+      - d_count = Content::Synopsis.find_by_college(@college).count
+      %h4= link_to "#{d_count} #{Russian.p(d_count, 'конспект', 'конспекта', 'конспектов')}", admin_college_synopses_path(@college)

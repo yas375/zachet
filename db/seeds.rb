@@ -1,13 +1,15 @@
+# -*- coding: utf-8 -*-
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 # Examples:
-#   
+#
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
 
 # add admin
-User.create!(:email => 'admin@example.com', :login => 'admin', :password => 'admin', :password_confirmation => 'admin')
+admin = User.create!(:email => 'admin@example.com', :login => 'admin', :password => 'admin', :password_confirmation => 'admin')
 
 # add colleges
 bsu = College.create!(:subdomain => 'bsu', :abbr => 'БГУ', :name => 'Белорусский Государственный Университет')
@@ -45,3 +47,7 @@ teacher_subj_3 = TeacherSubject.create!(:discipline => matem_bsu, :teacher_job =
 teacher_subj_4 = TeacherSubject.create!(:discipline => asu, :teacher_job => job_3)
 teacher_subj_5 = TeacherSubject.create!(:discipline => asu, :teacher_job => job_1)
 teacher_subj_6 = TeacherSubject.create!(:discipline => matem, :teacher_job => job_3)
+
+# add some content
+matem.content_synopses.create!(:title => 'Конспект лекций Цегельника ', :body => 'Отсканированный, аккуратный конспект', :author => admin)
+matem.content_synopses.create!(:title => 'Конспект 2009-2010', :body => 'Качество страдает', :year => '2009-2010', :author => admin)

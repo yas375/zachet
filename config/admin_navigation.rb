@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Configures your navigation
 SimpleNavigation::Configuration.run do |navigation|
   navigation.selected_class = 'active'
@@ -40,6 +41,7 @@ SimpleNavigation::Configuration.run do |navigation|
           category.item :"college_#{college.id}_edit", 'Редактировать', edit_admin_college_path(college)
           category.item :"college_#{college.id}_disciplines", 'Предметы', admin_college_disciplines_path(college)
           category.item :"college_#{college.id}_faculties", 'Факультеты', admin_college_faculties_path(college)
+          category.item :"college_#{college.id}_synopses", 'Конспекты', admin_college_synopses_path(college)
         end
       end
     end

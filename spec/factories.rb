@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'faker'
 
 # XXX там, где уникальные поля следует использовать sequence
@@ -46,5 +47,12 @@ end
 Factory.define :teacher_subject do |f|
   f.discipline      { |a| a.association(:discipline) }
   f.teacher_job     { |a| a.association(:teacher_job) }
+end
+#---------------------------------------------------------------------
+Factory.define :content_synopsis, :class => Content::Synopsis do |f|
+  f.title       { Faker::Lorem.sentence[3, 5] }
+  f.body        { Faker::Lorem.paragraph }
+  f.discipline  { |a| a.association(:discipline) }
+  f.author      { |a| a.association(:user) }
 end
 #---------------------------------------------------------------------
