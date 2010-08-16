@@ -8,7 +8,7 @@
         %th Опубликовал
         %th.last
           &nbsp;
-      - @synopses.each do |synopsis|
+      - @resources.each do |synopsis|
         %tr
           %td= link_to synopsis.title, edit_admin_college_synopsis_path(synopsis.college, synopsis)
           %td= synopsis.discipline.name
