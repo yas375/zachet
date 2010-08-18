@@ -4,31 +4,36 @@ module Admin::Content
     before_filter :set_current_navigation
     before_filter :find_college
     before_filter :find_disciplines, :only => [:new, :edit]
-    before_filter :find_synopsis, :only => [:edit, :update, :destroy]
+    before_filter :find_resource, :only => [:edit, :update, :destroy]
+
+    model = options[:model] || "::Content::#{controller_name.singularize.capitalize}".constantize
+    class_variable_set('@@content_model_class', model)
+    cattr_reader :content_model_class
+    class_variable_set('@@resource_name', model.table_name.singularize)
+    cattr_reader :resource_name
 
     include ControllerMethods
   end
 
   module ControllerMethods
-    raise @@model.all.to_yaml
     def index
-      @resources = ::Content::Synopsis.find_by_college(@college)
+      @resources = content_model_class.find_by_college(@college)
     end
 
     def new
-      @resource = ::Content::Synopsis.new
+      @resource = content_model_class.new;
     end
 
     def edit
     end
 
     def create
-      @resources = ::Content::Synopsis.new(params[:content_synopsis].merge(:author => current_user))
+      @resource = content_model_class.new(params[resource_name.to_sym].merge(:author => current_user))
 
       respond_to do |format|
         if @resource.save
-          flash[:notice] = 'Конспект успешно добавлен'
-          format.html { redirect_to admin_college_synopses_path(@college) }
+          flash[:notice] = 'Материал успешно добавлен'
+          format.html { redirect_to :action => 'index' }
         else
           format.html { render :action => "new" }
         end
@@ -37,9 +42,9 @@ module Admin::Content
 
     def update
       respond_to do |format|
-        if @resource.update_attributes(params[:content_synopsis])
-          flash[:notice] = 'Конспект обновлён'
-          format.html { redirect_to admin_college_synopses_path(@college) }
+        if @resource.update_attributes(params[resource_name.to_sym])
+          flash[:notice] = 'Материал обновлён'
+          format.html { redirect_to :action => 'index' }
         else
           format.html { render :action => "edit" }
         end
@@ -50,7 +55,7 @@ module Admin::Content
       @resource.destroy
 
       respond_to do |format|
-        format.html { redirect_to(admin_college_synopses_path(@college)) }
+        format.html { redirect_to :action => 'index' }
       end
     end
 
@@ -58,7 +63,7 @@ module Admin::Content
     protected
 
     def set_current_navigation
-      current_navigation :"college_#{params[:college_id]}_synopses"
+      current_navigation :"college_#{params[:college_id]}_#{controller_name}"
     end
 
     def find_college
@@ -70,7 +75,7 @@ module Admin::Content
     end
 
     def find_resource
-      @synopsis = ::Content::Synopsis.find(params[:id])
+      @resource = content_model_class.find(params[:id])
     end
   end
 end
