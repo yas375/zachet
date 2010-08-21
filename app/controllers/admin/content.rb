@@ -9,7 +9,7 @@ module Admin::Content
     model = options[:model] || "::Content::#{controller_name.singularize.capitalize}".constantize
     class_variable_set('@@content_model_class', model)
     cattr_reader :content_model_class
-    class_variable_set('@@resource_name', model.table_name.singularize)
+    class_variable_set('@@resource_name', "content_#{controller_name.singularize}")
     cattr_reader :resource_name
 
     include ControllerMethods
