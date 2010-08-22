@@ -9,7 +9,7 @@
         %th.last
           &nbsp;
       - @resources.each do |synopsis|
-        %tr
+        %tr{:class => "#{'unpublished' unless synopsis.published}"}
           %td= link_to synopsis.title, edit_admin_college_synopsis_path(synopsis.college, synopsis)
           %td= synopsis.discipline.name
           %td= synopsis.author.login
@@ -20,3 +20,5 @@
         .create_button
           = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить конспект", new_admin_college_synopsis_path, :class => 'button'
           .clear
+  - content_for :sidebar_top do
+    = render :partial => 'admin/partials/content_listings_legend'

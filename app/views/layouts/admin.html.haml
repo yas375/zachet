@@ -40,5 +40,8 @@
                 Copyright &copy;
                 = Time.now.year
                 Zachet.org
-        #sidebar= yield :sidebar
+        #sidebar
+          = yield :sidebar_top
+          = yield :sidebar
+          = yield :sidebar_bottom
 

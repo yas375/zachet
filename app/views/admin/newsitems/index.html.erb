@@ -38,15 +38,5 @@
 </div>
 
 <% content_for :sidebar do %>
-  <div class="block">
-    <h3>Легенда</h3>
-    <div class="content">
-      <p></p>
-      <table class="table" style="background-color: #fff">
-        <tr><th>Заголовок</th></tr>
-        <tr><td>Опубликовано</td></tr>
-        <tr class="unpublished"><td>Не опубликовано</td></tr>
-      </table>
-    </div>
-  </div>
+  <%= render :partial => 'admin/partials/content_listings_legend' %>
 <% end %>
