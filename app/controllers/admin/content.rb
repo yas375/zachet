@@ -21,7 +21,7 @@ module Admin::Content
     end
 
     def new
-      @resource = content_model_class.new;
+      @resource = content_model_class.new(:commented => true);
     end
 
     def edit
