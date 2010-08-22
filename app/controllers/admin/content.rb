@@ -71,7 +71,7 @@ module Admin::Content
     end
 
     def find_disciplines
-      @disciplines = @college.disciplines
+      @disciplines = @college.disciplines.all(:order => 'name')
     end
 
     def find_resource
