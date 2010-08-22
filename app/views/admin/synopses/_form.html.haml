@@ -1,5 +1,10 @@
 - f.inputs do
   = f.input :title
+  = f.input :year, :required => false
   = f.input :body
-  = f.input :discipline, :collection => @disciplines
+  = f.input :discipline, :collection => @disciplines, :include_blank => f.object.new_record?
+  = f.input :teacher_id, :collection => @college.teachers, :include_blank => f.object.new_record?, :required => false
+  = f.input :commented, :required => false
+  = f.input :published, :required => false
+  = f.input :promoted, :required => false
 = f.buttons
