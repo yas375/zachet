@@ -8,12 +8,12 @@
         %th Опубликовал
         %th.last
           &nbsp;
-      - @resources.each do |synopsis|
-        %tr{:class => "#{'unpublished' unless synopsis.published}"}
-          %td= link_to synopsis.title, edit_admin_college_synopsis_path(synopsis.college, synopsis)
-          %td= synopsis.discipline.name
-          %td= synopsis.author.login
-          %td.last= link_to 'Удалить', admin_college_synopsis_path(synopsis.college, synopsis), :method => :delete, :confirm => "Уверен?"
+      - @resources.each do |resource|
+        %tr{:class => "#{'unpublished' unless resource.published}"}
+          %td= link_to resource.title, edit_admin_college_synopsis_path(resource.college, resource)
+          %td= resource.discipline.name
+          %td= resource.author.login
+          %td.last= link_to 'Удалить', admin_college_synopsis_path(resource.college, resource), :method => :delete, :confirm => "Уверен?"
 
     .actions-bar.wat-cf
       .actions
