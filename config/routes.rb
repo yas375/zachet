@@ -7,6 +7,8 @@ ActionController::Routing::Routes.draw do |map|
       college.resources :faculties, :except => [:show]
       college.resources :departments, :except => [:index, :show]
       college.resources :synopses, :except => [:show]
+      college.resources :cribs, :except => [:show]
+      college.resources :manuals, :except => [:show]
     end
     admin.resources :teachers, :collection => {:get_departments => :get}
   end

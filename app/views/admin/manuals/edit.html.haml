@@ -1,0 +1,5 @@
+- render :layout => 'admin/colleges/layout' do
+  %h2.title Редактирование методы
+  .inner
+    - semantic_form_for @resource, :url => admin_college_manual_path(@resource.college, @resource) do |f|
+      = render :partial => "form", :locals => {:f => f}

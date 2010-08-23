@@ -1,0 +1,24 @@
+- render :layout => 'admin/colleges/layout' do
+  %h2.title Шпоры
+  .inner
+    %table.table
+      %tr
+        %th Название
+        %th Предмет
+        %th Опубликовал
+        %th.last
+          &nbsp;
+      - @resources.each do |resource|
+        %tr{:class => "#{'unpublished' unless resource.published}"}
+          %td= link_to resource.title, edit_admin_college_crib_path(resource.college, resource)
+          %td= resource.discipline.name
+          %td= resource.author.login
+          %td.last= link_to 'Удалить', admin_college_crib_path(resource.college, resource), :method => :delete, :confirm => "Уверен?"
+
+    .actions-bar.wat-cf
+      .actions
+        .create_button
+          = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить шпору", new_admin_college_crib_path, :class => 'button'
+          .clear
+  - content_for :sidebar_top do
+    = render :partial => 'admin/partials/content_listings_legend'

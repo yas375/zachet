@@ -1,0 +1,5 @@
+- render :layout => 'admin/colleges/layout' do
+  %h2.title Создание шпоры
+  .inner
+    - semantic_form_for @resource, :url => admin_college_cribs_path do |f|
+      = render :partial => "form", :locals => {:f => f}
