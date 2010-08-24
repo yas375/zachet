@@ -1,31 +1,39 @@
 # -*- coding: utf-8 -*-
 require 'faker'
 
-# XXX там, где уникальные поля следует использовать sequence
-# а то может возникнуть ситуация, когда Faker вернёт два одинаковых значения,
-# что вызовет ошибку теста
+Factory.sequence :subdomain do |x|
+  Faker::Internet.domain_word + 'a' * x
+end
+
+Factory.sequence :abbr do |x|
+  Faker::Lorem.words[1].upcase + "_#{x}"
+end
+
+Factory.sequence :name do |x|
+  Faker::Lorem.sentence[3, 5] + " #{x}"
+end
 
 #---------------------------------------------------------------------
 Factory.define :college do |f|
-  f.subdomain { Faker::Internet.domain_word }
-  f.abbr      { Faker::Lorem.words[1].upcase }
-  f.name      { Faker::Lorem.sentence[3, 5] }
+  f.subdomain { Factory.next(:subdomain) }
+  f.abbr      { Factory.next(:abbr) }
+  f.name      { Factory.next(:name) }
 end
 #---------------------------------------------------------------------
 Factory.define :discipline do |f|
-  f.name      { Faker::Lorem.sentence[3, 5] }
+  f.name      { Factory.next(:name) }
   f.abbr      { Faker::Lorem.words[1].upcase }
   f.college   { |a| a.association(:college) }
 end
 #---------------------------------------------------------------------
 Factory.define :faculty do |f|
-  f.name      { Faker::Lorem.sentence[3, 5] }
+  f.name      { Factory.next(:name) }
   f.abbr      { Faker::Lorem.words[1].upcase }
   f.college   { |a| a.association(:college) }
 end
 #---------------------------------------------------------------------
 Factory.define :department do |f|
-  f.name      { Faker::Lorem.sentence[3, 5] }
+  f.name      { Factory.next(:name) }
   f.abbr      { Faker::Lorem.words[1].upcase }
   f.faculty   { |a| a.association(:faculty) }
 end
