@@ -56,3 +56,17 @@ Factory.define :content_synopsis, :class => Content::Synopsis do |f|
   f.author      { |a| a.association(:user) }
 end
 #---------------------------------------------------------------------
+Factory.define :content_crib, :class => Content::Crib do |f|
+  f.title       { Faker::Lorem.sentence[3, 5] }
+  f.body        { Faker::Lorem.paragraph }
+  f.discipline  { |a| a.association(:discipline) }
+  f.author      { |a| a.association(:user) }
+end
+#---------------------------------------------------------------------
+Factory.define :content_manual, :class => Content::Manual do |f|
+  f.title       { Faker::Lorem.sentence[3, 5] }
+  f.body        { Faker::Lorem.paragraph }
+  f.discipline  { |a| a.association(:discipline) }
+  f.author      { |a| a.association(:user) }
+end
+#---------------------------------------------------------------------
