@@ -2,6 +2,13 @@
   = f.input :title
   = f.input :year, :required => false
   = f.input :body
+%div.form_container
+  - f.semantic_fields_for :attaches do |attach|
+    = render :partial => 'admin/attaches/attach', :locals => {:f => attach}
+  =# link_to_function 'Create more', "$(this).prev().clone().insertBefore($(this).prev()) .find('input[type=file]').attr('name', 'material[' + material_index + '][attach_attributes][file]').end() .find('input[type=text]').attr('name', 'material[' + material_index++ + '][title]').end() .show();"
+
+  =# link_to_add_fields "Добавиь файл", f, :attaches
+- f.inputs do
   = f.input :discipline, :collection => @disciplines, :include_blank => f.object.new_record?
   = f.input :teacher_id, :collection => @college.teachers, :include_blank => f.object.new_record?, :required => false
   = f.input :commented, :required => false

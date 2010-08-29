@@ -1,5 +1,5 @@
 - render :layout => 'admin/colleges/layout' do
   %h2.title Редактирование конспекта
   .inner
-    - semantic_form_for @resource, :url => admin_college_synopsis_path(@resource.college, @resource) do |f|
+    - semantic_form_for @resource, :url => admin_college_synopsis_path(@resource.college, @resource), :html => { :multipart => true } do |f|
       = render :partial => "form", :locals => {:f => f}

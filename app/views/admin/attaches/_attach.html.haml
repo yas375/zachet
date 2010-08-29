@@ -1,0 +1,10 @@
+.attach
+  - if f.object.new_record?
+    = raise 'as'
+    - f.inputs :class => 'attach_file' do
+      = f.input :file
+  - else
+    - f.inputs :class => 'attach_details' do
+      -# link_to f.object f.object.attach.url(:thumb)
+      = f.input :_destroy, :as => :hidden
+      %li= link_to_function "Удалить", 'remove_attach(this)'
