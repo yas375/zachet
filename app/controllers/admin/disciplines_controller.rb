@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Admin::DisciplinesController < Admin::AdminController
   before_filter :set_current_navigation
 
@@ -28,7 +29,7 @@ class Admin::DisciplinesController < Admin::AdminController
     @discipline = Discipline.find(params[:id])
     if @discipline.update_attributes(params[:discipline])
       flash[:notice] = "Предмет обновлён"
-      redirect_to :index
+      redirect_to :action => :index
     else
       render :action => :edit
     end
