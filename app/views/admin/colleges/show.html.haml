@@ -31,3 +31,7 @@
       %h3 Материалы
       - d_count = Content::Synopsis.find_by_college(@college).count
       %h4= link_to "#{d_count} #{Russian.p(d_count, 'конспект', 'конспекта', 'конспектов')}", admin_college_synopses_path(@college)
+      - d_count = Content::Crib.find_by_college(@college).count
+      %h4= link_to "#{d_count} #{Russian.p(d_count, 'шпора', 'шпоры', 'шпор')}", admin_college_cribs_path(@college)
+      - d_count = Content::Manual.find_by_college(@college).count
+      %h4= link_to "#{d_count} #{Russian.p(d_count, 'метода', 'методы', 'метод')}", admin_college_manuals_path(@college)
