@@ -1,0 +1,15 @@
+# база данных на текущей машине, куда будут копироваться данные с живого drupal сайта
+database:
+  host: localhost
+  db: helper_drupal
+  user: root
+  pass:
+
+# путь к хостингу сайта на drupal, откуда стоит взять базу
+old_site_hosting:
+  host: example.com
+  user: username
+  mysql_host: localhost
+  mysql_user: root
+  mysql_pass:
+  mysql_db: helper
