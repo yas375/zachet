@@ -2,7 +2,7 @@
   .content
     %h2.title Администрирование
     .inner
-      %p Привет, админ!
+      %p= "Привет, #{current_user.name}!"
       %p Смотри тут поосторожней ;)
 
 = content_for :sidebar, render(:partial => 'sidebar')
