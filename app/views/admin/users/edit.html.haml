@@ -1,0 +1,7 @@
+.block
+  .content
+    %h2.title Редактирование пользователя
+    .inner
+      - semantic_form_for @user, :url => admin_user_path(@user) do |f|
+        = render :partial => "form", :locals => {:f => f}
+
