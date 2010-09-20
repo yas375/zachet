@@ -29,7 +29,7 @@ class Admin::UsersController < Admin::AdminController
 
     if @user.update_attributes(params[:user])
       flash[:notice] = "Пользователь успешно обновлен"
-      redirect_to :action => :show
+      redirect_to :action => :edit
     else
       render :action => :edit
     end

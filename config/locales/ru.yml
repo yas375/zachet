@@ -45,6 +45,9 @@ ru:
       last_name: 'Фамилия'
       text: 'Описание'
       email: 'E-mail'
+      login: 'Логин'
+      password: 'Пароль'
+      password_confirmation: 'Пароль ещё раз'
       picture: 'Изображение'
       title: 'Название'
       body: 'Описание'
@@ -54,6 +57,7 @@ ru:
       promoted: 'Приоритетный'
       year: 'Год'
       teacher_id: 'Преподаватель'
+      college_id: 'ВУЗ'
 
       college:
         name: 'Полное название'
@@ -72,12 +76,12 @@ ru:
   authlogic:
     error_messages:
       login_blank: 'не может быть пустым'
-      login_not_found: 'неправильный логин'
+      login_not_found: 'неправильный'
       login_invalid: 'допускаются только буквы, цифры, пробелы и .-_@'
       consecutive_failed_logins_limit_exceeded: 'Слишком много неверных попыток входа, аккаунт отключен. Свяжись с администратором.'
       email_invalid: 'неверный формат email'
       password_blank: 'не может быть пустым'
-      password_invalid: 'некорректный пароль'
+      password_invalid: 'неправильный'
       not_active: 'Твой аккаут не активирован'
       not_confirmed: 'Твой аккаунт не подтверждён'
       not_approved: 'Твой аккаунт не одобрен'

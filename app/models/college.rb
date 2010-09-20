@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class College < ActiveRecord::Base
   validates_presence_of :abbr, :name, :subdomain
   validates_uniqueness_of :abbr, :name, :subdomain, :case_sensitive => false
@@ -11,4 +12,10 @@ class College < ActiveRecord::Base
   has_many :departments, :through => :faculties
   has_many :teacher_jobs, :dependent => :destroy
   has_many :teachers, :through => :teacher_jobs
+
+  def display_name
+    res = read_attribute('name')
+    res << " (#{abbr})" if abbr
+    res
+  end
 end

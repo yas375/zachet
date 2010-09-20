@@ -1,3 +1,7 @@
 - f.inputs do
   = f.input :login
+  = f.input :password, :input_html => { :autocomplete => 'off'}
+  = f.input :password_confirmation, :input_html => { :autocomplete => 'off'}
+  = f.input :email
+  = f.input :college_id, :collection => College.all, :required => false
 = f.buttons
