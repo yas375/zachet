@@ -5,6 +5,7 @@
     .inner
       %table.table
         %tr
+          %th id
           %th Логин
           %th E-mail
           %th ВУЗ
@@ -12,6 +13,7 @@
           %th.last &nbsp;
         - @users.each do |user|
           %tr{ :class => cycle("odd", "even") }
+            %td= user.id
             %td= link_to user.name, edit_admin_user_path(user)
             %td= user.email
             %td= user.college.abbr if user.college
