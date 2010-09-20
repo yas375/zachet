@@ -69,3 +69,24 @@ ru:
       content/synopsis:
         year: 'Учебный год, за который этот конспект. Например <i>2009-2010</i>'
         teacher_id: 'Какого преподавателя конспект'
+  authlogic:
+    error_messages:
+      login_blank: 'не может быть пустым'
+      login_not_found: 'неправильный логин'
+      login_invalid: 'допускаются только буквы, цифры, пробелы и .-_@'
+      consecutive_failed_logins_limit_exceeded: 'Слишком много неверных попыток входа, аккаунт отключен. Свяжись с администратором.'
+      email_invalid: 'неверный формат email'
+      password_blank: 'не может быть пустым'
+      password_invalid: 'некорректный пароль'
+      not_active: 'Твой аккаут не активирован'
+      not_confirmed: 'Твой аккаунт не подтверждён'
+      not_approved: 'Твой аккаунт не одобрен'
+      no_authentication_details: 'Ты не указал данные для входа'
+    models:
+      user_session:
+    attributes:
+      user_session:
+        login: 'логин'
+        email: 'e-mail'
+        password: 'пароль'
+        remember_me: 'запомнить меня'
