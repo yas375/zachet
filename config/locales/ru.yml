@@ -59,6 +59,9 @@ ru:
       teacher_id: 'Преподаватель'
       college_id: 'ВУЗ'
 
+      user:
+        active: 'активный'
+
       college:
         name: 'Полное название'
 
@@ -73,6 +76,8 @@ ru:
       content/synopsis:
         year: 'Учебный год, за который этот конспект. Например <i>2009-2010</i>'
         teacher_id: 'Какого преподавателя конспект'
+      user:
+        active: '<br />Активирован ли аккаунт'
   authlogic:
     error_messages:
       login_blank: 'не может быть пустым'

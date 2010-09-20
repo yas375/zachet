@@ -9,7 +9,7 @@
 #   Major.create(:name => 'Daley', :city => cities.first)
 
 # add admin
-admin = User.create!(:email => 'admin@example.com', :login => 'admin', :password => 'admin', :password_confirmation => 'admin')
+admin = User.create!(:email => 'admin@example.com', :login => 'admin', :password => 'admin', :password_confirmation => 'admin', :active => true)
 
 # add colleges
 bsu = College.create!(:subdomain => 'bsu', :abbr => 'БГУ', :name => 'Белорусский Государственный Университет')
