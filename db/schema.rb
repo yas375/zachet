@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100920075511) do
+ActiveRecord::Schema.define(:version => 20100920093819) do
 
   create_table "attaches", :force => true do |t|
     t.integer  "container_id",      :null => false
@@ -158,6 +158,20 @@ ActiveRecord::Schema.define(:version => 20100920075511) do
     t.datetime "updated_at"
     t.integer  "college_id"
     t.boolean  "active",              :default => false, :null => false
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "gender"
+    t.date     "birthday"
+    t.string   "city"
+    t.string   "twitter"
+    t.string   "jabber"
+    t.string   "skype"
+    t.string   "icq"
+    t.text     "description"
+    t.string   "faculty"
+    t.string   "speciality"
+    t.string   "loved_discipline"
+    t.string   "unloved_discipline"
   end
 
 end

@@ -43,6 +43,9 @@ ru:
       first_name: 'Имя'
       middle_name: 'Отчество'
       last_name: 'Фамилия'
+      gender: 'Пол'
+      birthday: 'День рождения'
+      city: 'Город'
       text: 'Описание'
       email: 'E-mail'
       login: 'Логин'
@@ -58,9 +61,14 @@ ru:
       year: 'Год'
       teacher_id: 'Преподаватель'
       college_id: 'ВУЗ'
+      speciality: 'Специальность'
+      icq: 'ICQ'
 
       user:
-        active: 'активный'
+        active: 'активирован'
+        loved_discipline: 'Любимый предмет'
+        unloved_discipline: 'Нелюбимый предмет'
+        description: 'О себе'
 
       college:
         name: 'Полное название'
@@ -77,7 +85,8 @@ ru:
         year: 'Учебный год, за который этот конспект. Например <i>2009-2010</i>'
         teacher_id: 'Какого преподавателя конспект'
       user:
-        active: '<br />Активирован ли аккаунт'
+        twitter: 'без @'
+
   authlogic:
     error_messages:
       login_blank: 'не может быть пустым'
