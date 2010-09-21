@@ -31,4 +31,14 @@ namespace :drupal do
     Rake::Task[ "drupal:get_db"].execute
     Rake::Task[ "drupal:apply_db"].execute
   end
+
+  desc "Get files from remote drupal"
+  task :get_files do
+    h = drupal_settings['old_site_hosting']
+    exclude = ''
+    ['/languages/', '/xmlsitemap/', '/imagecache/', '/backup_migrate/', '/fivestar/', '/imagefield_*/'].each do |e|
+      exclude << "--exclude=#{e} "
+    end
+    system "rsync -rlcv #{h['user']}@#{h['host']}:projects/bsuir-helper/htdocs/sites/default/files/ tmp/drupal_files/ #{exclude} --delete"
+  end
 end
