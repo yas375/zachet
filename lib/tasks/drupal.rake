@@ -185,7 +185,7 @@ namespace :drupal do
           puts "Ошибка с #{drupal_discipline.tid} #{drupal_discipline.name}"
           puts discipline.errors.to_a.collect { |e| e.join(": ") }.join("\n")
         end
-      end# disciplines.each do |drupal_user|
+      end# disciplines.each do |drupal_discipline|
       puts "\tБыло проимпортированно #{disciplines_counter}. С ошибками: #{error_disciplines_counter}"
     end# drupal:import:disciplines
   end# drupal:import
