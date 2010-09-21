@@ -26,27 +26,23 @@ iit = Department.create!(:name => 'Кафедра интеллектуальны
 poit = Department.create!(:name => 'Кафедра программного обеспечения информационных технологий', :abbr => 'ПОИТ', :faculty => fitu)
 
 # add disciplines
-matem = Discipline.create!(:name => 'Высшая математика', :college => bsuir)
-fizika = Discipline.create!(:name => 'Физика', :college => bsuir)
-asu = Discipline.create!(:name => 'Автоматизированные Системы Управления', :abbr => 'АСУ',  :college => bsuir)
-matem_bsu = Discipline.create!(:name => 'Высшая математика', :college => bsu)
+fizika = Discipline.create!(:name => 'Физика', :college => bsu)
+asu = Discipline.create!(:name => 'Автоматизированные Системы Управления', :abbr => 'АСУ',  :college => bsu)
+matem = Discipline.create!(:name => 'Высшая математика', :college => bsu)
 
 # add teachers
 batin = Teacher.create!(:last_name => 'Батин', :first_name => 'Николай', :middle_name => 'Николаевич', :email => 'nvbatin@mail.ru')
 prep_1 = Teacher.create!(:last_name => 'Иванов', :middle_name => 'Петрович', :email => 'asd@as.as')
 
 # add teacher job
-job_1 = TeacherJob.create!(:teacher => batin, :college => bsuir, :department => itas)
+job_1 = TeacherJob.create!(:teacher => batin, :college => bsu)
 job_2 = TeacherJob.create!(:teacher => prep_1, :college => bsu)
-job_3 = TeacherJob.create!(:teacher => prep_1, :college => bsuir, :department => iit)
 
 # add disciplines for some jobs
 teacher_subj_1 = TeacherSubject.create!(:discipline => matem, :teacher_job => job_1)
-teacher_subj_2 = TeacherSubject.create!(:discipline => fizika, :teacher_job => job_3)
-teacher_subj_3 = TeacherSubject.create!(:discipline => matem_bsu, :teacher_job => job_2)
-teacher_subj_4 = TeacherSubject.create!(:discipline => asu, :teacher_job => job_3)
+teacher_subj_2 = TeacherSubject.create!(:discipline => fizika, :teacher_job => job_2)
 teacher_subj_5 = TeacherSubject.create!(:discipline => asu, :teacher_job => job_1)
-teacher_subj_6 = TeacherSubject.create!(:discipline => matem, :teacher_job => job_3)
+teacher_subj_6 = TeacherSubject.create!(:discipline => matem, :teacher_job => job_2)
 
 # add some content
 matem.content_synopses.create!(:title => 'Конспект лекций Цегельника ', :body => 'Отсканированный, аккуратный конспект', :author => admin)

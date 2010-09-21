@@ -135,5 +135,50 @@ namespace :drupal do
       end# users.each do |drupal_user|
       puts "Было проимпортированно #{users_counter}. С ошибками: #{error_users_counter}"
     end# drupal:import:users
+
+    desc "Import disciplines from drupal database"
+    task :disciplines => :environment do
+      class DrupalConnect < ActiveRecord::Base
+        drupal_settings = YAML.load_file('config/drupal.yml')
+        establish_connection(
+          :adapter  => "mysql",
+          :host     => drupal_settings['database']['host'],
+          :username => drupal_settings['database']['user'],
+          :password => drupal_settings['database']['pass'],
+          :database => drupal_settings['database']['db'],
+          :encoding => "utf8"
+        )
+      end
+
+      class DrupalTermData < DrupalConnect
+        set_table_name "term_data"
+      end
+
+      disciplines = DrupalTermData.all(:conditions => {:vid => 2})
+      @bsuir = College.first(:conditions => {:subdomain => 'bsuir'})
+      disciplines_counter = 0
+      error_disciplines_counter = 0
+      disciplines.each do |drupal_discipline|
+        discipline = Discipline.new
+
+        if drupal_discipline.description.blank?
+          discipline.name = drupal_discipline.name
+        else
+          discipline.name = drupal_discipline.description
+        end
+        discipline.abbr = drupal_discipline.name
+        discipline.college = @bsuir
+        discipline.drupal_tid = drupal_discipline.tid
+
+        if discipline.save
+          disciplines_counter += 1
+        else
+          error_disciplines_counter += 1
+          puts "Ошибка с #{drupal_discipline.tid} #{drupal_discipline.name}"
+          puts discipline.errors.to_a.collect { |e| e.join(": ") }.join("\n")
+        end
+      end# disciplines.each do |drupal_user|
+      puts "Было проимпортированно #{disciplines_counter}. С ошибками: #{error_disciplines_counter}"
+    end# drupal:import:disciplines
   end# drupal:import
 end# drupal
