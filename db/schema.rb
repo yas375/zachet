@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100920093819) do
+ActiveRecord::Schema.define(:version => 20100921080959) do
 
   create_table "attaches", :force => true do |t|
     t.integer  "container_id",      :null => false
@@ -172,6 +172,10 @@ ActiveRecord::Schema.define(:version => 20100920093819) do
     t.string   "speciality"
     t.string   "loved_discipline"
     t.string   "unloved_discipline"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
 end

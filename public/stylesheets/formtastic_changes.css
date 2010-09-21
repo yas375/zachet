@@ -18,3 +18,5 @@ form.formtastic fieldset > ol > li p.inline-errors {margin-top:0;}
 form.formtastic li.commit input{ background: #eee no-repeat scroll 7px 50%; border:1px solid #BFBFBF; color:#222222; margin:0 7px 0 0; padding:5px 10px 6px 26px; }
 form.formtastic li.commit input.update{ background-image: url("../images/web-app-theme/application_edit.png"); }
 form.formtastic li.commit input.create{ background-image: url("../images/web-app-theme/tick.png"); }
+
+form.formtastic li#user_avatar_input p.inline-hints {padding-top: 5px}

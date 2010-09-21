@@ -3,6 +3,7 @@ UL{list-style-position: outside; margin-left: 15px;}
 
 TABLE.table TR.green-row TD{background-color: #0f9;}
 TABLE.table TR.unpublished TD{color: #bbb; background-color: #eee;}
+TABLE.table TD.avatar{padding: 2px 0px; width: 40px; text-align: center; vertical-align: middle}
 
 .form_container{border: 1px solid #f0f0f0; margin-bottom: 20px; padding: 10px}
 .form_container .item{margin-bottom: 20px;}

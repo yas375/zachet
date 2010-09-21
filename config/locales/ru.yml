@@ -63,6 +63,7 @@ ru:
       college_id: 'ВУЗ'
       speciality: 'Специальность'
       icq: 'ICQ'
+      avatar: 'Аватарка'
 
       user:
         active: 'активирован'

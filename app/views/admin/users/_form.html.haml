@@ -3,6 +3,9 @@
   = f.input :password, :input_html => { :autocomplete => 'off'}
   = f.input :password_confirmation, :input_html => { :autocomplete => 'off'}
   = f.input :email
+  - hint = ''
+  - hint = image_tag(f.object.avatar.url(:medium)) if f.object.avatar.file?
+  = f.input :avatar, :hint => hint
   = f.input :active
 
 - f.inputs do
