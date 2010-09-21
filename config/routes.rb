@@ -23,7 +23,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :newsitems, :only => [:index, :show], :as => 'news'
 
-  map.resource :user_session
+  map.resource :user_session, :except => [:destroy]
   map.logout 'logout', :action=> 'destroy', :controller => 'user_sessions'
   map.resource :account, :controller => 'users'
 
