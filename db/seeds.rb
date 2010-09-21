@@ -12,18 +12,16 @@
 admin = User.create!(:email => 'admin@example.com', :login => 'admin', :password => 'admin', :password_confirmation => 'admin', :active => true)
 
 # add colleges
-bsu = College.create!(:subdomain => 'bsu', :abbr => 'БГУ', :name => 'Белорусский Государственный Университет')
 bsuir = College.create!(:subdomain => 'bsuir', :abbr => 'БГУИР', :name => 'Белорусский Государственный Университет Информатики и Радиоэлектроники')
+bsu = College.create!(:subdomain => 'bsu', :abbr => 'БГУ', :name => 'Белорусский Государственный Университет')
 
 # add faculties
-fitu = Faculty.create!(:name => 'Факультет Информационных Технологий и Управления', :abbr => 'ФИТиУ', :college => bsuir)
-ksis = Faculty.create!(:name => 'Факультет Компьютерных Систем и Сетей', :abbr => 'ФКСиС', :college => bsuir)
 journ = Faculty.create!(:name => 'Факультет журналистики', :college => bsu)
 
 # add departments
-itas = Department.create!(:name => 'Кафедра информационных технологий автоматизированных систем', :abbr => 'ИТАС', :faculty => fitu)
-iit = Department.create!(:name => 'Кафедра интеллектуальных информационных технологий', :abbr => 'ИИТ', :faculty => fitu)
-poit = Department.create!(:name => 'Кафедра программного обеспечения информационных технологий', :abbr => 'ПОИТ', :faculty => fitu)
+itas = Department.create!(:name => 'Кафедра информационных технологий автоматизированных систем', :abbr => 'ИТАС', :faculty => journ)
+iit = Department.create!(:name => 'Кафедра интеллектуальных информационных технологий', :abbr => 'ИИТ', :faculty => journ)
+poit = Department.create!(:name => 'Кафедра программного обеспечения информационных технологий', :abbr => 'ПОИТ', :faculty => journ)
 
 # add disciplines
 fizika = Discipline.create!(:name => 'Физика', :college => bsu)

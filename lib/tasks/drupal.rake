@@ -49,6 +49,8 @@ namespace :drupal do
     Rake::Task["drupal:import:users"].execute
     puts "\n\t=== Импортируются предметы === \n"
     Rake::Task["drupal:import:disciplines"].execute
+    puts "\n\t=== Импортируются факультеты и кафедры === \n"
+    Rake::Task["drupal:import:faculties_and_departments"].execute
   end
 
   namespace :import do
@@ -188,5 +190,83 @@ namespace :drupal do
       end# disciplines.each do |drupal_discipline|
       puts "\tБыло проимпортированно #{disciplines_counter}. С ошибками: #{error_disciplines_counter}"
     end# drupal:import:disciplines
+
+    desc "Import faculties and departments from drupal database"
+    task :faculties_and_departments => :environment do
+      class DrupalConnect < ActiveRecord::Base
+        drupal_settings = YAML.load_file('config/drupal.yml')
+        establish_connection(
+          :adapter  => "mysql",
+          :host     => drupal_settings['database']['host'],
+          :username => drupal_settings['database']['user'],
+          :password => drupal_settings['database']['pass'],
+          :database => drupal_settings['database']['db'],
+          :encoding => "utf8"
+        )
+      end
+
+      class DrupalTermData < DrupalConnect
+        set_table_name "term_data"
+        has_many :drupal_term_nodes, :foreign_key => :tid, :primary_key => :tid
+      end
+
+      class DrupalNodeRevision < DrupalConnect
+        set_table_name "node_revisions"
+        has_one :drupal_term_node, :foreign_key => :vid, :primary_key => :vid
+      end
+
+      class DrupalTermNode < DrupalConnect
+        set_table_name "term_node"
+        belongs_to :drupal_term_data, :foreign_key => :tid, :primary_key => :tid
+        belongs_to :drupal_node_revision, :foreign_key => :vid, :primary_key => :vid
+      end
+
+
+
+#      term_nodes = DrupalTermNode.all
+#      raise term_nodes.last.drupal_node_revision.to_yaml
+
+      faculties = DrupalTermData.all(:conditions => {:vid => 9})
+      @bsuir = College.first(:conditions => {:subdomain => 'bsuir'})
+      counter = 0
+      error_counter = 0
+      department_counter = 0
+      error_department_counter = 0
+
+      faculties.each do |drupal_faculty|
+        faculty = Faculty.new
+
+        faculty.name = drupal_faculty.description
+        faculty.abbr = drupal_faculty.name
+        faculty.college = @bsuir
+
+        if faculty.save
+          counter += 1
+          # add departments
+          drupal_faculty.drupal_term_nodes.each do |drupal_department|
+            node = drupal_department.drupal_node_revision
+            department = faculty.departments.new
+            department.name = node.title
+            department.created_at = Time.at(node.timestamp)
+            department.drupal_nid = node.nid
+
+            if department.save
+              department_counter += 1
+            else
+              error_department_counter += 1
+              puts "Ошибка с nid: #{node.nid} #{node.title}"
+              puts department.errors.to_a.collect { |e| e.join(": ") }.join("\n")
+            end
+          end
+        else
+          error_counter += 1
+          puts "Ошибка с # #{drupal_faculty.tid} #{drupal_faculty.name}"
+          puts faculty.errors.to_a.collect { |e| e.join(": ") }.join("\n")
+        end# if faculty.save
+      end# faculties.each do |drupal_faculty|
+
+      puts "\tФакультеты. Проимпортированно: #{counter}. С ошибками: #{error_counter}"
+      puts "\tКафедры. Проимпортированно: #{department_counter}. С ошибками: #{error_department_counter}"
+    end# drupal:import:faculties_and_departments
   end# drupal:import
 end# drupal
