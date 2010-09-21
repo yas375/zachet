@@ -29,8 +29,8 @@ namespace :drupal do
 
   desc "Run drupal:get_db and drupal:apply_db"
   task :sync_db do
-    Rake::Task[ "drupal:get_db"].execute
-    Rake::Task[ "drupal:apply_db"].execute
+    Rake::Task["drupal:get_db"].execute
+    Rake::Task["drupal:apply_db"].execute
   end
 
   desc "Get files from remote drupal"
