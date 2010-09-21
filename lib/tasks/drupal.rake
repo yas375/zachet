@@ -43,6 +43,14 @@ namespace :drupal do
     system "rsync -rlcv #{h['user']}@#{h['host']}:projects/bsuir-helper/htdocs/sites/default/files/ tmp/drupal_files/ #{exclude} --delete"
   end
 
+  desc "Import content from local drupal database"
+  task :import => :environment do
+    puts "\n\t=== Импортируются пользователи === \n"
+    Rake::Task["drupal:import:users"].execute
+    puts "\n\t=== Импортируются предметы === \n"
+    Rake::Task["drupal:import:disciplines"].execute
+  end
+
   namespace :import do
     desc "Import users from drupal database"
     task :users => :environment do
@@ -133,7 +141,7 @@ namespace :drupal do
           end
         end# if drupal_user.uid != 0 ...
       end# users.each do |drupal_user|
-      puts "Было проимпортированно #{users_counter}. С ошибками: #{error_users_counter}"
+      puts "\tБыло проимпортированно #{users_counter}. С ошибками: #{error_users_counter}"
     end# drupal:import:users
 
     desc "Import disciplines from drupal database"
@@ -178,7 +186,7 @@ namespace :drupal do
           puts discipline.errors.to_a.collect { |e| e.join(": ") }.join("\n")
         end
       end# disciplines.each do |drupal_user|
-      puts "Было проимпортированно #{disciplines_counter}. С ошибками: #{error_disciplines_counter}"
+      puts "\tБыло проимпортированно #{disciplines_counter}. С ошибками: #{error_disciplines_counter}"
     end# drupal:import:disciplines
   end# drupal:import
 end# drupal
