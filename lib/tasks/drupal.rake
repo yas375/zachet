@@ -75,7 +75,7 @@ namespace :drupal do
       users_counter = 0
       error_users_counter = 0
       users.each do |drupal_user|
-        if drupal_user.uid != 0 && !User.first(:conditions => {:drupal_uid => drupal_user.uid})
+        if drupal_user.uid != 0
           details = drupal_user.drupal_profile_values
 
           user = User.new
