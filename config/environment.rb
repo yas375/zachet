@@ -41,6 +41,7 @@ Rails::Initializer.run do |config|
   config.gem 'haml'
   config.gem 'russian'
   config.gem 'paperclip'
+  config.gem 'php-serialize', :lib => false
   config.gem 'searchlogic'
   config.gem 'simple-navigation'
   config.gem 'subdomain-fu'

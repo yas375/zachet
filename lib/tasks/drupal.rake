@@ -46,6 +46,7 @@ namespace :drupal do
   namespace :import do
     desc "Import users from drupal database"
     task :users => :environment do
+      require 'php_serialize'
       require 'digest/md5'
       class DrupalConnect < ActiveRecord::Base
         drupal_settings = YAML.load_file('config/drupal.yml')
@@ -61,14 +62,22 @@ namespace :drupal do
 
       class DrupalUser < DrupalConnect
         set_table_name "users"
+        has_many :drupal_profile_values, :foreign_key => :uid, :primary_key => :uid
       end
 
-      users = DrupalUser.all
+      class DrupalProfileValue < DrupalConnect
+        set_table_name "profile_values"
+        belongs_to :drupal_user
+      end
+
+      users = DrupalUser.all(:include => :drupal_profile_values )
       @bsuir = College.first(:conditions => {:subdomain => 'bsuir'})
       users_counter = 0
       error_users_counter = 0
       users.each do |drupal_user|
         if drupal_user.uid != 0 && !User.first(:conditions => {:drupal_uid => drupal_user.uid})
+          details = drupal_user.drupal_profile_values
+
           user = User.new
           user.login = drupal_user.name
           user.email = drupal_user.mail
@@ -81,20 +90,31 @@ namespace :drupal do
           user.college = @bsuir
           user.active = drupal_user.status
 
-          # user.first_name = drupal_user.
-          # user.last_name = drupal_user.
-          # user.gender = drupal_user.
-          # user.birthday = drupal_user.
-          # user.city = drupal_user.
-          # user.twitter = drupal_user.
-          # user.jabber = drupal_user.
-          # user.skype = drupal_user.
-          # user.icq = drupal_user.
-          # user.description = drupal_user.
-          # user.faculty = drupal_user.
-          # user.speciality = drupal_user.
-          # user.loved_discipline = drupal_user.
-          # user.unloved_discipline = drupal_user.
+          user.first_name = details.detect { |i| i.fid == 13}.try(:value) || ''
+          user.last_name = details.detect { |i| i.fid == 12}.try(:value) || ''
+
+          user.gender = case details.detect { |i| i.fid == 8}.try(:value)
+                          when 'мужской' then :male
+                          when 'женский' then :female
+                          when 'паркетный' then :parquet
+                          else nil
+                        end
+          bday_serialized = details.detect { |i| i.fid == 7}.try(:value)
+          if bday_serialized
+            if !(bday = PHP.unserialize(bday_serialized)).nil?
+              user.birthday = Date.parse("#{bday['month']}/#{bday['day']}/#{bday['year']}") if bday['year'].to_i < 1998
+            end
+          end
+          user.city = details.detect { |i| i.fid == 6}.try(:value) || ''
+          user.twitter = details.detect { |i| i.fid == 14}.try(:value) || ''
+          user.jabber = details.detect { |i| i.fid == 15}.try(:value) || ''
+          user.skype = details.detect { |i| i.fid == 5}.try(:value) || ''
+          user.icq = details.detect { |i| i.fid == 4}.try(:value) || ''
+          user.description = details.detect { |i| i.fid == 9}.try(:value) || ''
+          user.faculty = details.detect { |i| i.fid == 1}.try(:value) || ''
+          user.speciality = details.detect { |i| i.fid == 2}.try(:value) || ''
+          user.loved_discipline = details.detect { |i| i.fid == 10}.try(:value) || ''
+          user.unloved_discipline = details.detect { |i| i.fid == 11}.try(:value) || ''
 
           if !drupal_user.picture.blank?
             avatar = drupal_user.picture.sub(/sites\/default\/files/, 'tmp/drupal_files')
