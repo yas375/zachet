@@ -17,3 +17,4 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = false
 
 ActionController::Base.session_options[:session_domain] = '.helper.yas'
+Paperclip.options[:command_path] = "/usr/bin"

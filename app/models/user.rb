@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
   end
 
   has_attached_file :avatar, :styles => { :medium => "100x100>", :thumb => "40x40>" }
-  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/jpg', 'image/pjpeg', 'image/gif', 'image/png', 'image/x-png', 'image/bmp'] # TODO check validation message
+  # TODO check validation message
+  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/jpg', 'image/pjpeg', 'image/gif', 'image/png', 'image/x-png', 'image/bmp']
 
   symbolize :gender, :in => [:female, :male, :parquet], :allow_nil => true
 
