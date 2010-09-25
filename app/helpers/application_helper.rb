@@ -7,4 +7,8 @@ module ApplicationHelper
     end
     link_to_function(name, h("add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"))
   end
+
+  def format_date_and_time(time = nil)
+    Russian::strftime(time, "%d %B %Y, %H:%M") if time
+  end
 end
