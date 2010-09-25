@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 class Newsitem < ActiveRecord::Base
-  belongs_to :user
-  validates_presence_of :title, :body, :user
+  belongs_to :author, :class_name => 'User'
+  validates_presence_of :title, :body
 
   has_many :news_colleges, :dependent => :destroy
   has_many :colleges, :through => :news_colleges
@@ -25,8 +26,4 @@ class Newsitem < ActiveRecord::Base
 
   # ограницение для новостей на главных страницах
   named_scope :news_on_main, :limit => 5
-
-  def author
-    user.login
-  end
 end

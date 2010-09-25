@@ -3,7 +3,7 @@ class Admin::NewsitemsController < Admin::AdminController
 
   # GET /newsitems
   def index
-    @newsitems = Newsitem.all
+    @newsitems = Newsitem.all(:order => 'created_at DESC')
   end
 
   # GET /newsitems/new
@@ -19,7 +19,7 @@ class Admin::NewsitemsController < Admin::AdminController
   # POST /newsitems
   def create
     @newsitem = Newsitem.new(params[:newsitem])
-    @newsitem.user = current_user
+    @newsitem.author = current_user
 
     if @newsitem.save
       flash[:notice] = 'Newsitem was successfully created.'

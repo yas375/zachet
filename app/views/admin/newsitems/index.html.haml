@@ -14,7 +14,7 @@
           %tr{ :class => tr_class }
             %td= link_to newsitem.title, edit_admin_newsitem_path(newsitem)
             %td= newsitem.colleges.collect(&:abbr).join(', ')
-            %td= #newsitem.author
+            %td= link_to newsitem.author.name, edit_admin_user_path(newsitem.author) if newsitem.author
             %td= format_date_and_time(newsitem.created_at)
             %td.last= link_to "#{t("web-app-theme.delete", :default => "Delete")}", admin_newsitem_path(newsitem), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
       .actions-bar.wat-cf
