@@ -51,6 +51,8 @@ namespace :drupal do
     Rake::Task["drupal:import:disciplines"].execute
     puts "\n\t=== Импортируются факультеты и кафедры === \n"
     Rake::Task["drupal:import:faculties_and_departments"].execute
+    puts "\n\t=== Импортируются новости === \n"
+    Rake::Task["drupal:import:news"].execute
   end
 
   namespace :import do
@@ -263,5 +265,63 @@ namespace :drupal do
       puts "\tФакультеты. Проимпортированно: #{counter}. С ошибками: #{error_counter}"
       puts "\tКафедры. Проимпортированно: #{department_counter}. С ошибками: #{error_department_counter}"
     end# drupal:import:faculties_and_departments
+
+    desc "Import news from drupal database"
+    task :news => :environment do
+      class DrupalConnect < ActiveRecord::Base
+        drupal_settings = YAML.load_file('config/drupal.yml')
+        establish_connection(
+          :adapter  => "mysql",
+          :host     => drupal_settings['database']['host'],
+          :username => drupal_settings['database']['user'],
+          :password => drupal_settings['database']['pass'],
+          :database => drupal_settings['database']['db'],
+          :encoding => "utf8"
+        )
+      end
+
+      class DrupalNode < DrupalConnect
+        set_table_name "node"
+        set_primary_key "nid"
+        has_many :drupal_node_revisions, :foreign_key => :nid
+      end
+
+      class DrupalNodeRevision < DrupalConnect
+        set_table_name "node_revisions"
+        belongs_to :drupal_node
+      end
+
+      DrupalNode.inheritance_column = nil
+      newsitems = DrupalNode.all(:conditions => {:type => 'news'})
+
+      @bsuir = College.first(:conditions => {:subdomain => 'bsuir'})
+      counter = 0
+      error_counter = 0
+
+      newsitems.each do |drupal_newsitem|
+        drupal_revision = drupal_newsitem.drupal_node_revisions.first(:conditions => ['node_revisions.vid = ?', drupal_newsitem.vid])
+
+        newsitem = Newsitem.new
+
+        newsitem.title = drupal_revision.title
+        newsitem.body = drupal_revision.body
+        newsitem.teaser = drupal_revision.teaser
+        newsitem.published = drupal_newsitem.status
+        newsitem.created_at = Time.at(drupal_newsitem.created)
+        newsitem.updated_at = Time.at(drupal_newsitem.changed)
+        newsitem.author = User.first(:conditions => ['drupal_uid = ?', drupal_newsitem.uid])
+
+        newsitem.colleges << @bsuir
+
+        if newsitem.save
+          counter += 1
+        else
+          error_counter += 1
+          puts "Ошибка с # #{drupal_newsitem.nid} #{drupal_newsitem.title}"
+          puts newsitem.errors.to_a.collect { |e| e.join(": ") }.join("\n")
+        end# if newsitem.save
+      end# newsitems.each do |drupal_newsitem|
+      puts "\tНовости. Проимпортированно: #{counter}. С ошибками: #{error_counter}"
+    end# drupal:import:news
   end# drupal:import
 end# drupal
