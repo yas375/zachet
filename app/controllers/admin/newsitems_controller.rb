@@ -8,7 +8,7 @@ class Admin::NewsitemsController < Admin::AdminController
 
   # GET /newsitems/new
   def new
-    @newsitem = Newsitem.new
+    @newsitem = Newsitem.new(:commented => true, :published => true)
   end
 
   # GET /newsitems/1/edit

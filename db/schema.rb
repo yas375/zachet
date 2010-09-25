@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100925123212) do
+ActiveRecord::Schema.define(:version => 20100925130555) do
 
   create_table "attaches", :force => true do |t|
     t.integer  "container_id",      :null => false
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20100925123212) do
     t.datetime "updated_at"
     t.integer  "author_id"
     t.text     "teaser"
+    t.boolean  "commented",  :default => false, :null => false
   end
 
   create_table "teacher_jobs", :force => true do |t|

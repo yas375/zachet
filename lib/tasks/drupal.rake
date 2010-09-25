@@ -307,6 +307,7 @@ namespace :drupal do
         newsitem.body = drupal_revision.body
         newsitem.teaser = drupal_revision.teaser
         newsitem.published = drupal_newsitem.status
+        newsitem.commented = (drupal_newsitem.comment > 0)
         newsitem.created_at = Time.at(drupal_newsitem.created)
         newsitem.updated_at = Time.at(drupal_newsitem.changed)
         newsitem.author = User.first(:conditions => ['drupal_uid = ?', drupal_newsitem.uid])
