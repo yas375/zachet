@@ -1,12 +1,9 @@
 class Admin::NewsitemsController < Admin::AdminController
+  before_filter :set_current_navigation
+
   # GET /newsitems
   def index
     @newsitems = Newsitem.all
-  end
-
-  # GET /newsitems/1
-  def show
-    @newsitem = Newsitem.find(params[:id])
   end
 
   # GET /newsitems/new
@@ -50,5 +47,11 @@ class Admin::NewsitemsController < Admin::AdminController
     @newsitem.destroy
 
     redirect_to(admin_newsitems_url)
+  end
+
+  private
+
+  def set_current_navigation
+    current_navigation :news
   end
 end

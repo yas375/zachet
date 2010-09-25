@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.admin '', :controller => 'welcome', :action => 'index', :name_prefix => ''
-    admin.resources :newsitems, :as => 'news'
+    admin.resources :newsitems, :as => 'news', :except => [:show]
     admin.resources :colleges do |college|
       college.resources :disciplines, :except => [:show]
       college.resources :faculties, :except => [:show]

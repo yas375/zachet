@@ -1,0 +1,6 @@
+.block
+  .content
+    %h2.title Редактирование новости
+    .inner
+      - semantic_form_for @newsitem, :url => admin_newsitem_path(@newitem) do |f|
+        = render :partial => "form", :locals => {:f => f}

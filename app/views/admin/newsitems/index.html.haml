@@ -1,0 +1,27 @@
+.block
+  .content
+    %h2.title Новости
+    .inner
+      %table.table
+        %tr
+          %th Заголовок
+          %th{ :title => 'Если новость не глобальная, а локальная, то тут отображается к каким ВУЗам она относится' }  ВУЗ(ы)
+          %th Автор
+          %th Создана
+          %th.last &nbsp;
+        - @newsitems.each do |newsitem|
+          - tr_class = "unpublished" unless newsitem.published
+          %tr{ :class => tr_class }
+            %td= link_to newsitem.title, edit_admin_newsitem_path(newsitem)
+            %td= newsitem.colleges.collect(&:abbr).join(', ')
+            %td= #newsitem.author
+            %td= format_date_and_time(newsitem.created_at)
+            %td.last= link_to "#{t("web-app-theme.delete", :default => "Delete")}", admin_newsitem_path(newsitem), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
+      .actions-bar.wat-cf
+        .actions
+          .create_button
+            = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить Новость", new_admin_newsitem_path, :class => 'button'
+          .clear
+
+- content_for :sidebar do
+  = render :partial => 'admin/partials/content_listings_legend'
