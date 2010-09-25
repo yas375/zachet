@@ -221,11 +221,6 @@ namespace :drupal do
         belongs_to :drupal_node_revision, :foreign_key => :vid, :primary_key => :vid
       end
 
-
-
-#      term_nodes = DrupalTermNode.all
-#      raise term_nodes.last.drupal_node_revision.to_yaml
-
       faculties = DrupalTermData.all(:conditions => {:vid => 9})
       @bsuir = College.first(:conditions => {:subdomain => 'bsuir'})
       counter = 0
