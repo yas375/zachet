@@ -54,6 +54,7 @@ ru:
       picture: 'Изображение'
       title: 'Название'
       body: 'Описание'
+      teaser: 'Анонс'
       discipline: 'Предмет'
       commented: 'Комментарии разрешены'
       published: 'Опубликовано'

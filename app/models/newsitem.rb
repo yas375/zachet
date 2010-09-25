@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class Newsitem < ActiveRecord::Base
   belongs_to :author, :class_name => 'User'
-  validates_presence_of :title, :body
+  validates_presence_of :title, :body, :teaser
 
   has_many :news_colleges, :dependent => :destroy
   has_many :colleges, :through => :news_colleges
