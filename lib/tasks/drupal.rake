@@ -53,6 +53,8 @@ namespace :drupal do
     Rake::Task["drupal:import:faculties_and_departments"].execute
     puts "\n\t=== Импортируются новости === \n"
     Rake::Task["drupal:import:news"].execute
+    puts "\n\t=== Импортируются преподаватели === \n"
+    Rake::Task["drupal:import:teachers"].execute
   end
 
   namespace :import do
@@ -324,5 +326,121 @@ namespace :drupal do
       end# newsitems.each do |drupal_newsitem|
       puts "\tНовости. Проимпортированно: #{counter}. С ошибками: #{error_counter}"
     end# drupal:import:news
+
+    desc "Import teachers from drupal database"
+    task :teachers => :environment do
+      class DrupalConnect < ActiveRecord::Base
+        drupal_settings = YAML.load_file('config/drupal.yml')
+        establish_connection(
+          :adapter  => "mysql",
+          :host     => drupal_settings['database']['host'],
+          :username => drupal_settings['database']['user'],
+          :password => drupal_settings['database']['pass'],
+          :database => drupal_settings['database']['db'],
+          :encoding => "utf8"
+        )
+      end
+
+      class DrupalNode < DrupalConnect
+        set_table_name "node"
+        set_primary_key "nid"
+        has_many :drupal_node_revisions, :foreign_key => :nid
+      end
+
+      class DrupalNodeRevision < DrupalConnect
+        set_table_name "node_revisions"
+        set_primary_key "vid"
+        belongs_to :drupal_node
+        has_one :drupal_content_type_lecturer, :foreign_key => :vid
+        has_one :drupal_content_field_name, :foreign_key => :vid
+        has_many :drupal_content_field_photos, :foreign_key => :vid
+        has_many :drupal_photos, :through => :drupal_content_field_photos, :source => :drupal_file, :foreign_key => :vid
+      end
+
+      class DrupalContentTypeLecturer < DrupalConnect
+        set_table_name "content_type_lecturer"
+        belongs_to :drupal_node_revision
+      end
+
+      class DrupalContentFieldName < DrupalConnect
+        set_table_name "content_field_name"
+        belongs_to :drupal_node_revision
+      end
+
+      class DrupalContentFieldPhoto < DrupalConnect
+        set_table_name "content_field_photos"
+        set_primary_key "field_photos_fid"
+        belongs_to :drupal_node_revision
+        has_one :drupal_file, :foreign_key => :fid, :primary_key => :field_photos_fid
+      end
+
+      class DrupalFile < DrupalConnect
+        set_table_name "files"
+        set_primary_key "fid"
+        belongs_to :drupal_content_field_photo
+      end
+
+
+      DrupalNode.inheritance_column = nil
+      teachers = DrupalNode.all(:conditions => {:type => 'lecturer'})
+
+      @bsuir = College.first(:conditions => {:subdomain => 'bsuir'})
+      counter = 0
+      error_counter = 0
+
+      teachers.each do |drupal_teacher|
+        drupal_revision = drupal_teacher.drupal_node_revisions.first(:conditions => ['node_revisions.vid = ?', drupal_teacher.vid])
+
+        drupal_fields = drupal_revision.drupal_content_type_lecturer
+
+        teacher = Teacher.new
+        teacher.first_name = drupal_revision.drupal_content_field_name.field_name_value
+        teacher.middle_name = drupal_fields.field_patronymic_value
+        teacher.last_name = drupal_fields.field_lastname_value
+        teacher.email = drupal_fields.field_email_email
+        teacher.post = drupal_fields.field_zvanie_value
+        teacher.text = drupal_revision.body
+        teacher.created_at = Time.at(drupal_teacher.created)
+        teacher.updated_at = Time.at(drupal_teacher.changed)
+        teacher.author = User.first(:conditions => ['drupal_uid = ?', drupal_teacher.uid])
+
+        if teacher.save
+          counter += 1
+          # photos
+          drupal_revision.drupal_photos.each do |d_photo|
+            file = d_photo.filepath.sub(/sites\/default\/files/, 'tmp/drupal_files')
+
+            if File.exist?(file)
+              photo = teacher.teacher_photos.new(:picture => File.open(file))
+              unless photo.save
+                puts "Не удалось сохранить фотографию у nid #{drupal_teacher.nid}"
+                puts photo.errors.to_a.collect { |e| e.join(": ") }.join("\n")
+              end
+            end
+          end
+
+          # job
+          job = teacher.teacher_jobs.new
+          job.college = @bsuir
+          job.department = Department.first(:conditions => ['drupal_nid = ?', drupal_fields.field_kafedra_nid])
+          job.created_at = Time.at(drupal_teacher.created)
+          job.updated_at = Time.at(drupal_teacher.created)
+
+          if job.save
+            # disciplines
+            # TODO disciplines
+          else
+            puts "Не удалось сохранить работу у nid #{drupal_teacher.nid}"
+            puts job.errors.to_a.collect { |e| e.join(": ") }.join("\n")
+          end
+        else
+          error_counter += 1
+          puts "Ошибка с # #{drupal_teacher.nid} #{drupal_teacher.title}"
+          puts teacher.errors.to_a.collect { |e| e.join(": ") }.join("\n")
+        end# if teacher.save
+      end# teachers.each do |drupal_teacher|
+      puts "\tПреподаватели. Проимпортированно: #{counter}. С ошибками: #{error_counter}"
+    end# drupal:import:teachers
+
   end# drupal:import
 end# drupal
