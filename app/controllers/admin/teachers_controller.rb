@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Admin::TeachersController < Admin::AdminController
   before_filter :set_current_navigation
 
@@ -9,6 +10,8 @@ class Admin::TeachersController < Admin::AdminController
 
   def create
     @teacher = Teacher.new(params[:teacher])
+    @teacher.author = current_user
+
     if @teacher.save
       flash[:notice] = "Преподаватель #{@teacher.last_name} успешно добавлен"
       redirect_to :action => :index
