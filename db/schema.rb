@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100926082224) do
+ActiveRecord::Schema.define(:version => 20100926104216) do
 
   create_table "attaches", :force => true do |t|
     t.integer  "container_id",      :null => false
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(:version => 20100926082224) do
     t.datetime "updated_at"
     t.integer  "author_id"
     t.string   "post"
+    t.integer  "drupal_nid"
   end
 
   create_table "users", :force => true do |t|
