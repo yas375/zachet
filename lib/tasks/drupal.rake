@@ -43,21 +43,49 @@ namespace :drupal do
     system "rsync -rlcv #{h['user']}@#{h['host']}:projects/bsuir-helper/htdocs/sites/default/files/ tmp/drupal_files/ #{exclude} --delete"
   end
 
-  desc "Import content from local drupal database"
+  desc "Run full import from drupal (reset db, remove local files, get files, db, import all from db)."
   task :import => :environment do
-    puts "\n\t=== Импортируются пользователи === \n"
-    Rake::Task["drupal:import:users"].execute
-    puts "\n\t=== Импортируются предметы === \n"
-    Rake::Task["drupal:import:disciplines"].execute
-    puts "\n\t=== Импортируются факультеты и кафедры === \n"
-    Rake::Task["drupal:import:faculties_and_departments"].execute
-    puts "\n\t=== Импортируются новости === \n"
-    Rake::Task["drupal:import:news"].execute
-    puts "\n\t=== Импортируются преподаватели === \n"
-    Rake::Task["drupal:import:teachers"].execute
+    puts "\n\t\t=== Удаляем имеющиеся файлы материалов из public/system/ === \n"
+    system "rm -rf public/system"
+
+    puts "\n\t\t=== Сбрасываем текущую базу данных и загружаем в неё данные из seeds.rb === \n"
+    puts "Удаляем базу данных"
+    Rake::Task["db:drop"].execute
+    puts "Создаём базу данных"
+    Rake::Task["db:create"].execute
+    puts "Создаём структуру бд из schema.rb"
+    Rake::Task["db:schema:load"].execute
+    puts "Загружаем данные в базу из seeds.rb"
+    Rake::Task["db:seed"].execute
+
+    puts "\n\t\t=== Получаем файлы со старого сайта === \n"
+    Rake::Task["drupal:get_files"].execute
+
+    puts "\n\t\t=== Получаем базу данных старого сайта === \n"
+    Rake::Task["drupal:get_db"].execute
+
+    puts "\n\t\t=== Разворачиваем базу данных === \n"
+    Rake::Task["drupal:apply_db"].execute
+
+    puts "\n\t\t=== Импортируем данные из старой базы данных === \n"
+    Rake::Task["drupal:import:database"].execute
   end
 
   namespace :import do
+    desc "Import content from local drupal database"
+    task :database => :environment do
+      puts "\n\t=== Импортируются пользователи === \n"
+      Rake::Task["drupal:import:users"].execute
+      puts "\n\t=== Импортируются предметы === \n"
+      Rake::Task["drupal:import:disciplines"].execute
+      puts "\n\t=== Импортируются факультеты и кафедры === \n"
+      Rake::Task["drupal:import:faculties_and_departments"].execute
+      puts "\n\t=== Импортируются новости === \n"
+      Rake::Task["drupal:import:news"].execute
+      puts "\n\t=== Импортируются преподаватели === \n"
+      Rake::Task["drupal:import:teachers"].execute
+    end
+
     desc "Import users from drupal database"
     task :users => :environment do
       require 'php_serialize'
