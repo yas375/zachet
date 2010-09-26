@@ -2,7 +2,7 @@
 class User < ActiveRecord::Base
   include ValidatesAsImage
 
-  has_many :newsitems, :dependent => :destroy
+  has_many :newsitems, :dependent => :nullify
 
   acts_as_authentic do |c|
     c.merge_validates_length_of_login_field_options :within => 2..100
