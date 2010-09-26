@@ -4,6 +4,6 @@ class AddAuthorToNewsitems < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :newsitems, :author
+    remove_column :newsitems, :author_id
   end
 end
