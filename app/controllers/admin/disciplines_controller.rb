@@ -3,7 +3,7 @@ class Admin::DisciplinesController < Admin::AdminController
   before_filter :set_current_navigation
 
   def index
-    @disciplines = Discipline.all(:conditions => {:college_id => params[:college_id]}, :order => :name)
+    @disciplines = Discipline.all(:include => :college, :conditions => {:college_id => params[:college_id]}, :order => :name)
   end
 
   def new

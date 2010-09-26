@@ -17,7 +17,7 @@ class Admin::UsersController < Admin::AdminController
   end
 
   def index
-    @users = User.all
+    @users = User.all(:include => :college)
   end
 
   def edit
