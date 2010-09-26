@@ -3,6 +3,7 @@
   = f.input :first_name, :required => false
   = f.input :middle_name, :required => false
   = f.input :email, :required => false
+  = f.input :post, :required => false
   = f.input :text, :required => false
 %div.form_container.teacher_photos
   - f.semantic_fields_for :teacher_photos do |photo|
