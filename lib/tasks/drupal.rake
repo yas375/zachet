@@ -89,7 +89,6 @@ namespace :drupal do
     desc "Import users from drupal database"
     task :users => :environment do
       require 'php_serialize'
-      require 'digest/md5'
       class DrupalConnect < ActiveRecord::Base
         drupal_settings = YAML.load_file('config/drupal.yml')
         establish_connection(
@@ -123,9 +122,8 @@ namespace :drupal do
           user = User.new
           user.login = drupal_user.name
           user.email = drupal_user.mail
-          pass = Digest::MD5.hexdigest(drupal_user.pass)
-          user.password = pass
-          user.password_confirmation = pass
+          user.password = 'will_overwritten_below'
+          user.password_confirmation = 'will_overwritten_below'
           user.last_request_at = Time.at(drupal_user.access) if drupal_user.access > 0
           user.last_login_at = Time.at(drupal_user.login) if drupal_user.login > 0
           user.created_at = Time.at(drupal_user.created) if drupal_user.created > 0
@@ -164,10 +162,12 @@ namespace :drupal do
           end
 
           user.drupal_uid = drupal_user.uid
-          user.drupal_pass = drupal_user.pass
 
           if user.save
             users_counter += 1
+            User.record_timestamps = false
+            user.update_attributes({:crypted_password => drupal_user.pass, :password_salt => ''})
+            User.record_timestamps = true
           else
             error_users_counter += 1
             puts "Ошибка с #{drupal_user.uid} #{drupal_user.name}"

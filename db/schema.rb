@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100926104216) do
+ActiveRecord::Schema.define(:version => 20100926135204) do
 
   create_table "attaches", :force => true do |t|
     t.integer  "container_id",      :null => false
@@ -185,7 +185,6 @@ ActiveRecord::Schema.define(:version => 20100926104216) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.integer  "drupal_uid"
-    t.string   "drupal_pass"
   end
 
 end
