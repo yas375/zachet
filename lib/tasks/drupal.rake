@@ -355,6 +355,7 @@ namespace :drupal do
         has_one :drupal_content_field_name, :foreign_key => :vid
         has_many :drupal_content_field_photos, :foreign_key => :vid
         has_many :drupal_photos, :through => :drupal_content_field_photos, :source => :drupal_file, :foreign_key => :vid
+        has_many :drupal_content_field_disciplines, :foreign_key => :vid
       end
 
       class DrupalContentTypeLecturer < DrupalConnect
@@ -380,6 +381,11 @@ namespace :drupal do
         belongs_to :drupal_content_field_photo
       end
 
+      class DrupalContentFieldDiscipline < DrupalConnect
+        set_table_name "content_field_disciplines"
+        belongs_to :drupal_node_revision
+      end
+
 
       DrupalNode.inheritance_column = nil
       teachers = DrupalNode.all(:conditions => {:type => 'lecturer'})
@@ -403,6 +409,7 @@ namespace :drupal do
         teacher.created_at = Time.at(drupal_teacher.created)
         teacher.updated_at = Time.at(drupal_teacher.changed)
         teacher.author = User.first(:conditions => ['drupal_uid = ?', drupal_teacher.uid])
+        teacher.drupal_nid = drupal_teacher.nid
 
         if teacher.save
           counter += 1
@@ -428,7 +435,15 @@ namespace :drupal do
 
           if job.save
             # disciplines
-            # TODO disciplines
+            drupal_revision.drupal_content_field_disciplines.each do |d_discipline|
+              subject = job.teacher_subjects.new
+              subject.discipline = Discipline.first(:conditions => ['college_id = ? AND drupal_tid= ?', @bsuir.id, d_discipline.field_disciplines_value])
+              unless subject.save
+                puts "Не удалось сохранить связь с предметом у nid #{drupal_teacher.nid}"
+                puts subject.errors.to_a.collect { |e| e.join(": ") }.join("\n")
+              end
+
+            end
           else
             puts "Не удалось сохранить работу у nid #{drupal_teacher.nid}"
             puts job.errors.to_a.collect { |e| e.join(": ") }.join("\n")
@@ -441,6 +456,5 @@ namespace :drupal do
       end# teachers.each do |drupal_teacher|
       puts "\tПреподаватели. Проимпортированно: #{counter}. С ошибками: #{error_counter}"
     end# drupal:import:teachers
-
   end# drupal:import
 end# drupal
