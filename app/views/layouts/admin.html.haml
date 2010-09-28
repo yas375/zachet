@@ -10,20 +10,8 @@
   %body
     #container
       #header
-        %h1
-          %a{ :href => "/admin" }
-            Zachet.org
-        #user-navigation
-          %ul.wat-cf
-            %li
-              %a{ :href => "#" }
-                = t("web-app-theme.profile", :default => "Profile")
-            %li
-              %a{ :href => "#" }
-                = t("web-app-theme.settings", :default => "Settings")
-            %li
-              %a.logout{ :href => "/logout" }
-                = t("web-app-theme.logout", :default => "Logout")
+        %h1= link_to 'Zachet.org', admin_path
+        #user-navigation= render_navigation(:context => :user, :level => 1)
         #main-navigation
           = render_navigation(:context => :admin, :level => 1)
           .clear

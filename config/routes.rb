@@ -20,14 +20,14 @@ ActionController::Routing::Routes.draw do |map|
     #college.resources :newsitems, :only => [:index, :show], :as => 'news'
   #end
 
-
   map.resources :newsitems, :only => [:index, :show], :as => 'news'
 
-  map.resource :user_session, :except => [:destroy]
-  map.logout 'logout', :action=> 'destroy', :controller => 'user_sessions'
-  map.resource :account, :controller => 'users'
+  map.resource :user_session, :only => [:create]
+  map.login 'login', :controller => 'user_sessions', :action=> 'new'
+  map.logout 'logout', :controller => 'user_sessions', :action=> 'destroy'
 
-  map.resources :users
+  map.resource :account, :except => [:destroy], :controller => 'account'
+  map.resources :users, :only => [:show]
 
   map.root :controller => "home"
 

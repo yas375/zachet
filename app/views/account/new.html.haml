@@ -1,0 +1,12 @@
+.block
+  .content
+    %h2.title Регистрация
+    .inner
+      - semantic_form_for @user, :url => account_path do |f|
+        - f.inputs do
+          = f.input :login
+          = f.input :email
+          = f.input :password, :input_html => { :autocomplete => 'off'}
+          = f.input :password_confirmation, :input_html => { :autocomplete => 'off'}
+        = f.buttons
+
