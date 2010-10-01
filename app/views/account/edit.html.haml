@@ -1,19 +1,35 @@
-<div class="block">
-  <div class="secondary-navigation">
-    <ul class="wat-cf">
-      <li class="first"><%= link_to "#{t("web-app-theme.list", :default => "List")}", users_path  %></li>
-      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_user_path %></li>
-      <li class="active"><%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_user_path %></li>
-    </ul>
-  </div>          
-  <div class="content">            
-    <h2 class="title"><%= t("web-app-theme.edit", :default => "Edit") %> User</h2>
-    <div class="inner">
-      <% form_for @user, :url => user_path(@user), :html => { :class => :form } do |f| -%>
-        <%= render :partial => "form", :locals => {:f => f} %>
-      <% end -%>
-    </div>
-  </div>
-</div>
+- semantic_form_for @user, :url => account_path(@user), :html => { :multipart => true } do |f|
+  - f.inputs do
+    = f.input :login, :input_html => {:disabled => true}
+    = f.input :password, :input_html => { :autocomplete => 'off'}
+    = f.input :password_confirmation, :input_html => { :autocomplete => 'off'}
+    = f.input :email, :input_html => {:disabled => true}
+    - hint = ''
+    - hint = image_tag(f.object.avatar.url(:medium)) if f.object.avatar.file?
+    = f.input :avatar, :hint => hint
 
-<% content_for :sidebar, render(:partial => 'sidebar') -%>
+  - f.inputs do
+    %h3 Учёба
+    = f.input :college_id, :collection => College.all, :required => false
+    = f.input :faculty, :required => false
+    = f.input :speciality, :required => false
+    = f.input :loved_discipline, :required => false
+    = f.input :unloved_discipline, :required => false
+
+  - f.inputs do
+    %h3 Личное
+    = f.input :first_name, :required => false
+    = f.input :last_name, :required => false
+    = f.input :gender, :required => false, :as => :select, :collection => [['мужской', :male], ['женский', :female], ['паркетный', :parquet]]
+    = f.input :birthday, :required => false, :start_year => Time.now.year - 100, :end_year => Time.now.year - 15
+    = f.input :city, :required => false
+    = f.input :description, :required => false
+
+  - f.inputs do
+    %h3 Контактная информация
+    = f.input :jabber, :required => false
+    = f.input :skype, :required => false
+    = f.input :icq, :required => false
+    = f.input :twitter, :required => false
+
+  = f.buttons
