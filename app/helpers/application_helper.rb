@@ -11,4 +11,8 @@ module ApplicationHelper
   def format_date_and_time(time = nil)
     Russian::strftime(time, "%d %B %Y, %H:%M") if time
   end
+
+  def format_date(date = nil)
+    Russian::strftime(date, "%d %B %Y") if date
+  end
 end
