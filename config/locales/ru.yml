@@ -23,13 +23,6 @@ ru:
       subdomain: Поддомен
       abbr: Аббревиатура
       name: Название
-    attributes:
-      user:
-        enums:
-          gender:
-            male:    "мужской"
-            female:  "женский"
-            parquet: "паркетный"
 
   formtastic:
     actions:
