@@ -1,0 +1,8 @@
+%h1 Изменение пароля
+
+- semantic_form_for @user, :url => password_reset_path, :method => :put do |f|
+  = f.error_messages
+  = f.input :email, :as => :hidden
+  = f.input :password
+  = f.input :password_confirmation
+  = f.submit "Изменить пароль и войти"

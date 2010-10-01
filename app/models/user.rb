@@ -29,4 +29,11 @@ class User < ActiveRecord::Base
   def name
     login
   end
+
+  def deliver_password_reset_instructions!
+    reset_perishable_token!
+    # TODO send message
+    # edit_password_reset_url(user.perishable_token, :email => user.email)
+    Rails.logger.debug "perishable_token: #{perishable_token}"
+  end
 end

@@ -28,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :account, :except => [:destroy], :controller => 'account'
   map.resources :users, :only => [:show]
+  map.resources :password_resets, :only => [:new, :create, :edit, :update]
 
   map.root :controller => "home"
 

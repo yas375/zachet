@@ -2,7 +2,6 @@
 %ul
   %li= link_to 'Редактировать личную информацию', edit_account_path
 
-
 = image_tag @user.avatar.url, :style => 'float: right' if @user.avatar.file?
 - unless @user.full_name.blank?
   %p
