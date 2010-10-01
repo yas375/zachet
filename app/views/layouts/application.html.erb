@@ -9,7 +9,7 @@
   </head>
   <body>
     <%= render_navigation(:context => :user, :level => 1) %>
-    <%= "sub: #{current_subdomain} ; domain: #{current_domain}" %>
+    <%#= "sub: #{current_subdomain} ; domain: #{current_domain}" %>
 
     <div id="container">
       <%- flash.each do |name, msg| -%>
@@ -23,8 +23,8 @@
       <%#= render_cell :news, :latest %>
       <table class="news">
         <tr>
-          <td><%= render_cell :news, :global, {:without_first => true} %></td>
-          <td><%= render_cell :news, :local %></td>
+          <td><%#= render_cell :news, :global, {:without_first => true} %></td>
+          <td><%#= render_cell :news, :local %></td>
         </tr>
       </table>
 
