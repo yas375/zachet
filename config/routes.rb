@@ -14,14 +14,18 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :users, :except => [:show]
   end
 
-  #map.college_root '', :controller => 'colleges', :action => 'show', :conditions => { :subdomain => /.+/ }
+  # subdomains
+  map.with_options :conditions => {:subdomain => /.+/} do |college|
+    college.root :controller => 'colleges', :action => 'show'
+  end
 
-  #map.with_options :conditions => {:subdomain => /.+/} do |college|
-    #college.resources :newsitems, :only => [:index, :show], :as => 'news'
-  #end
+  # routes only for main site without subdomains
+  map.with_options :conditions => {:subdomain => false} do |main|
+    map.root :controller => "home"
+  end
 
+  # global routes
   map.resources :newsitems, :only => [:index, :show], :as => 'news'
-
   map.resource :user_session, :only => [:create]
   map.login 'login', :controller => 'user_sessions', :action=> 'new'
   map.logout 'logout', :controller => 'user_sessions', :action=> 'destroy'
@@ -30,7 +34,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :only => [:show]
   map.resources :password_resets, :only => [:new, :create, :edit, :update]
 
-  map.root :controller => "home"
 
   # The priority is based upon order of creation: first created -> highest priority.
 
