@@ -1,0 +1,19 @@
+!!! Strict
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %title= h(yield(:title) || "Untitled")
+    = stylesheet_link_tag 'application'
+    = yield(:head)
+  %body
+    #container
+      college_layout
+      - flash.each do |name, msg|
+        = content_tag :div, msg, :id => "flash_#{name}"
+      - if show_title?
+        %h1= h yield(:title)
+      = render_cell :news, :latest, {:college => params[:college_id]}
+      %table.news
+        %tr
+          %td= render_cell :news, :global
+          %td= render_cell :news, :local, {:college => current_subdomain}
+      = yield
