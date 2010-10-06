@@ -1,0 +1,12 @@
+common: &common
+  host: localhost:3000
+  mail_from: noreply@localhost
+
+production:
+  <<: *common
+
+development:
+  <<: *common
+
+test:
+  <<: *common
