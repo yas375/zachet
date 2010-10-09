@@ -21,7 +21,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # routes only for main site without subdomains
   map.with_options :conditions => {:subdomain => false} do |main|
-    map.root :controller => "home"
+    main.root :controller => "home"
   end
 
   # global routes
