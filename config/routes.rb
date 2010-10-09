@@ -1,17 +1,17 @@
 ActionController::Routing::Routes.draw do |map|
-  map.namespace :admin do |admin|
-    admin.admin '', :controller => 'welcome', :action => 'index', :name_prefix => ''
-    admin.resources :newsitems, :as => 'news', :except => [:show]
-    admin.resources :colleges do |college|
-      college.resources :disciplines, :except => [:show]
-      college.resources :faculties, :except => [:show]
-      college.resources :departments, :except => [:index, :show]
-      college.resources :synopses, :except => [:show]
-      college.resources :cribs, :except => [:show]
-      college.resources :manuals, :except => [:show]
+  map.with_options :conditions => {:subdomain => /admin/}, :name_prefix => 'admin_' do |admin|
+    admin.root :controller => 'admin/welcome', :action => 'index'
+    admin.resources :newsitems, :controller => 'admin/newsitems', :as => 'news', :except => [:show]
+    admin.resources :colleges, :controller => 'admin/colleges' do |college|
+      college.resources :disciplines, :controller => 'admin/disciplines', :except => [:show]
+      college.resources :faculties, :controller => 'admin/faculties', :except => [:show]
+      college.resources :departments, :controller => 'admin/departments', :except => [:index, :show]
+      college.resources :synopses, :controller => 'admin/synopses', :except => [:show]
+      college.resources :cribs, :controller => 'admin/cribs', :except => [:show]
+      college.resources :manuals, :controller => 'admin/manuals', :except => [:show]
     end
-    admin.resources :teachers, :collection => {:get_departments => :get}
-    admin.resources :users, :except => [:show]
+    admin.resources :teachers, :controller => 'admin/teachers', :collection => {:get_departments => :get}
+    admin.resources :users, :controller => 'admin/users', :except => [:show]
   end
 
   # subdomains
