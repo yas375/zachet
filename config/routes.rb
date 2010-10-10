@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   # subdomains
-  map.with_options :conditions => {:subdomain => /.+/} do |college|
+  map.with_options :conditions => {:subdomain => /.+/}, :name_prefix => 'college_' do |college|
     college.root :controller => 'colleges', :action => 'show'
   end
 
