@@ -1,0 +1,7 @@
+%h1 Новости портала
+- if news.any?
+  %ul
+    - news.each do |newsitem|
+      %li
+        = format_date_and_time(newsitem.created_at)
+        = link_to newsitem.title, newsitem_path(newsitem)

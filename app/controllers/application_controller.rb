@@ -48,4 +48,9 @@ class ApplicationController < ActionController::Base
         redirect_to(session[:return_to] || default)
         session[:return_to] = nil
       end
+
+      def prefered_subdomain
+        #if current
+
+      end
 end

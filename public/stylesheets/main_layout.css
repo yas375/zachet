@@ -1,0 +1,13 @@
+#all {width: 75%; margin: 0 auto;}
+
+
+#container{overflow: hidden}
+.college_list-navigation {float: right}
+.college_list-navigation UL{list-style: none;}
+.college_list-navigation UL LI{}
+.college_list-navigation UL LI A{display: block; width: 100px; padding: 15px; text-decoration: none; text-align: center; background: #ddd; border: 1px solid #aaa}
+.college_list-navigation UL LI A:hover{background: #eee}
+
+
+#content{margin-right: 180px}
+TABLE.news {width: 100%}

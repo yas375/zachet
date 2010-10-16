@@ -1,0 +1,13 @@
+- title "Colleges/Newsitems"
+
+%table
+  %tr
+    %th Name
+  - for colleges/newsitem in @colleges/newsitems
+    %tr
+      %td= h colleges/newsitem.name
+      %td= link_to 'Show', colleges/newsitem
+      %td= link_to 'Edit', edit_colleges/newsitem_path(colleges/newsitem)
+      %td= link_to 'Destroy', colleges/newsitem, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Colleges/Newsitem", new_colleges/newsitem_path

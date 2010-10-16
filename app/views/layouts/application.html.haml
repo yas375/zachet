@@ -2,19 +2,22 @@
 %html{:xmlns => "http://www.w3.org/1999/xhtml"}
   %head
     %title= h(yield(:title) || "Untitled")
-    = stylesheet_link_tag 'application'
+    = stylesheet_link_tag 'application', 'main_layout'
     = formtastic_stylesheet_link_tag
     = yield(:head)
   %body
-    = render_navigation(:context => :user, :level => 1)
-    #container
-      - flash.each do |name, msg|
-        = content_tag :div, msg, :id => "flash_#{name}"
-      - if show_title?
-        %h1= h yield(:title)
-      = "sub: #{current_subdomain} ; domain: #{current_domain}"
-      %table.news
-        %tr
-          %td= render_cell :news, :global, {:without_first => true}
-          %td= render_cell :news, :local
-      = yield
+    #all
+      #header
+        %div.user-navigation= render_navigation(:context => :user, :level => 1)
+        %h1= link_to 'zachet.org', root_path
+        .clear
+
+      #container
+        %div.college_list-navigation= render_navigation(:context => :college_list, :level => 1)
+        %div#content
+          - flash.each do |name, msg|
+            = content_tag :div, msg, :id => "flash_#{name}"
+          - if show_title?
+            %h1= h yield(:title)
+
+          = yield

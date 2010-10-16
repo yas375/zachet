@@ -1,0 +1,9 @@
+%h1= all_colleges ? 'Новости вузов' : 'Новости вуза'
+- if news.any?
+  %ul
+    - news.each do |newsitem|
+      %li
+        %span{ :style => "color: grey"}
+          = "#{newsitem.colleges.collect { |c| c.abbr }.join(', ')}: "
+        = format_date_and_time(newsitem.created_at)
+        = link_to newsitem.title, newsitem_url(newsitem)

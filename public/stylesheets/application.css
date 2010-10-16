@@ -9,8 +9,10 @@ a img {
 }
 
 a {
-  color: #0000FF;
+  color: #455768;
+  text-decoration: underline
 }
+A:hover{text-decoration: none;}
 
 .clear {
   clear: both;
@@ -18,9 +20,9 @@ a {
   overflow: hidden;
 }
 
+TD, TH {vertical-align: top}
+
 #container {
-  width: 75%;
-  margin: 0 auto;
   background-color: #FFF;
   padding: 20px 40px;
   border: solid 1px black;
@@ -79,3 +81,9 @@ a {
   font-size: 12px;
   list-style: disc;
 }
+
+.user-navigation {float: right;}
+.user-navigation UL{list-style: none; overflow: hidden}
+.user-navigation UL LI{float: left; padding-right: 15px}
+.user-navigation UL LI A{color: #fff}
+
