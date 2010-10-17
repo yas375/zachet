@@ -8,8 +8,10 @@ module NewsitemsHelper
       scope = scope.global
     end
     newsitem = scope.published.descend_by_created_at.first
-    res = content_tag(:h1, h(newsitem.title))
-    res << newsitem.teaser
+    if newsitem
+      res = content_tag(:h1, h(newsitem.title))
+      res << newsitem.teaser
+    end
     res
   end
 
