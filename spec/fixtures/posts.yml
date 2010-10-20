@@ -1,0 +1,9 @@
+one:
+  text: MyText
+  author_id: 1
+  topic: 
+
+two:
+  text: MyText
+  author_id: 1
+  topic: 

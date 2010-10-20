@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
 
   has_many :newsitems, :dependent => :nullify, :foreign_key => 'author_id'
   has_many :teachers, :dependent => :nullify, :foreign_key => 'author_id'
+  has_many :topics, :dependent => :nullify, :foreign_key => 'author_id'
+  has_many :posts, :dependent => :nullify, :foreign_key => 'author_id'
 
   symbolize :gender, :in => [:female, :male, :parquet], :allow_nil => true
 

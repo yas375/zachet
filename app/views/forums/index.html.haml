@@ -1,0 +1,27 @@
+- title "Форум"
+
+%table.forum-list{}
+  %thead
+    %tr
+      %th Форум
+      %th.topics_count Тем
+      %th.posts_count Постов
+  - if @forums.all.any?
+    %tbody
+      - @forums.each_with_level(@forums.root.descendants) do |forum, level|
+        - if level == 1
+          %tr
+            %th{:colspan => 3}
+              = link_to h(forum.title), forum_path(forum)
+              = forum_actions(forum)
+              = content_tag :div, h(forum.description) if forum.description
+        - elsif level == 2
+          %tr
+            %td
+              = link_to h(forum.title), forum_path(forum)
+              = forum_actions(forum)
+              = content_tag :div, h(forum.description) if forum.description
+            %td.topics_count= h forum.topics_count
+            %td.posts_count= h forum.posts_count
+
+%p= link_to "Новый форум", new_forum_path

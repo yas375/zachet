@@ -1,0 +1,11 @@
+one:
+  forum: 
+  subject: MyString
+  author_id: 1
+  last_post_id: 1
+
+two:
+  forum: 
+  subject: MyString
+  author_id: 1
+  last_post_id: 1

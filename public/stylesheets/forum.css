@@ -1,0 +1,20 @@
+TABLE.forum-list {width: 100%; }
+TABLE.forum-list TH{border: 1px solid #aaa; text-align: left; padding: 10px; font-weight: 100;}
+TABLE.forum-list TD{border: 1px solid #aaa; padding: 10px;}
+TABLE.forum-list THEAD TH{background: #91cdf5;}
+TABLE.forum-list TBODY TH{background: #bde0f5;}
+TABLE.forum-list TBODY TD{background: #fdffef;}
+TABLE.forum-list .topics_count {width: 50px; text-align: center;}
+TABLE.forum-list .posts_count {width: 50px; text-align: center;}
+TABLE.forum-list TD {}
+TABLE.forum-list TD {}
+
+#forum_description {height: 50px}
+
+.forum-view {width: 100%;}
+.forum-view TH {border: 1px solid #aaa; text-align: left; padding: 10px; font-weight: 100; background: #91cdf5; font-weight: 700;}
+.forum-view TD {border: 1px solid #aaa; padding: 10px;}
+.forum-view THEAD TD{background: #e3ecc0;}
+.forum-view TBODY TD{background: #fdffef;}
+.forum-view {}
+.forum-view {}

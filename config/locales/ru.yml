@@ -66,6 +66,7 @@ ru:
       speciality: 'Специальность'
       icq: 'ICQ'
       avatar: 'Аватарка'
+      description: 'Описание'
 
       user:
         active: 'активирован'
@@ -79,6 +80,9 @@ ru:
       newsitem:
         colleges: 'ВУЗы'
         body: 'Полный текст'
+
+      forum:
+        parent: 'Родительский форум'
 
     hints:
       promoted: '(будет более приоритетным при отображении материалов предмета)'

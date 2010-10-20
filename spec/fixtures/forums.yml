@@ -1,0 +1,17 @@
+one:
+  title: MyString
+  description: MyText
+  position: 1
+  parent_id: 1
+  last_post_id: 1
+  topics_count: 1
+  posts_count: 1
+
+two:
+  title: MyString
+  description: MyText
+  position: 1
+  parent_id: 1
+  last_post_id: 1
+  topics_count: 1
+  posts_count: 1

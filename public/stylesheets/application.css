@@ -20,7 +20,8 @@ A:hover{text-decoration: none;}
   overflow: hidden;
 }
 
-TD, TH {vertical-align: top}
+TABLE {border-collapse: collapse}
+TR, TH, TD{padding: 0px; vertical-align: top}
 
 #container {
   background-color: #FFF;

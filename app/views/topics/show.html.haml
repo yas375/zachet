@@ -1,0 +1,21 @@
+- title "Topic"
+
+%p
+  %strong Forum:
+  =h @topic.forum
+%p
+  %strong Subject:
+  =h @topic.subject
+%p
+  %strong Author:
+  =h @topic.author_id
+%p
+  %strong Last Post:
+  =h @topic.last_post_id
+
+%p
+  = link_to "Edit", edit_topic_path(@topic)
+  |
+  = link_to "Destroy", @topic, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", topics_path

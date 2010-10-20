@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100926135204) do
+ActiveRecord::Schema.define(:version => 20101017083001) do
 
   create_table "attaches", :force => true do |t|
     t.integer  "container_id",      :null => false
@@ -93,6 +93,20 @@ ActiveRecord::Schema.define(:version => 20100926135204) do
     t.datetime "updated_at"
   end
 
+  create_table "forums", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "position"
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "last_post_id"
+    t.integer  "topics_count", :default => 0
+    t.integer  "posts_count",  :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "news_colleges", :force => true do |t|
     t.integer "college_id"
     t.integer "newsitem_id"
@@ -107,6 +121,14 @@ ActiveRecord::Schema.define(:version => 20100926135204) do
     t.integer  "author_id"
     t.text     "teaser"
     t.boolean  "commented",  :default => false, :null => false
+  end
+
+  create_table "posts", :force => true do |t|
+    t.text     "text"
+    t.integer  "author_id"
+    t.integer  "topic_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "teacher_jobs", :force => true do |t|
@@ -145,6 +167,18 @@ ActiveRecord::Schema.define(:version => 20100926135204) do
     t.integer  "author_id"
     t.string   "post"
     t.integer  "drupal_nid"
+  end
+
+  create_table "topics", :force => true do |t|
+    t.integer  "forum_id"
+    t.string   "subject"
+    t.integer  "author_id"
+    t.integer  "last_post_id"
+    t.boolean  "locked",       :default => false
+    t.integer  "views",        :default => 0
+    t.boolean  "sticky",       :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

@@ -14,6 +14,14 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :users, :controller => 'admin/users', :except => [:show]
   end
 
+  # forum
+  map.with_options :conditions => {:subdomain => /forum/} do |forum|
+    forum.root :controller => 'forums', :action => 'index'
+    forum.resources :forums, :except => [:index]
+    forum.resources :topics
+    forum.resources :posts
+  end
+
   # subdomains
   map.with_options :conditions => {:subdomain => /.+/}, :name_prefix => 'college_' do |college|
     college.root :controller => 'colleges', :action => 'show'

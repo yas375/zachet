@@ -1,0 +1,35 @@
+- title @forum.title
+
+= forum_breadcrumbs(@forum)
+
+%table.forum-view
+  - if @descendants.any?
+    %thead
+      %tr
+        %th Подфорумы
+        %th Тем
+        %th Ответов
+      - @descendants.each do |forum|
+        %tr
+          %td
+            = link_to h(forum.title), forum_path(forum)
+            = forum_actions(forum)
+            = content_tag :div, h(forum.description) if forum.description
+          %td.topics_count= h forum.topics_count
+          %td.posts_count= h forum.posts_count
+
+  - if @topics.any?
+    %tbody
+      %tr
+        %th Темы
+        %th Ответов
+        %th Последний ответ
+      - @topics.each do |topic|
+        %tr
+          %td
+            = link_to h(topic.subject), topic_path(topic)
+            = topic_actions(topic)
+          %td.posts_count= topic.posts.count
+          %td
+
+= link_to 'Добавить подфорум', new_forum_path(:parent_id => @forum.id)

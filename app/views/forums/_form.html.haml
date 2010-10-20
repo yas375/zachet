@@ -1,0 +1,7 @@
+- semantic_form_for @forum do |f|
+  = f.error_messages
+  - f.inputs do
+    = f.input :title
+    = f.input :description, :required => false
+    = f.input :parent, :collection => nested_set_options(Forum, @forum) {|i| "#{'-' * i.level} #{i.title}" }, :include_blank => false
+  = f.buttons
