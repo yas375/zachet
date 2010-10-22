@@ -1,5 +1,3 @@
-- title "New Post"
+- title "Создание поста"
 
-= render :partial => 'form'
-
-%p= link_to "Back to List", posts_path
+= render :partial => 'form', :locals => {:post => @post}

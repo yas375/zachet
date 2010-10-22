@@ -17,9 +17,12 @@ ActionController::Routing::Routes.draw do |map|
   # forum
   map.with_options :conditions => {:subdomain => /forum/} do |forum|
     forum.root :controller => 'forums', :action => 'index'
-    forum.resources :forums, :except => [:index]
-    forum.resources :topics
-    forum.resources :posts
+    forum.resources :forums, :except => [:index] do |f|
+      f.resources :topics, :only => [:new, :create]
+    end
+    forum.resources :topics, :except => [:new, :index, :create] do |topic|
+      topic.resources :posts, :except => [:new, :show, :index]
+    end
   end
 
   # subdomains

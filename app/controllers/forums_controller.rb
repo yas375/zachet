@@ -9,7 +9,7 @@ class ForumsController < ApplicationController
   def show
     @forum = Forum.find(params[:id])
     @descendants = Forum.all(:conditions => ['parent_id = ?', params[:id]])
-    @topics = @forum.topics
+    @topics = @forum.topics.all(:order => 'updated_at DESC')
   end
 
   def new
@@ -35,7 +35,7 @@ class ForumsController < ApplicationController
 
   def update
     @forum = Forum.find(params[:id])
-    if @forum.update_attributes(params[:forum])
+    if @forum.update_attributes(params[:forum].slice!(:author_id))
       flash[:notice] = "Форум успешно обновлён"
       redirect_to @forum
     else

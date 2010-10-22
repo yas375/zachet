@@ -1,44 +1,41 @@
+# -*- coding: utf-8 -*-
 class PostsController < ApplicationController
-  def index
-    @posts = Post.all
-  end
-  
-  def show
-    @post = Post.find(params[:id])
-  end
-  
-  def new
-    @post = Post.new
-  end
-  
+  layout 'forum'
   def create
-    @post = Post.new(params[:post])
+    @topic = Topic.find(params[:topic_id])
+    @post = @topic.posts.build(params[:post].merge(:author => current_user))
+
     if @post.save
-      flash[:notice] = "Successfully created post."
-      redirect_to @post
+      flash[:notice] = "Ответ создан"
+      redirect_to @topic
     else
       render :action => 'new'
     end
   end
-  
+
   def edit
-    @post = Post.find(params[:id])
+    @topic = Topic.find(params[:topic_id])
+    @post = @topic.posts.find(params[:id])
   end
-  
+
   def update
-    @post = Post.find(params[:id])
-    if @post.update_attributes(params[:post])
-      flash[:notice] = "Successfully updated post."
-      redirect_to @post
+    @topic = Topic.find(params[:topic_id])
+    @post = @topic.posts.find(params[:id])
+
+    if @post.update_attributes(params[:post].slice!(:author_id))
+      flash[:notice] = "Ответ изменён"
+      redirect_to @topic
     else
       render :action => 'edit'
     end
   end
-  
+
   def destroy
-    @post = Post.find(params[:id])
+    @topic = Topic.find(params[:topic_id])
+    @post = @topic.posts.find(params[:id])
+
     @post.destroy
-    flash[:notice] = "Successfully destroyed post."
-    redirect_to posts_url
+    flash[:notice] = "Ответ удалён"
+    redirect_to @topic
   end
 end

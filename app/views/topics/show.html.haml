@@ -1,21 +1,20 @@
-- title "Topic"
+- title @topic.subject
 
-%p
-  %strong Forum:
-  =h @topic.forum
-%p
-  %strong Subject:
-  =h @topic.subject
-%p
-  %strong Author:
-  =h @topic.author_id
-%p
-  %strong Last Post:
-  =h @topic.last_post_id
+= forum_breadcrumbs(@topic.forum, true)
 
-%p
-  = link_to "Edit", edit_topic_path(@topic)
-  |
-  = link_to "Destroy", @topic, :confirm => 'Are you sure?', :method => :delete
-  |
-  = link_to "View All", topics_path
+%table.posts-list
+  - @posts.each do |post|
+    - author = post.author
+    %tr
+      %td.author
+        = author.name
+        %br
+        = image_tag author.avatar(:medium) if author.avatar.file?
+      %td
+        %div{:class => 'actions'}
+          = post_actions(post)
+        %i= format_date_and_time(post.created_at)
+        %hr
+        = h post.text
+%h3 Ответить
+= render :partial => 'posts/form', :locals => {:post => @new_post}

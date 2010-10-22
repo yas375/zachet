@@ -11,10 +11,20 @@ TABLE.forum-list TD {}
 
 #forum_description {height: 50px}
 
-.forum-view {width: 100%;}
-.forum-view TH {border: 1px solid #aaa; text-align: left; padding: 10px; font-weight: 100; background: #91cdf5; font-weight: 700;}
+.forum-view {width: 100%; margin-bottom: 10px}
+.forum-view TH {border: 1px solid #aaa; text-align: left; padding: 10px; font-weight: 100; background: #91cdf5; font-weight: 700; vertical-align: middle}
 .forum-view TD {border: 1px solid #aaa; padding: 10px;}
 .forum-view THEAD TD{background: #e3ecc0;}
 .forum-view TBODY TD{background: #fdffef;}
-.forum-view {}
-.forum-view {}
+
+.breadcrumbs {padding-bottom: 10px}
+
+
+TABLE.posts-list {width: 100%; }
+TABLE.posts-list TD{border: 1px solid #aaa; padding: 10px;}
+TABLE.posts-list TD.author{width: 150px}
+TABLE.posts-list .actions{float: right; overflow: hidden}
+
+
+#new_post {}
+#new_post TEXTAREA{height: 80px;}

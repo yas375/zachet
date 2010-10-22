@@ -67,6 +67,7 @@ ru:
       icq: 'ICQ'
       avatar: 'Аватарка'
       description: 'Описание'
+      subject: 'Тема'
 
       user:
         active: 'активирован'
@@ -83,6 +84,9 @@ ru:
 
       forum:
         parent: 'Родительский форум'
+
+      post:
+        text: 'Текст'
 
     hints:
       promoted: '(будет более приоритетным при отображении материалов предмета)'

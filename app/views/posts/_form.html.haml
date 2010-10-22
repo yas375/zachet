@@ -1,16 +1,5 @@
-- form_for @post do |f|
+- semantic_form_for [post.topic, post] do |f|
   = f.error_messages
-  %p
-    = f.label :text
-    %br
-    = f.text_area :text
-  %p
-    = f.label :author_id
-    %br
-    = f.text_field :author_id
-  %p
-    = f.label :topic
-    %br
-    = f.text_field :topic
-  %p
-    = f.submit
+  - f.inputs do
+    = f.input :text
+  = f.buttons

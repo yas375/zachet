@@ -1,8 +1,10 @@
 - title "Edit Topic"
 
-= render :partial => 'form'
+%h3= "форум: #{@topic.forum.title}"
+- semantic_form_for @topic do |f|
+  = f.error_messages
+  - f.inputs do
+    = f.input :subject
+  = f.buttons
 
-%p
-  = link_to "Show", topic_path(@topic)
-  |
-  = link_to "View All", topics_path
+
