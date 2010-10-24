@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class ForumsController < ApplicationController
   layout 'forum'
+  before_filter :find_forum, :only => [:show, :edit, :update, :destroy]
 
   def index
     @forums = Forum
@@ -11,7 +12,6 @@ class ForumsController < ApplicationController
   end
 
   def show
-    @forum = Forum.find(params[:id])
     @descendants = Forum.all(:conditions => ['parent_id = ?', params[:id]])
     @topics = @forum.topics.all(:order => 'updated_at DESC')
   end
@@ -34,11 +34,9 @@ class ForumsController < ApplicationController
   end
 
   def edit
-    @forum = Forum.find(params[:id])
   end
 
   def update
-    @forum = Forum.find(params[:id])
     if @forum.update_attributes(params[:forum].slice!(:author_id))
       flash[:notice] = "Форум успешно обновлён"
       redirect_to @forum
@@ -48,9 +46,14 @@ class ForumsController < ApplicationController
   end
 
   def destroy
-    @forum = Forum.find(params[:id])
     @forum.destroy
     flash[:notice] = "Форум успешно удалён"
     redirect_to root_path
+  end
+
+  private
+
+  def find_forum
+    @forum = Forum.find(params[:id])
   end
 end

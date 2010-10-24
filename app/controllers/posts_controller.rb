@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 class PostsController < ApplicationController
   layout 'forum'
+  before_filter :find_topic, :only => [:create, :edit, :update, :destroy]
+
   def create
-    @topic = Topic.find(params[:topic_id])
     @post = @topic.posts.build(params[:post].merge(:author => current_user))
 
     if @post.save
@@ -14,12 +15,10 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @topic = Topic.find(params[:topic_id])
     @post = @topic.posts.find(params[:id])
   end
 
   def update
-    @topic = Topic.find(params[:topic_id])
     @post = @topic.posts.find(params[:id])
 
     if @post.update_attributes(params[:post].slice!(:author_id))
@@ -31,11 +30,16 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @topic = Topic.find(params[:topic_id])
     @post = @topic.posts.find(params[:id])
 
     @post.destroy
     flash[:notice] = "Ответ удалён"
     redirect_to @topic
+  end
+
+  private
+
+  def find_topic
+    @topic = Topic.find(params[:topic_id])
   end
 end
