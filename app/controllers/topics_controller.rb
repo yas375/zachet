@@ -10,6 +10,10 @@ class TopicsController < ApplicationController
   end
 
   def new
+    if @forum.level <= 1
+      flash[:error] = 'Нельзя создавать темы в верхних форумах. Выберите какой-нибудь из дочерних форумов.'
+      redirect_to root_path
+    end
     @topic = Topic.new(:forum => @forum)
     @post = @topic.posts.build
   end
