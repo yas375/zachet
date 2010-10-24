@@ -41,7 +41,7 @@ class TopicsController < ApplicationController
   def destroy
     @forum = @topic.forum
     @topic.destroy
-    flash[:notice] = "Тема и все ей сообщения удалены"
+    flash[:notice] = "Тема и все её сообщения удалены"
     redirect_to forum_path(@forum)
   end
 
