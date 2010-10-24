@@ -13,7 +13,7 @@ module ForumsHelper
     else
       parents = forum.ancestors.all
     end
-    parents unless include_self
+    parents.shift
     parents.each{|p| crumbs << link_to(p.title, forum_path(p))}
     content_tag :div, crumbs.join(' > '), :class => 'breadcrumbs'
   end
