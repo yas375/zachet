@@ -8,7 +8,7 @@
 #   Major.create(:name => 'Daley', :city => cities.first)
 
 # add admin
-admin = User.create!(:email => 'admin@example.com', :login => 'admin', :password => 'admin', :password_confirmation => 'admin', :active => true)
+admin = User.create!(:email => 'admin@example.com', :login => 'admin', :password => 'admin', :password_confirmation => 'admin', :active => true, :created_at => Time.now - 1.year)
 
 # root forum
 forum = Forum.new(:title => 'Верхний уровень')

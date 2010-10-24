@@ -25,3 +25,11 @@
             %td.posts_count= h forum.posts_count
 - if current_user
   %p= link_to "Новый форум", new_forum_path
+
+%div.form-stat
+  %h2 Статистика
+  %p= "Тем: #{@topic_counter}, Сообщений: #{@posts_counter}, Пользователей: #{@users_counter}"
+  - if @last_user
+    %p
+      Приветствуем последнего зарегистрированного пользователя
+      = link_to @last_user.name, user_path(@last_user)

@@ -4,6 +4,10 @@ class ForumsController < ApplicationController
 
   def index
     @forums = Forum
+    @topic_counter = Topic.all.count
+    @posts_counter = Post.all.count
+    @users_counter = User.active.count
+    @last_user = User.active.last(:order => 'created_at')
   end
 
   def show
