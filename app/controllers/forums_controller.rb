@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class ForumsController < ApplicationController
   layout 'forum'
-  before_filter :find_forum, :only => [:show, :edit, :update, :destroy]
+  before_filter :find_forum, :only => [:show, :edit, :update, :destroy, :move_up, :move_down]
 
   def index
     @forums = Forum
@@ -12,7 +12,7 @@ class ForumsController < ApplicationController
   end
 
   def show
-    @descendants = Forum.all(:conditions => ['parent_id = ?', params[:id]])
+    @descendants = Forum.all(:conditions => ['parent_id = ?', params[:id]], :order => 'lft')
     @topics = @forum.topics.all(:order => 'updated_at DESC')
   end
 
@@ -48,7 +48,17 @@ class ForumsController < ApplicationController
   def destroy
     @forum.destroy
     flash[:notice] = "Форум успешно удалён"
-    redirect_to root_path
+    redirect_to :back
+  end
+
+  def move_up
+    @forum.move_left if @forum.left_sibling
+    redirect_to :back
+  end
+
+  def move_down
+    @forum.move_right if @forum.right_sibling
+    redirect_to :back
   end
 
   private

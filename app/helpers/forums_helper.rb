@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 module ForumsHelper
   def forum_actions(forum)
-    actions = link_to image_tag('web-app-theme/application_edit.png '), edit_forum_path(forum)
-    actions << link_to(image_tag('web-app-theme/cross.png'), forum, :confirm => 'Точно удалить?', :method => :delete)
-    actions
+    ''.tap do |actions|
+      actions << (link_to(image_tag('arrow_up.png'), move_up_forum_path(forum))) if forum.left_sibling
+      actions << link_to(image_tag('arrow_down.png'), move_down_forum_path(forum)) if forum.right_sibling
+      actions << link_to(image_tag('web-app-theme/application_edit.png'), edit_forum_path(forum))
+      actions << link_to(image_tag('web-app-theme/cross.png'), forum, :confirm => 'Точно удалить?', :method => :delete)
+    end
   end
 
   def forum_breadcrumbs(forum, include_self = false)
