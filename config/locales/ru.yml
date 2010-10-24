@@ -35,6 +35,9 @@ ru:
       discipline:
         create: 'Добавить предмет'
 
+      user_session:
+        create: 'Войти'
+
     labels:
       subdomain: 'Поддомен'
       abbr: 'Аббревиатура'

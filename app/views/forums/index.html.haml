@@ -23,5 +23,5 @@
               = content_tag :div, h(forum.description) if forum.description
             %td.topics_count= h forum.topics_count
             %td.posts_count= h forum.posts_count
-
-%p= link_to "Новый форум", new_forum_path
+- if current_user
+  %p= link_to "Новый форум", new_forum_path
