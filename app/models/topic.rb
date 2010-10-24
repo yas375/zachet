@@ -7,25 +7,25 @@ class Topic < ActiveRecord::Base
   validates_presence_of :forum, :subject, :author
 
   has_many :posts, :dependent => :destroy
+  belongs_to :last_post, :class_name => 'Post'
 
-  after_create :increment_counters
-  before_destroy :decrement_counters
+  after_create :increment_counters_and_set_last_post
+  before_destroy :decrement_counters_and_update_last_post
+
+  def update_last_post!(without = nil)
+    update_attribute :last_post, posts.last(:order => 'created_at', :conditions => ['id <> ?', without.try(:id)])
+  end
 
   private
-
-  def increment_counters
-    forum.increment!(:topics_count)
+  def increment_counters_and_set_last_post
+    forum.self_and_ancestors.each do |f|
+      f.increment!(:topics_count)
+    end
   end
 
-  def decrement_counters
-    forum.decrement!(:topics_count)
-  end
-
-  def increment_posts_count!
-    forum.increment!(:posts_count)
-  end
-
-  def decrement_posts_count!
-    forum.decrement!(:posts_count)
+  def decrement_counters_and_update_last_post
+    forum.self_and_ancestors.each do |f|
+      f.decrement!(:topics_count)
+    end
   end
 end

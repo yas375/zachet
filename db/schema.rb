@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101024113606) do
+ActiveRecord::Schema.define(:version => 20101024154629) do
 
   create_table "attaches", :force => true do |t|
     t.integer  "container_id",      :null => false
@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(:version => 20101024113606) do
     t.boolean  "sticky",       :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "posts_count",  :default => 0
   end
 
   create_table "users", :force => true do |t|

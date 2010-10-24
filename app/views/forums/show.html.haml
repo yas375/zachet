@@ -29,7 +29,7 @@
           %td
             = link_to h(topic.subject), topic_path(topic)
             = topic_actions(topic)
-          %td.posts_count= topic.posts.count
+          %td.posts_count= topic.posts_count
           %td
 
 = link_to 'Добавить подфорум', new_forum_path(:parent_id => @forum.id)
