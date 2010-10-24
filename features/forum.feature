@@ -21,7 +21,7 @@ Feature: Forums
     When I follow "Новый форум"
     Then I should see "Новый форум"
     When I fill in the following:
-     | forum[title]       | Сайт и форум |
+     | forum[title]       | Сайт и форум              |
      | forum[description] | Обсуждение сайта и форума |
     And press "Создать"
     When I go to the forum
