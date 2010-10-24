@@ -5,4 +5,15 @@ module PostsHelper
     actions << link_to(image_tag('web-app-theme/cross.png'), topic_post_path(post.topic, post), :confirm => 'Точно удалить?', :method => :delete)
     actions
   end
+
+  def last_post(post = nil)
+    a = Array.new
+    if post
+      a << link_to(h(truncate(post.text, :length => 10)),
+                   topic_path(post.topic, :anchor => post.id))
+      a << link_to(post.author.name, user_path(post.author))
+      a << format_date_and_time(post.created_at)
+    end
+    a.join('<br />')
+  end
 end

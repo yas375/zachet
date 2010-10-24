@@ -5,7 +5,7 @@ class TopicsController < ApplicationController
   before_filter :find_forum, :only => [:new, :create]
 
   def show
-    @posts = @topic.posts.all(:order => 'created_at')
+    @posts = @topic.posts.all(:order => 'created_at', :include => :author)
     @new_post = @topic.posts.new
   end
 

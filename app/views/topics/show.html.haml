@@ -7,7 +7,7 @@
     - author = post.author
     %tr
       %td.author
-        = author.name
+        = link_to author.name, user_path(author), :name => post.id
         %br
         = image_tag author.avatar(:medium) if author.avatar.file?
       %td
