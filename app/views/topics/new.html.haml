@@ -6,5 +6,6 @@
   - f.inputs do
     = f.input :subject
   - semantic_fields_for @post do |p|
-    = p.inputs
+    - p.inputs do
+      = p.input :text
   = f.buttons
