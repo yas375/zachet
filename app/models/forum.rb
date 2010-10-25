@@ -5,6 +5,7 @@ class Forum < ActiveRecord::Base
 
   has_many :topics, :dependent => :destroy
   has_many :posts, :through => :topics
+  has_one :parent, :class_name => 'Forum', :foreign_key => :parent_id
 
   belongs_to :last_post, :class_name => 'Post'
 

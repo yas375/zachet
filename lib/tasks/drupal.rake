@@ -484,5 +484,65 @@ namespace :drupal do
       end# teachers.each do |drupal_teacher|
       puts "\tПреподаватели. Проимпортированно: #{counter}. С ошибками: #{error_counter}"
     end# drupal:import:teachers
+
+    desc "Import forum from drupal database"
+    task :forum => :environment do
+      class DrupalConnect < ActiveRecord::Base
+        drupal_settings = YAML.load_file('config/drupal.yml')
+        establish_connection(
+          :adapter  => "mysql",
+          :host     => drupal_settings['database']['host'],
+          :username => drupal_settings['database']['user'],
+          :password => drupal_settings['database']['pass'],
+          :database => drupal_settings['database']['db'],
+          :encoding => "utf8"
+                             )
+      end
+
+      class DrupalTermData < DrupalConnect
+        set_table_name "term_data"
+        set_primary_key "tid"
+        default_scope :conditions => 'vid=8', :order => 'weight'
+        has_many :drupal_term_nodes, :foreign_key => :tid
+      end
+
+      # for simple and fast development this class will be used only as reference
+      class DrupalTermHierarchy < DrupalConnect
+        set_table_name "term_hierarchy"
+      end
+
+      class DrupalNodeRevision < DrupalConnect
+        set_table_name "node_revisions"
+        has_one :drupal_term_node, :foreign_key => :vid, :primary_key => :vid
+      end
+
+      class DrupalTermNode < DrupalConnect
+        set_table_name "term_node"
+        belongs_to :drupal_term_data, :foreign_key => :tid, :primary_key => :tid
+        belongs_to :drupal_node_revision, :foreign_key => :vid, :primary_key => :vid
+      end
+
+      # destroy all forums
+      Forum.root.descendants.each(&:destroy)
+
+      all_forums_ids = DrupalTermData.all.collect(&:tid)
+      first_level_ids = DrupalTermHierarchy.all(:conditions => "tid IN (#{all_forums_ids.join(',')}) AND parent = 0").collect(&:tid)
+
+      first_level = DrupalTermData.all(:conditions => "tid IN (#{first_level_ids.join(',')})")
+
+      first_level.each do |forum_1|
+        # create 1st level forum
+        new_forum = Forum.root.children.create!(:title => forum_1.name, :description => forum_1.description)
+        # get all children
+        children_ids = DrupalTermHierarchy.all(:conditions => ['parent = ?', forum_1.tid]).collect(&:tid)
+        children = DrupalTermData.all(:conditions => "tid IN (#{children_ids.join(',')})")
+
+        children.each do |child|
+          # create children
+          new_child = new_forum.children.create!(:title => child.name, :description => child.description)
+          # fill content
+        end# children.each do |child|
+      end# first_level.each do |forum_1|
+    end# drupal:import:forum
   end# drupal:import
 end# drupal
