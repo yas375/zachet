@@ -378,7 +378,7 @@ namespace :drupal do
       class DrupalNodeRevision < DrupalConnect
         set_table_name "node_revisions"
         set_primary_key "vid"
-        belongs_to :drupal_node
+        belongs_to :drupal_node, :foreign_key => :nid
         has_one :drupal_content_type_lecturer, :foreign_key => :vid
         has_one :drupal_content_field_name, :foreign_key => :vid
         has_many :drupal_content_field_photos, :foreign_key => :vid
@@ -511,9 +511,18 @@ namespace :drupal do
         set_table_name "term_hierarchy"
       end
 
+      class DrupalNode < DrupalConnect
+        set_table_name "node"
+        set_primary_key "nid"
+        default_scope :conditions => "type='forum'"
+        has_many :drupal_node_revisions, :foreign_key => :nid
+      end
+
       class DrupalNodeRevision < DrupalConnect
         set_table_name "node_revisions"
-        has_one :drupal_term_node, :foreign_key => :vid, :primary_key => :vid
+        set_primary_key "vid"
+        belongs_to :drupal_node, :foreign_key => :nid
+        has_one :drupal_term_node, :foreign_key => :vid
       end
 
       class DrupalTermNode < DrupalConnect
@@ -521,6 +530,8 @@ namespace :drupal do
         belongs_to :drupal_term_data, :foreign_key => :tid, :primary_key => :tid
         belongs_to :drupal_node_revision, :foreign_key => :vid, :primary_key => :vid
       end
+
+      DrupalNode.inheritance_column = nil
 
       # destroy all forums
       Forum.root.descendants.each(&:destroy)
@@ -537,12 +548,56 @@ namespace :drupal do
         children_ids = DrupalTermHierarchy.all(:conditions => ['parent = ?', forum_1.tid]).collect(&:tid)
         children = DrupalTermData.all(:conditions => "tid IN (#{children_ids.join(',')})")
 
-        children.each do |child|
+        children.each do |drupal_child|
           # create children
-          new_child = new_forum.children.create!(:title => child.name, :description => child.description)
+          new_child = new_forum.children.create!(:title => drupal_child.name, :description => drupal_child.description)
           # fill content
+          drupal_child.drupal_term_nodes.each do |term_node|
+            revision = term_node.drupal_node_revision
+            node = revision.drupal_node
+
+            topic = new_child.topics.new
+            topic.subject = node.title
+            topic.author = User.first(:conditions => ['drupal_uid = ?', node.uid])
+            topic.locked = (node.comment == 2)
+            topic.sticky = node.sticky
+            topic.created_at = Time.at(node.created)
+            topic.updated_at = Time.at(node.changed)
+            topic.save!
+
+            # first post
+            post = topic.posts.new
+            post.text = revision.body
+            post.author = User.first(:conditions => ['drupal_uid = ?', revision.uid])
+            post.created_at = Time.at(revision.timestamp)
+            post.updated_at = Time.at(revision.timestamp)
+            post.save!
+          end
         end# children.each do |child|
       end# first_level.each do |forum_1|
+      # check
+      errors = nil
+
+      forums_count_drupal = DrupalTermData.count
+      forums_count = Forum.root.descendants.count
+      if forums_count_drupal != forums_count
+        puts "Число форумов не совпадает. В друпале было: #{forums_count_drupal}. Проимпортированно: #{forums_count}"
+        errors = true
+      end
+
+      topics_count_drupal = DrupalNode.count
+      topics_count = Topic.count
+      if topics_count_drupal != topics_count
+        puts "Число топиков не совпадает. В друпале было: #{topics_count_drupal}. Проимпортированно: #{topics_count}"
+        errors = true
+      end
+
+      # TODO check number of posts
+
+      puts "Все форумы, топики и ответы успешно проимпортированны." unless errors
+
+
+
     end# drupal:import:forum
   end# drupal:import
 end# drupal
