@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101024154629) do
+ActiveRecord::Schema.define(:version => 20101025054905) do
 
   create_table "attaches", :force => true do |t|
     t.integer  "container_id",      :null => false
@@ -174,7 +174,6 @@ ActiveRecord::Schema.define(:version => 20101024154629) do
     t.integer  "author_id"
     t.integer  "last_post_id"
     t.boolean  "locked",       :default => false
-    t.integer  "views",        :default => 0
     t.boolean  "sticky",       :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
