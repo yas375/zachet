@@ -504,7 +504,6 @@ namespace :drupal do
       class DrupalTermData < DrupalConnect
         set_table_name "term_data"
         set_primary_key "tid"
-        default_scope :conditions => 'vid=8', :order => 'weight'
         has_many :drupal_term_nodes, :foreign_key => :tid
       end
 
@@ -516,7 +515,6 @@ namespace :drupal do
       class DrupalNode < DrupalConnect
         set_table_name "node"
         set_primary_key "nid"
-        default_scope :conditions => "type='forum'"
         has_many :drupal_node_revisions, :foreign_key => :nid
       end
 
@@ -537,57 +535,77 @@ namespace :drupal do
 
       # destroy all forums
       Forum.root.descendants.each(&:destroy)
-
-      all_forums_ids = DrupalTermData.all.collect(&:tid)
+      all_forums_ids = DrupalTermData.all(:conditions => 'vid=8').collect(&:tid)
       first_level_ids = DrupalTermHierarchy.all(:conditions => "tid IN (#{all_forums_ids.join(',')}) AND parent = 0").collect(&:tid)
 
       first_level = DrupalTermData.all(:conditions => "tid IN (#{first_level_ids.join(',')})")
 
       first_level.each do |forum_1|
         # create 1st level forum
-        new_forum = Forum.root.children.create!(:title => forum_1.name, :description => forum_1.description)
-        # get all children
-        children_ids = DrupalTermHierarchy.all(:conditions => ['parent = ?', forum_1.tid]).collect(&:tid)
-        children = DrupalTermData.all(:conditions => "tid IN (#{children_ids.join(',')})")
+        new_forum = Forum.root.children.new
+        new_forum.title = forum_1.name
+        new_forum.description = forum_1.description
+        if new_forum.save
+          # get all children
+          children_ids = DrupalTermHierarchy.all(:conditions => ['parent = ?', forum_1.tid]).collect(&:tid)
+          children = DrupalTermData.all(:conditions => "tid IN (#{children_ids.join(',')})")
 
-        children.each do |drupal_child|
-          # create children
-          new_child = new_forum.children.create!(:title => drupal_child.name, :description => drupal_child.description)
-          # fill content
-          drupal_child.drupal_term_nodes.each do |term_node|
-            revision = term_node.drupal_node_revision
-            node = revision.drupal_node
+          children.each do |drupal_child|
+            # create children
+            new_child = new_forum.children.new
+            new_child.title = drupal_child.name
+            new_child.description = drupal_child.description
 
-            topic = new_child.topics.new
-            topic.subject = node.title
-            topic.author = User.first(:conditions => ['drupal_uid = ?', node.uid])
-            topic.locked = (node.comment == 2)
-            topic.sticky = node.sticky
-            topic.created_at = Time.at(node.created)
-            topic.updated_at = Time.at(node.changed)
-            topic.save!
+            if new_child.save
+              # fill content
+              drupal_child.drupal_term_nodes.each do |term_node|
+                revision = term_node.drupal_node_revision
+                node = revision.drupal_node
 
-            # first post
-            post = topic.posts.new
-            post.text = revision.body
-            post.author = User.first(:conditions => ['drupal_uid = ?', revision.uid])
-            post.created_at = Time.at(revision.timestamp)
-            post.updated_at = Time.at(revision.timestamp)
-            post.save!
-          end
-        end# children.each do |child|
+                topic = new_child.topics.new
+                topic.subject = node.title
+                topic.author = User.first(:conditions => ['drupal_uid = ?', node.uid])
+                topic.locked = (node.comment == 2)
+                topic.sticky = node.sticky
+                topic.created_at = Time.at(node.created)
+                topic.updated_at = Time.at(node.changed)
+                unless topic.save
+                  puts "Не удалось сохранить топик форум nid #{node.nid}"
+                  puts topic.errors.to_a.collect { |e| e.join(": ") }.join("\n")
+                end
+
+                # first post
+                post = topic.posts.new
+                post.text = revision.body
+                post.author = User.first(:conditions => ['drupal_uid = ?', revision.uid])
+                post.created_at = Time.at(revision.timestamp)
+                post.updated_at = Time.at(revision.timestamp)
+                unless post.save
+                  puts "Не удалось сохранить первый пост у топика с nid #{node.nid}"
+                  puts post.errors.to_a.collect { |e| e.join(": ") }.join("\n")
+                end
+              end
+            else
+              puts "Не удалось сохранить дочерний форум tid #{drupal_child.tid}"
+              puts new_child.errors.to_a.collect { |e| e.join(": ") }.join("\n")
+            end
+          end# children.each do |child|
+        else
+          puts "Не удалось сохранить форум tid #{forum_1.tid}"
+          puts new_forum.errors.to_a.collect { |e| e.join(": ") }.join("\n")
+        end
       end# first_level.each do |forum_1|
       # check
       errors = nil
 
-      forums_count_drupal = DrupalTermData.count
+      forums_count_drupal = DrupalTermData.count(:conditions => 'vid=8')
       forums_count = Forum.root.descendants.count
       if forums_count_drupal != forums_count
         puts "Число форумов не совпадает. В друпале было: #{forums_count_drupal}. Проимпортированно: #{forums_count}"
         errors = true
       end
 
-      topics_count_drupal = DrupalNode.count
+      topics_count_drupal = DrupalNode.count(:conditions => "type='forum'")
       topics_count = Topic.count
       if topics_count_drupal != topics_count
         puts "Число топиков не совпадает. В друпале было: #{topics_count_drupal}. Проимпортированно: #{topics_count}"
@@ -597,8 +615,6 @@ namespace :drupal do
       # TODO check number of posts
 
       puts "Все форумы, топики и ответы успешно проимпортированны." unless errors
-
-
 
     end# drupal:import:forum
   end# drupal:import
