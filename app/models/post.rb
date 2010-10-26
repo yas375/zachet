@@ -19,19 +19,19 @@ class Post < ActiveRecord::Base
     topic.increment!(:posts_count)
     topic.update_attribute :last_post, self
 
-    topic.forum.self_and_ancestors.each do |f|
-      f.update_attribute :last_post, self
-      f.increment! :posts_count
-    end
+#    topic.forum.self_and_ancestors.each do |f|
+#      f.update_attribute :last_post, self
+#      f.increment! :posts_count
+#    end
   end
 
   def decrement_counters_and_set_last_post_to_previous
     topic.decrement!(:posts_count)
     topic.update_last_post!(self)
 
-    topic.forum.self_and_ancestors.each do |f|
-      f.update_last_post!(self)
-      f.decrement! :posts_count
-    end
+#    topic.forum.self_and_ancestors.each do |f|
+#      f.update_last_post!(self)
+#      f.decrement! :posts_count
+#    end
   end
 end

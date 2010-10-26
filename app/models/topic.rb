@@ -24,14 +24,14 @@ class Topic < ActiveRecord::Base
 
   private
   def increment_counters_and_set_last_post
-    forum.self_and_ancestors.each do |f|
-      f.increment!(:topics_count)
-    end
+#    forum.self_and_ancestors.each do |f|
+#      f.increment!(:topics_count)
+#    end
   end
 
   def decrement_counters_and_update_last_post
-    forum.self_and_ancestors.each do |f|
-      f.decrement!(:topics_count)
-    end
+#    forum.self_and_ancestors.each do |f|
+#      f.decrement!(:topics_count)
+#    end
   end
 end
