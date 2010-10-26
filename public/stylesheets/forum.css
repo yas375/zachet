@@ -16,9 +16,9 @@ TABLE.forum-list TD {}
 .forum-view TD {border: 1px solid #aaa; padding: 10px;}
 .forum-view THEAD TD{background: #e3ecc0;}
 .forum-view TBODY TD{background: #fdffef;}
+.forum-view TR.sticky TD{background: #bdffef;}
 
 .breadcrumbs {padding-bottom: 10px}
-
 
 TABLE.posts-list {width: 100%; }
 TABLE.posts-list TD{border: 1px solid #aaa; padding: 10px;}

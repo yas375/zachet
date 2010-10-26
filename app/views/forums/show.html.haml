@@ -26,10 +26,12 @@
         %th Ответов
         %th Последний ответ
       - @topics.each do |topic|
-        %tr
+        %tr{:class => "#{'sticky' if topic.sticky}"}
           %td{:colspan => 2}
             = link_to h(topic.subject), topic_path(topic)
             = topic_actions(topic)
+            - if topic.locked?
+              %b [Закрыто]
           %td.posts_count= topic.posts_count
           %td.last_post= last_post(topic.last_post)
 

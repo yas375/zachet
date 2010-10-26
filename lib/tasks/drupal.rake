@@ -570,7 +570,7 @@ namespace :drupal do
                 topic = new_child.topics.new
                 topic.subject = node.title
                 topic.author = User.first(:conditions => ['drupal_uid = ?', node.uid])
-                topic.locked = (node.comment == 2)
+                topic.locked = (node.comment != 2)
                 topic.sticky = node.sticky
                 topic.created_at = Time.at(node.created)
                 topic.updated_at = Time.at(node.changed)

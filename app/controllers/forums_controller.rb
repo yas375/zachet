@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 class ForumsController < ApplicationController
   layout 'forum'
+  before_filter :require_user, :only => [:new, :create, :edit, :update, :destroy, :move_up, :move_down]
   before_filter :find_forum, :only => [:show, :edit, :update, :destroy, :move_up, :move_down]
+
 
   def index
     @forums = Forum
@@ -13,7 +15,7 @@ class ForumsController < ApplicationController
 
   def show
     @descendants = Forum.all(:conditions => ['parent_id = ?', params[:id]], :order => 'lft')
-    @topics = @forum.topics.all(:order => 'updated_at DESC')
+    @topics = @forum.topics.all(:order => 'sticky DESC, updated_at DESC')
   end
 
   def new

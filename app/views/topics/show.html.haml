@@ -15,6 +15,9 @@
           = post_actions(post)
         %i= format_date_and_time(post.created_at)
         %hr
-        = h post.text
-%h3 Ответить
-= render :partial => 'posts/form', :locals => {:post => @new_post}
+        = post.text
+- if @new_post
+  %h3 Ответить
+  = render :partial => 'posts/form', :locals => {:post => @new_post}
+- else
+  %h3 Топик закрыт

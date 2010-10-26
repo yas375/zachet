@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class PostsController < ApplicationController
   layout 'forum'
+  before_filter :require_user, :only => [:create, :edit, :update, :destroy]
   before_filter :find_topic, :only => [:create, :edit, :update, :destroy]
 
   def create

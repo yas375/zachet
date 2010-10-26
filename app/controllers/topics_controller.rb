@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 class TopicsController < ApplicationController
   layout 'forum'
+  before_filter :require_user, :only => [:new, :create, :edit, :update, :destroy]
   before_filter :find_topic, :only => [:show, :edit, :update, :destroy]
   before_filter :find_forum, :only => [:new, :create]
 
   def show
     @posts = @topic.posts.all(:order => 'created_at', :include => :author)
-    @new_post = @topic.posts.new
+    @new_post = @topic.posts.new unless @topic.locked
   end
 
   def new

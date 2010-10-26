@@ -1,10 +1,12 @@
-- title "Edit Topic"
+- title "Редактирование топика"
 
 %h3= "форум: #{@topic.forum.title}"
 - semantic_form_for @topic do |f|
   = f.error_messages
   - f.inputs do
     = f.input :subject
+    = f.input :sticky, :required => false
+    = f.input :locked, :required => false
   = f.buttons
 
 

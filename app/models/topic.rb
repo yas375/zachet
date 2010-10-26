@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class Topic < ActiveRecord::Base
-  attr_accessible :forum, :subject, :author
+  attr_accessible :forum, :subject, :author, :locked, :sticky
 
   belongs_to :forum
   belongs_to :author, :class_name => 'User'
