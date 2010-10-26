@@ -516,6 +516,7 @@ namespace :drupal do
         set_table_name "node"
         set_primary_key "nid"
         has_many :drupal_node_revisions, :foreign_key => :nid
+        has_many :drupal_comments, :foreign_key => :nid
       end
 
       class DrupalNodeRevision < DrupalConnect
@@ -529,6 +530,10 @@ namespace :drupal do
         set_table_name "term_node"
         belongs_to :drupal_term_data, :foreign_key => :tid, :primary_key => :tid
         belongs_to :drupal_node_revision, :foreign_key => :vid, :primary_key => :vid
+      end
+
+      class DrupalComment < DrupalConnect
+        set_table_name "comments"
       end
 
       DrupalNode.inheritance_column = nil
@@ -584,6 +589,22 @@ namespace :drupal do
                   puts "Не удалось сохранить первый пост у топика с nid #{node.nid}"
                   puts post.errors.to_a.collect { |e| e.join(": ") }.join("\n")
                 end
+
+                # reply
+                replies = node.drupal_comments.all(:order => 'timestamp')
+                if replies.any?
+                  replies.each do |reply|
+                    post = topic.posts.new
+                    post.text =  reply.comment
+                    post.author = User.first(:conditions => ['drupal_uid = ?', reply.uid])
+                    post.created_at = Time.at(reply.timestamp)
+                    post.updated_at = Time.at(reply.timestamp)
+                    unless post.save(!reply.uid.zero?)
+                      puts "Не удалось сохранить ответ #{reply.cid} в топике с nid #{node.nid}"
+                      puts post.errors.to_a.collect { |e| e.join(": ") }.join("\n")
+                    end
+                  end
+                end
               end
             else
               puts "Не удалось сохранить дочерний форум tid #{drupal_child.tid}"
@@ -595,27 +616,6 @@ namespace :drupal do
           puts new_forum.errors.to_a.collect { |e| e.join(": ") }.join("\n")
         end
       end# first_level.each do |forum_1|
-      # check
-      errors = nil
-
-      forums_count_drupal = DrupalTermData.count(:conditions => 'vid=8')
-      forums_count = Forum.root.descendants.count
-      if forums_count_drupal != forums_count
-        puts "Число форумов не совпадает. В друпале было: #{forums_count_drupal}. Проимпортированно: #{forums_count}"
-        errors = true
-      end
-
-      topics_count_drupal = DrupalNode.count(:conditions => "type='forum'")
-      topics_count = Topic.count
-      if topics_count_drupal != topics_count
-        puts "Число топиков не совпадает. В друпале было: #{topics_count_drupal}. Проимпортированно: #{topics_count}"
-        errors = true
-      end
-
-      # TODO check number of posts
-
-      puts "Все форумы, топики и ответы успешно проимпортированны." unless errors
-
     end# drupal:import:forum
   end# drupal:import
 end# drupal
