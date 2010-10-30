@@ -202,13 +202,16 @@ namespace :drupal do
       error_disciplines_counter = 0
       disciplines.each do |drupal_discipline|
         discipline = Discipline.new
+        drupal_discipline.description.strip!
 
         if drupal_discipline.description.blank?
           discipline.name = drupal_discipline.name
         else
           discipline.name = drupal_discipline.description
         end
-        discipline.abbr = drupal_discipline.name
+        if drupal_discipline.description.present? && drupal_discipline.name != drupal_discipline.description
+          discipline.abbr = drupal_discipline.name
+        end
         discipline.college = @bsuir
         discipline.drupal_tid = drupal_discipline.tid
 
