@@ -2,6 +2,12 @@
   %h2.title
     Преподаватели
   .inner
+    .actions-bar.wat-cf
+      .actions
+        .create_button
+          = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить преподавателя", new_admin_teacher_path, :class => 'button'
+          .clear
+      = will_paginate @teachers
     %table.table
       %tr
         %th ФИО
@@ -21,3 +27,4 @@
         .create_button
           = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить преподавателя", new_admin_teacher_path, :class => 'button'
           .clear
+      = will_paginate @teachers

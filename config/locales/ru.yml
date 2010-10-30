@@ -86,6 +86,7 @@ ru:
       newsitem:
         colleges: 'ВУЗы'
         body: 'Полный текст'
+        created_at: 'Дата'
 
       forum:
         parent: 'Родительский форум'
