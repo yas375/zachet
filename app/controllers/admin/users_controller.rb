@@ -17,7 +17,7 @@ class Admin::UsersController < Admin::AdminController
   end
 
   def index
-    @users = User.all(:include => :college)
+    @users = User.paginate(:include => :college, :order => 'login', :page => params[:page])
   end
 
   def edit

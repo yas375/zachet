@@ -17,7 +17,7 @@ module Admin::Content
 
   module ControllerMethods
     def index
-      @resources = content_model_class.find_by_college(@college)
+      @resources = content_model_class.find_by_college(@college).paginate(:order => 'title', :page => params[:page])
     end
 
     def new

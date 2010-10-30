@@ -1,6 +1,12 @@
 - render :layout => 'admin/colleges/layout' do
   %h2.title Шпоры
   .inner
+    .actions-bar.wat-cf
+      .actions
+        .create_button
+          = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить шпору", new_admin_college_crib_path, :class => 'button'
+          .clear
+      = will_paginate @resources
     %table.table
       %tr
         %th Название
@@ -20,5 +26,7 @@
         .create_button
           = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить шпору", new_admin_college_crib_path, :class => 'button'
           .clear
+      = will_paginate @resources
+
   - content_for :sidebar_top do
     = render :partial => 'admin/partials/content_listings_legend'

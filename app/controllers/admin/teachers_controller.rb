@@ -21,7 +21,7 @@ class Admin::TeachersController < Admin::AdminController
   end
 
   def index
-    @teachers = Teacher.all(:include => {:teacher_jobs => :college})
+    @teachers = Teacher.paginate(:include => {:teacher_jobs => :college}, :page => params[:page], :order => 'last_name, first_name')
   end
 
   def show

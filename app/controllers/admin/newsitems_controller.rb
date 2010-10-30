@@ -3,7 +3,7 @@ class Admin::NewsitemsController < Admin::AdminController
 
   # GET /newsitems
   def index
-    @newsitems = Newsitem.all(:order => 'created_at DESC', :include => [:colleges, :author])
+    @newsitems = Newsitem.paginate(:order => 'created_at DESC', :include => [:colleges, :author], :page => params[:page])
   end
 
   # GET /newsitems/new
