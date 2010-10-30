@@ -1,5 +1,6 @@
 - title @topic.subject
 
+= will_paginate @posts
 = forum_breadcrumbs(@topic.forum, true)
 
 %table.posts-list
@@ -16,10 +17,12 @@
         %i= format_date_and_time(post.created_at)
         %hr
         = post.text
+= will_paginate @posts
 - if @new_post
   %h3 Ответить
   = render :partial => 'posts/form', :locals => {:post => @new_post}
 - else
   %h3 Топик закрыт
+
 
 %p= "Просмотров: #{@topic.increment_visits}"

@@ -28,3 +28,5 @@ TABLE.posts-list .actions{float: right; overflow: hidden}
 
 #new_post {}
 #new_post TEXTAREA{height: 80px;}
+
+.pagination {float: right}

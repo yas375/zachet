@@ -6,7 +6,7 @@ class TopicsController < ApplicationController
   before_filter :find_forum, :only => [:new, :create]
 
   def show
-    @posts = @topic.posts.all(:order => 'created_at', :include => :author)
+    @posts = @topic.posts.paginate(:order => 'created_at', :include => :author, :page => params[:page])
     @new_post = @topic.posts.new unless @topic.locked
   end
 
