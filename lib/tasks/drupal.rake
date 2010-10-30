@@ -540,6 +540,8 @@ namespace :drupal do
 
       # destroy all forums
       Forum.root.descendants.each(&:destroy)
+
+      anonym = User.first(:conditions => ['login=?', 'anonym'])
       all_forums_ids = DrupalTermData.all(:conditions => 'vid=8').collect(&:tid)
       first_level_ids = DrupalTermHierarchy.all(:conditions => "tid IN (#{all_forums_ids.join(',')}) AND parent = 0").collect(&:tid)
 
@@ -569,7 +571,7 @@ namespace :drupal do
 
                 topic = new_child.topics.new
                 topic.subject = node.title
-                topic.author = User.first(:conditions => ['drupal_uid = ?', node.uid])
+                topic.author = User.first(:conditions => ['drupal_uid = ?', node.uid]) || anonym
                 topic.locked = (node.comment != 2)
                 topic.sticky = node.sticky
                 topic.created_at = Time.at(node.created)
@@ -582,7 +584,7 @@ namespace :drupal do
                 # first post
                 post = topic.posts.new
                 post.text = revision.body
-                post.author = User.first(:conditions => ['drupal_uid = ?', revision.uid])
+                post.author = User.first(:conditions => ['drupal_uid = ?', revision.uid]) || anonym
                 post.created_at = Time.at(revision.timestamp)
                 post.updated_at = Time.at(revision.timestamp)
                 unless post.save
@@ -596,10 +598,10 @@ namespace :drupal do
                   replies.each do |reply|
                     post = topic.posts.new
                     post.text =  reply.comment
-                    post.author = User.first(:conditions => ['drupal_uid = ?', reply.uid])
+                    post.author = User.first(:conditions => ['drupal_uid = ?', reply.uid]) || anonym
                     post.created_at = Time.at(reply.timestamp)
                     post.updated_at = Time.at(reply.timestamp)
-                    unless post.save(!reply.uid.zero?)
+                    unless post.save
                       puts "Не удалось сохранить ответ #{reply.cid} в топике с nid #{node.nid}"
                       puts post.errors.to_a.collect { |e| e.join(": ") }.join("\n")
                     end
