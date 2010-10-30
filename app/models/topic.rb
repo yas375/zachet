@@ -15,7 +15,7 @@ class Topic < ActiveRecord::Base
   before_destroy :decrement_counters_and_update_last_post
 
   def forum_cannot_be_in_top_levels
-    errors.add_to_base("Нельзя создавать темы в форумах верхнего уровня.") if forum.level <= 1
+    errors.add_to_base("Нельзя создавать темы в форумах верхнего уровня.") if forum && forum.level <= 1
   end
 
   def update_last_post!(without = nil)
