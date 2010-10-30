@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 class Topic < ActiveRecord::Base
+  acts_as_visitable
   attr_accessible :forum, :subject, :author, :locked, :sticky
 
   belongs_to :forum

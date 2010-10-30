@@ -21,3 +21,5 @@
   = render :partial => 'posts/form', :locals => {:post => @new_post}
 - else
   %h3 Топик закрыт
+
+%p= "Просмотров: #{@topic.increment_visits}"
