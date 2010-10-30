@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101025054905) do
+ActiveRecord::Schema.define(:version => 20101030154624) do
 
   create_table "attaches", :force => true do |t|
     t.integer  "container_id",      :null => false
@@ -218,6 +218,14 @@ ActiveRecord::Schema.define(:version => 20101025054905) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.integer  "drupal_uid"
+  end
+
+  create_table "visits_counters", :force => true do |t|
+    t.integer  "visitable_id"
+    t.string   "visitable_type"
+    t.integer  "count",          :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
