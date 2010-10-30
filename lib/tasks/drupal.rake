@@ -520,6 +520,7 @@ namespace :drupal do
         set_primary_key "nid"
         has_many :drupal_node_revisions, :foreign_key => :nid
         has_many :drupal_comments, :foreign_key => :nid
+        has_one :counter, :foreign_key => :nid, :class_name => 'DrupalNodeCount'
       end
 
       class DrupalNodeRevision < DrupalConnect
@@ -533,6 +534,10 @@ namespace :drupal do
         set_table_name "term_node"
         belongs_to :drupal_term_data, :foreign_key => :tid, :primary_key => :tid
         belongs_to :drupal_node_revision, :foreign_key => :vid, :primary_key => :vid
+      end
+
+      class DrupalNodeCount < DrupalConnect
+        set_table_name "node_counter"
       end
 
       class DrupalComment < DrupalConnect
@@ -583,6 +588,13 @@ namespace :drupal do
                   puts "Не удалось сохранить топик форум nid #{node.nid}"
                   puts topic.errors.to_a.collect { |e| e.join(": ") }.join("\n")
                 end
+
+                # views counter
+                topic.reload
+                VisitsCounter.record_timestamps = false
+                topic.visits_counter.update_attributes({:count => node.counter.totalcount,
+                                                       :updated_at => Time.at(node.counter.timestamp)})
+                VisitsCounter.record_timestamps = true
 
                 # first post
                 post = topic.posts.new
