@@ -6,5 +6,6 @@ class NewsitemsController < ApplicationController
   # GET /newsitems/1
   def show
     @newsitem = Newsitem.find(params[:id])
+    @newsitem.increment_visits
   end
 end

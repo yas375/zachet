@@ -318,12 +318,17 @@ namespace :drupal do
       class DrupalNode < DrupalConnect
         set_table_name "node"
         set_primary_key "nid"
+        has_one :counter, :foreign_key => :nid, :class_name => 'DrupalNodeCount'
         has_many :drupal_node_revisions, :foreign_key => :nid
       end
 
       class DrupalNodeRevision < DrupalConnect
         set_table_name "node_revisions"
         belongs_to :drupal_node
+      end
+
+      class DrupalNodeCount < DrupalConnect
+        set_table_name "node_counter"
       end
 
       DrupalNode.inheritance_column = nil
@@ -351,6 +356,14 @@ namespace :drupal do
 
         if newsitem.save
           counter += 1
+          # views counter
+          newsitem.reload
+          VisitsCounter.record_timestamps = false
+          newsitem.visits_counter.update_attributes({:count => drupal_newsitem.counter.totalcount,
+                                                   :updated_at => Time.at(drupal_newsitem.counter.timestamp)})
+          VisitsCounter.record_timestamps = true
+
+
         else
           error_counter += 1
           puts "Ошибка с # #{drupal_newsitem.nid} #{drupal_newsitem.title}"
