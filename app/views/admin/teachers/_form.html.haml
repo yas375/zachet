@@ -6,8 +6,9 @@
   = f.input :post, :required => false
   = f.input :text, :required => false
 %div.form_container.teacher_photos
-  - f.semantic_fields_for :teacher_photos do |photo|
-    = render :partial => 'teacher_photo_fields', :locals => {:f => photo}
+  %div.uploaded
+    - f.semantic_fields_for :teacher_photos do |photo|
+      = render :partial => 'teacher_photo_fields', :locals => {:f => photo}
   = link_to_add_fields "Добавить фото", f, :teacher_photos
 %div.form_container.teacher_jobs
   - f.semantic_fields_for :teacher_jobs do |job|

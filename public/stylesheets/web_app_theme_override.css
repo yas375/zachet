@@ -1,5 +1,5 @@
 /* Override here any style definide by web-app-theme */
-UL{list-style-position: outside; margin-left: 15px;}
+UL, OL{list-style-position: outside; margin-left: 20px;}
 
 TABLE.table TR.green-row TD{background-color: #0f9;}
 TABLE.table TR.unpublished TD{color: #bbb; background-color: #eee;}
@@ -15,3 +15,8 @@ TABLE.table TD.avatar{padding: 2px 0px; width: 40px; text-align: center; vertica
 #sidebar .colleges_menu UL LI A{display: block; padding: 15px; font-size: 18px!important;}
 #sidebar .colleges_menu UL LI A:hover {text-decoration: none; background-color: #ddd}
 #sidebar .colleges_menu UL LI A.active, .colleges_menu UL LI A.active:hover {background-color: #aaa; color: #fff}
+
+.teacher_photos {overflow: hidden}
+
+.teacher_photos .uploaded {overflow: hidden}
+.teacher_photos .uploaded .photo {float: left; width: 120px;}
