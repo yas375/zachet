@@ -12,8 +12,9 @@
 ActiveRecord::Schema.define(:version => 20101030154624) do
 
   create_table "attaches", :force => true do |t|
-    t.integer  "container_id",      :null => false
-    t.string   "container_type",    :null => false
+    t.integer  "container_id",                      :null => false
+    t.string   "container_type",                    :null => false
+    t.string   "file_file_name"
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
