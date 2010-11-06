@@ -49,3 +49,7 @@ teacher_subj_6 = TeacherSubject.create!(:discipline => matem, :teacher_job => jo
 # add some content
 matem.content_synopses.create!(:title => 'Конспект лекций Цегельника ', :body => 'Отсканированный, аккуратный конспект', :author => admin)
 matem.content_synopses.create!(:title => 'Конспект 2009-2010', :body => 'Качество страдает', :year => '2009-2010', :author => admin)
+
+Newsitem.create!(:title => 'Мы открылись', :teaser => 'Рады сообщить вам о своём открытии', :body => 'Теперь мы работаем и с другими ВУЗами тоже.', :created_at => Time.now - 2.months, :author => admin, :published => true)
+Newsitem.create!(:title => 'Плановые технические работы', :teaser => '5 минут сайт будет недоступен', :body => 'Почитайте пока книжки', :created_at => Time.now - 1.months, :author => admin, :published => true)
+Newsitem.create!(:title => 'Добавлен новый ВУЗ', :teaser => 'И это БГУ. Теперь и студенты этого ВУЗа могут пользоваться нашим сайтом.', :body => 'Теперь и пользователи БГУ смогут найти всё, что им требуется', :author => admin, :published => true)
