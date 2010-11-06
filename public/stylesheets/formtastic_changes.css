@@ -20,3 +20,5 @@ form.formtastic li.commit input.update{ background-image: url("../images/web-app
 form.formtastic li.commit input.create{ background-image: url("../images/web-app-theme/tick.png"); }
 
 form.formtastic li#user_avatar_input p.inline-hints {padding-top: 5px}
+form.formtastic select {width: 270px}
+form.formtastic fieldset.comboselect select {width: 40%}
