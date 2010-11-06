@@ -2,7 +2,7 @@
 SimpleNavigation::Configuration.run do |navigation|
   navigation.selected_class = 'active'
   navigation.items do |primary|
-    primary.item :main, 'На главный портал', root_url(:subdomain => false), :if => Proc.new { current_subdomain != nil }
+    primary.item :to_main, 'На главный портал', root_url(:subdomain => false), :if => Proc.new { current_subdomain != nil }
     primary.item :forum, 'Форум', root_url(:subdomain => 'forum'), :if => Proc.new { current_subdomain != 'forum' }
     primary.item :register, 'Регистрация', new_account_path, :unless => Proc.new { current_user }
     primary.item :login, 'Вход', login_path, :unless => Proc.new { current_user }
