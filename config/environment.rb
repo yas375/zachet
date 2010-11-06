@@ -5,6 +5,7 @@ RAILS_GEM_VERSION = '2.3.10' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
+require 'lib/action_controller/zachet_content'
 
 # fix warning:
 #    /Users/yas/.rvm/gems/ree-1.8.7-2010.01/gems/rails-2.3.5/lib/rails/gem_dependency.rb:119:Warning:
