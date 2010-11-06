@@ -1,0 +1,3 @@
+- f.semantic_fields_for :attaches do |attach|
+  = render :partial => 'attach_fields', :locals => {:f => attach}
+= link_to_add_fields "Добавиь файл", f, :attaches

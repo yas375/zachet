@@ -5,4 +5,9 @@ class Attach < ActiveRecord::Base
 
   validates_attachment_presence :file
   validates_attachment_size :file, :less_than => 20.megabytes
+
+  def name
+    return description if description.present?
+    file_file_name
+  end
 end
