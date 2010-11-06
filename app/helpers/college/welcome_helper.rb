@@ -1,0 +1,2 @@
+module College::WelcomeHelper
+end

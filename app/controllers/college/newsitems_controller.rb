@@ -1,4 +1,4 @@
-class Colleges::NewsitemsController < ApplicationController
+class College::NewsitemsController < College::CollegeController
   def index
     @colleges/newsitems = Colleges::Newsitem.all
   end

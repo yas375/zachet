@@ -27,16 +27,17 @@ ActionController::Routing::Routes.draw do |map|
 
   # subdomains
   map.with_options :conditions => {:subdomain => /.+/}, :name_prefix => 'college_' do |college|
-    college.root :controller => 'colleges', :action => 'show'
+    college.root :controller => 'college/welcome', :action => 'index'
+    college.resources :newsitems, :controller => 'college/newsitems', :only => [:index, :show], :as => 'news'
   end
 
   # routes only for main site without subdomains
   map.with_options :conditions => {:subdomain => false} do |main|
     main.root :controller => "home"
+    main.resources :newsitems, :only => [:index, :show], :as => 'news'
   end
 
   # global routes
-  map.resources :newsitems, :only => [:index, :show], :as => 'news'
   map.resource :user_session, :only => [:create]
   map.login 'login', :controller => 'user_sessions', :action=> 'new'
   map.logout 'logout', :controller => 'user_sessions', :action=> 'destroy'

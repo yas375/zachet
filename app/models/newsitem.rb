@@ -19,7 +19,7 @@ class Newsitem < ActiveRecord::Base
   named_scope :local, lambda {  |college|
     { :joins => ['INNER JOIN news_colleges nc ON nc.newsitem_id=newsitems.id', 'INNER JOIN colleges c ON c.id=nc.college_id'],
       :group => 'newsitems.id',
-      :conditions => ['c.subdomain=?', college] }
+      :conditions => ['c.subdomain=?', college.subdomain] }
     }
 
   # чтобы выводить списки новостей на главных страницах
