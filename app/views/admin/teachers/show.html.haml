@@ -1,7 +1,7 @@
 - render :layout => 'admin/colleges/layout' do
   %h2.title= @teacher.name
   .inner
-    = "<p><b>Email</b>: #{@teacher.email}</p>" unless @teacher.email.empty?
+    = "<p><b>Email</b>: #{@teacher.email}</p>" unless @teacher.email.blank?
     = @teacher.text
     .wat-cf
       = link_to "#{image_tag("web-app-theme/application_edit.png", :alt => "Редактировать информацию")} Редактировать информацию", edit_admin_teacher_path(@teacher), :class => "button"
