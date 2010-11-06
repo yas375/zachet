@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101030154624) do
+ActiveRecord::Schema.define(:version => 20101103073333) do
 
   create_table "attaches", :force => true do |t|
     t.integer  "container_id",                      :null => false
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20101030154624) do
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
+    t.string   "description",       :default => ""
   end
 
   create_table "colleges", :force => true do |t|
