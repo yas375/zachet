@@ -1,12 +1,4 @@
-- title "Colleges/Newsitem"
-
-%p
-  %strong Name:
-  =h @colleges/newsitem.name
-
-%p
-  = link_to "Edit", edit_colleges/newsitem_path(@colleges/newsitem)
-  |
-  = link_to "Destroy", @colleges/newsitem, :confirm => 'Are you sure?', :method => :delete
-  |
-  = link_to "View All", colleges/newsitems_path
+%h1= h @newsitem.title
+%div= @newsitem.teaser
+%div= @newsitem.body
+%p= "Просмотров: #{@newsitem.visits}"
