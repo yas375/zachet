@@ -1,6 +1,6 @@
-class CreateContentSynopses < ActiveRecord::Migration
+class CreateSynopses < ActiveRecord::Migration
   def self.up
-    create_table :content_synopses do |t|
+    create_table :synopses do |t|
       t.string :title
       t.text :body
       t.string :year
@@ -16,6 +16,6 @@ class CreateContentSynopses < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :content_synopses
+    drop_table :synopses
   end
 end

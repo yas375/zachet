@@ -28,36 +28,9 @@ ActiveRecord::Schema.define(:version => 20101030154624) do
     t.datetime "updated_at"
   end
 
-  create_table "content_cribs", :force => true do |t|
+  create_table "cribs", :force => true do |t|
     t.string   "title"
     t.text     "body"
-    t.integer  "author_id"
-    t.integer  "discipline_id"
-    t.integer  "teacher_id"
-    t.boolean  "commented",     :default => false, :null => false
-    t.boolean  "published",     :default => false, :null => false
-    t.boolean  "promoted",      :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "content_manuals", :force => true do |t|
-    t.string   "title"
-    t.text     "body"
-    t.string   "type"
-    t.integer  "author_id"
-    t.integer  "discipline_id"
-    t.boolean  "commented",     :default => false, :null => false
-    t.boolean  "published",     :default => false, :null => false
-    t.boolean  "promoted",      :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "content_synopses", :force => true do |t|
-    t.string   "title"
-    t.text     "body"
-    t.string   "year"
     t.integer  "author_id"
     t.integer  "discipline_id"
     t.integer  "teacher_id"
@@ -107,6 +80,19 @@ ActiveRecord::Schema.define(:version => 20101030154624) do
     t.datetime "updated_at"
   end
 
+  create_table "manuals", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "type"
+    t.integer  "author_id"
+    t.integer  "discipline_id"
+    t.boolean  "commented",     :default => false, :null => false
+    t.boolean  "published",     :default => false, :null => false
+    t.boolean  "promoted",      :default => false, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "news_colleges", :force => true do |t|
     t.integer "college_id"
     t.integer "newsitem_id"
@@ -127,6 +113,20 @@ ActiveRecord::Schema.define(:version => 20101030154624) do
     t.text     "text"
     t.integer  "author_id"
     t.integer  "topic_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "synopses", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "year"
+    t.integer  "author_id"
+    t.integer  "discipline_id"
+    t.integer  "teacher_id"
+    t.boolean  "commented",     :default => false, :null => false
+    t.boolean  "published",     :default => false, :null => false
+    t.boolean  "promoted",      :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

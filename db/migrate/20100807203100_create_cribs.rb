@@ -1,11 +1,11 @@
-class CreateContentManuals < ActiveRecord::Migration
+class CreateCribs < ActiveRecord::Migration
   def self.up
-    create_table :content_manuals do |t|
+    create_table :cribs do |t|
       t.string :title
       t.text :body
-      t.string :type
       t.references :author
       t.references :discipline
+      t.references :teacher
       t.boolean :commented, :null => false, :default => false
       t.boolean :published, :null => false, :default => false
       t.boolean :promoted, :null => false, :default => false
@@ -15,6 +15,6 @@ class CreateContentManuals < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :content_manuals
+    drop_table :cribs
   end
 end
