@@ -1,2 +1,2 @@
-module DepartmentsHelper
+module Admin::DepartmentsHelper
 end

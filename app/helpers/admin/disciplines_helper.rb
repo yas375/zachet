@@ -1,2 +1,2 @@
-module DisciplinesHelper
+module Admin::DisciplinesHelper
 end
