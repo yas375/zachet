@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 
@@ -25,8 +26,8 @@ class ApplicationController < ActionController::Base
       def require_user
         unless current_user
           store_location
-          flash[:notice] = "You must be logged in to access this page"
-          redirect_to login_url
+          flash[:notice] = "Вы должны войти на сайт для доступа к запрашиваемой странице"
+          redirect_to login_url(:subdomain => 'account')
           return false
         end
       end
@@ -34,23 +35,18 @@ class ApplicationController < ActionController::Base
       def require_no_user
         if current_user
           store_location
-          flash[:notice] = "You must be logged out to access this page"
-          redirect_to account_url
+          flash[:notice] = "Вы не должны быть залогинены, чтобы иметь доступ к этой странице"
+          redirect_to root_url(:subdomain => 'account')
           return false
         end
       end
 
       def store_location
-        session[:return_to] = request.request_uri
+        session[:return_to] = request.url
       end
 
       def redirect_back_or_default(default)
         redirect_to(session[:return_to] || default)
         session[:return_to] = nil
-      end
-
-      def prefered_subdomain
-        #if current
-
       end
 end

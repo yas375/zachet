@@ -1,4 +1,5 @@
-class UserSessionsController < ApplicationController
+# -*- coding: utf-8 -*-
+class Account::UserSessionsController < Account::AccountController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => :destroy
 
@@ -9,8 +10,8 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      flash[:notice] = "Login successful!"
-      redirect_back_or_default account_url
+      flash[:notice] = "Вы вошли"
+      redirect_back_or_default root_url
     else
       render :action => :new
     end
@@ -18,7 +19,7 @@ class UserSessionsController < ApplicationController
 
   def destroy
     current_user_session.destroy
-    flash[:notice] = "Logout successful!"
-    redirect_back_or_default root_url
+    flash[:notice] = "Вы успешно вышли"
+    redirect_back_or_default root_url(:subdomain => false)
   end
 end

@@ -1,5 +1,5 @@
 body {
-  background-color: #008b00;
+  background-color: #F0E68C;
   font-family: Verdana, Helvetica, Arial;
   font-size: 14px;
 }
@@ -86,5 +86,4 @@ TR, TH, TD{padding: 0px; vertical-align: top}
 .user-navigation {float: right;}
 .user-navigation UL{list-style: none; overflow: hidden}
 .user-navigation UL LI{float: left; padding-right: 15px}
-.user-navigation UL LI A{color: #fff}
-
+.user-navigation UL LI A{color: #455768}

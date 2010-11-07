@@ -49,3 +49,19 @@ teacher_subj_6 = TeacherSubject.create!(:discipline => matem, :teacher_job => jo
 # add some content
 matem.synopses.create!(:title => 'Конспект лекций Цегельника ', :body => 'Отсканированный, аккуратный конспект', :author => admin)
 matem.synopses.create!(:title => 'Конспект 2009-2010', :body => 'Качество страдает', :year => '2009-2010', :author => admin)
+
+# global news
+Newsitem.create!(:title => 'Мы открылись', :teaser => 'Рады сообщить вам о своём открытии', :body => 'Теперь мы работаем и с другими ВУЗами тоже.', :created_at => Time.now - 2.months, :author => admin, :published => true)
+Newsitem.create!(:title => 'Плановые технические работы', :teaser => '5 минут сайт будет недоступен', :body => 'Почитайте пока книжки', :created_at => Time.now - 1.months, :author => admin, :published => true)
+Newsitem.create!(:title => 'Добавлен новый ВУЗ', :teaser => 'И это БГУ. Теперь и студенты этого ВУЗа могут пользоваться нашим сайтом.', :body => 'Теперь и пользователи БГУ смогут найти всё, что им требуется', :author => admin, :published => true)
+
+#local news
+news_1 = Newsitem.create!(:title => 'Новый ректор', :teaser => 'С нового года планируется назанчение нового ректора.', :body => 'Пока что точно не известно кто им станет. Возможные кандидаты: Иванов, Петров, Сидоров.', :author => admin, :published => true)
+news_1.colleges << bsu
+
+news_2 = Newsitem.create!(:title => 'Пенная вечеринка', :teaser => 'В ближайшую субботу состоится пенная вечеринка для студентов БГУ и БГУИР.', :body => 'Девушкам вход бесплатный.', :author => admin, :published => true)
+news_2.colleges << bsu
+news_2.colleges << bsuir
+
+news_3 = Newsitem.create!(:title => 'Поднятие цен на обучение', :teaser => 'Все цены поднимаются на 5%.', :body => 'Теперь обучение будет еще дороже. лалала', :author => admin, :published => true)
+news_3.colleges << bsu

@@ -1,0 +1,4 @@
+- if current_user
+  = render :partial => 'logged_in', :locals => {:user => current_user}
+- else
+  = render :partial => 'not_logged_in'

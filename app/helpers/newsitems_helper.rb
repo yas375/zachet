@@ -11,6 +11,7 @@ module NewsitemsHelper
     if newsitem
       res = content_tag(:h1, h(newsitem.title))
       res << newsitem.teaser
+      res << content_tag(:p, link_to('Читать далее', newsitem_path(newsitem)))
     end
     res
   end

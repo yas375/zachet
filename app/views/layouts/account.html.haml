@@ -1,0 +1,24 @@
+!!! Strict
+%html{html_attrs}
+  
+  %head
+    %title
+      = h(yield(:title) || "Untitled")
+    %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
+    = formtastic_stylesheet_link_tag
+    = stylesheet_link_tag 'account'
+    = yield(:head)
+  
+  %body
+    #header
+      %div.user-navigation= render_navigation(:context => :user, :level => 1)
+      %h1= link_to 'Профиль', root_path
+      .clear
+    #container
+      - flash.each do |name, msg|
+        = content_tag :div, msg, :id => "flash_#{name}"
+      
+      - if show_title?
+        %h1=h yield(:title)
+      
+      = yield

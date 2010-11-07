@@ -1,2 +1,0 @@
-module Colleges::NewsitemsHelper
-end
