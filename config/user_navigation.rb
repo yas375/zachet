@@ -8,6 +8,7 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :login, 'Вход', login_url(:subdomain => 'account'), :unless => Proc.new { current_user }
     primary.item :administration, 'Админка', root_url(:subdomain => 'admin'), :if => Proc.new { current_user && current_subdomain != 'admin' }
     primary.item :account, 'Профиль', root_url(:subdomain => 'account'), :if => Proc.new { current_user }
+    primary.item :messages, 'Сообщения', messages_url(:subdomain => 'account'), :if => Proc.new { current_user }
     primary.item :logout, 'Выход', logout_url(:subdomain => 'account'), :if => Proc.new { current_user }
   end
 end

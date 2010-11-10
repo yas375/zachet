@@ -1,6 +1,14 @@
+%ul
 %h1= @user.login
 %ul
+  %li= link_to 'Добавление материалов', content_path
+  %li= link_to 'сообщения', messages_path
+  %li
+    = link_to 'Мои материалы', my_content_profile_path
+    (только название это не совсем правильное. тут не то, что добавил пользователь, а скорее материалы, которые ему будут полезны)
   %li= link_to 'Редактировать личную информацию', edit_profile_path
+
+%p возможно тут стоит показать инфу об ответах на комменты или о комментах к материалам, которые он сам добавил. Или что-то из его rss (описано в "Мои материалы")
 
 = image_tag @user.avatar.url, :style => 'float: right' if @user.avatar.file?
 - unless @user.full_name.blank?

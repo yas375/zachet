@@ -1,0 +1,12 @@
+<% title "Account/Message" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @account/message.name %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_account/message_path(@account/message) %> |
+  <%= link_to "Destroy", @account/message, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", account/messages_path %>
+</p>

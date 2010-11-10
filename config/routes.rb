@@ -31,7 +31,9 @@ ActionController::Routing::Routes.draw do |map|
     account.login 'login', :controller => 'account/user_sessions', :action=> 'new'
     account.logout 'logout', :controller => 'account/user_sessions', :action=> 'destroy'
 
-    account.resource :profile, :controller => 'account/profile', :except => [:destroy, :show]
+    account.resource :profile, :controller => 'account/profile', :except => [:destroy, :show], :member => [:my_content]
+    account.resource :content, :controller => 'account/content', :only => [:show]
+    account.resources :messages, :controller => 'account/messages', :only => [:index]
     account.resources :users, :controller => 'account/users', :only => [:show]
     account.resources :password_resets, :controller => 'account/password_resets', :only => [:new, :create, :edit, :update]
   end
