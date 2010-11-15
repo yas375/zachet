@@ -46,10 +46,6 @@ teacher_subj_2 = TeacherSubject.create!(:discipline => fizika, :teacher_job => j
 teacher_subj_5 = TeacherSubject.create!(:discipline => asu, :teacher_job => job_1)
 teacher_subj_6 = TeacherSubject.create!(:discipline => matem, :teacher_job => job_2)
 
-# add some content
-matem.synopses.create!(:title => 'Конспект лекций Цегельника ', :body => 'Отсканированный, аккуратный конспект', :author => admin)
-matem.synopses.create!(:title => 'Конспект 2009-2010', :body => 'Качество страдает', :year => '2009-2010', :author => admin)
-
 # global news
 Newsitem.create!(:title => 'Мы открылись', :teaser => 'Рады сообщить вам о своём открытии', :body => 'Теперь мы работаем и с другими ВУЗами тоже.', :created_at => Time.now - 2.months, :author => admin, :published => true)
 Newsitem.create!(:title => 'Плановые технические работы', :teaser => '5 минут сайт будет недоступен', :body => 'Почитайте пока книжки', :created_at => Time.now - 1.months, :author => admin, :published => true)

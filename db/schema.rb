@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101103073333) do
+ActiveRecord::Schema.define(:version => 20101115192355) do
 
   create_table "attaches", :force => true do |t|
     t.integer  "container_id",                      :null => false
@@ -31,13 +31,13 @@ ActiveRecord::Schema.define(:version => 20101103073333) do
 
   create_table "cribs", :force => true do |t|
     t.string   "title"
-    t.text     "body"
-    t.integer  "author_id"
-    t.integer  "discipline_id"
-    t.integer  "teacher_id"
-    t.boolean  "commented",     :default => false, :null => false
-    t.boolean  "published",     :default => false, :null => false
-    t.boolean  "promoted",      :default => false, :null => false
+    t.string   "name"
+    t.string   "teacher"
+    t.string   "semester"
+    t.integer  "number_of_questions"
+    t.integer  "number_of_questions_with_answers"
+    t.text     "questions"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -83,13 +83,26 @@ ActiveRecord::Schema.define(:version => 20101103073333) do
 
   create_table "manuals", :force => true do |t|
     t.string   "title"
-    t.text     "body"
-    t.string   "type"
+    t.string   "name"
+    t.string   "authors"
+    t.string   "publishing_company"
+    t.string   "year"
+    t.string   "kind"
+    t.text     "contents"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "materials", :force => true do |t|
+    t.string   "title"
     t.integer  "author_id"
     t.integer  "discipline_id"
-    t.boolean  "commented",     :default => false, :null => false
-    t.boolean  "published",     :default => false, :null => false
-    t.boolean  "promoted",      :default => false, :null => false
+    t.boolean  "commented",     :default => false
+    t.boolean  "published",     :default => false
+    t.boolean  "promoted",      :default => false
+    t.integer  "data_id"
+    t.string   "data_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -120,14 +133,11 @@ ActiveRecord::Schema.define(:version => 20101103073333) do
 
   create_table "synopses", :force => true do |t|
     t.string   "title"
-    t.text     "body"
+    t.string   "name"
+    t.string   "teacher"
+    t.string   "semester"
     t.string   "year"
-    t.integer  "author_id"
-    t.integer  "discipline_id"
-    t.integer  "teacher_id"
-    t.boolean  "commented",     :default => false, :null => false
-    t.boolean  "published",     :default => false, :null => false
-    t.boolean  "promoted",      :default => false, :null => false
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
