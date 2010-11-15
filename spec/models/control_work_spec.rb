@@ -12,6 +12,6 @@ describe ControlWork do
   end
 
   it "should create a new instance given valid attributes" do
-    Test.create!(@valid_attributes)
+    ControlWork.create!(@valid_attributes)
   end
 end
