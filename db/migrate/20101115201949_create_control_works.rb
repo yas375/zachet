@@ -1,6 +1,6 @@
-class CreateTests < ActiveRecord::Migration
+class CreateControlWorks < ActiveRecord::Migration
   def self.up
-    create_table :tests do |t|
+    create_table :control_works do |t|
       t.string :title
       t.string :theme
       t.string :number
@@ -12,6 +12,6 @@ class CreateTests < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :tests
+    drop_table :control_works
   end
 end

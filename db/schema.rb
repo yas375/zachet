@@ -41,6 +41,16 @@ ActiveRecord::Schema.define(:version => 20101115202123) do
     t.datetime "updated_at"
   end
 
+  create_table "control_works", :force => true do |t|
+    t.string   "title"
+    t.string   "theme"
+    t.string   "number"
+    t.string   "variant"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "cribs", :force => true do |t|
     t.string   "title"
     t.string   "name"
@@ -241,16 +251,6 @@ ActiveRecord::Schema.define(:version => 20101115202123) do
     t.string   "theme"
     t.string   "author"
     t.string   "year"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "tests", :force => true do |t|
-    t.string   "title"
-    t.string   "theme"
-    t.string   "number"
-    t.string   "variant"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"

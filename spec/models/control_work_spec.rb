@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Test do
+describe ControlWork do
   before(:each) do
     @valid_attributes = {
       :title => "value for title",
