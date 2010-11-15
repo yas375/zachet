@@ -13,6 +13,11 @@ class College < ActiveRecord::Base
   has_many :teacher_jobs, :dependent => :destroy
   has_many :teachers, :through => :teacher_jobs
 
+  has_many :materials, :through => :disciplines
+
+  # TODO mo to acts_as_zachet_content
+  has_many :cribs, :class_name => 'Material', :through => :disciplines, :conditions => ['materials.data_type=?', :crib]
+
   def display_name
     res = read_attribute('name')
     res << " (#{abbr})" if abbr

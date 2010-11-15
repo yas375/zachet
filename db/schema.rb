@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101115192355) do
+ActiveRecord::Schema.define(:version => 20101115202123) do
 
   create_table "attaches", :force => true do |t|
     t.integer  "container_id",                      :null => false
@@ -19,6 +19,18 @@ ActiveRecord::Schema.define(:version => 20101115192355) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
     t.string   "description",       :default => ""
+  end
+
+  create_table "books", :force => true do |t|
+    t.string   "title"
+    t.string   "name"
+    t.string   "authors"
+    t.string   "publishing_company"
+    t.string   "year"
+    t.text     "contents"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "colleges", :force => true do |t|
@@ -81,6 +93,26 @@ ActiveRecord::Schema.define(:version => 20101115192355) do
     t.datetime "updated_at"
   end
 
+  create_table "graduate_works", :force => true do |t|
+    t.string   "title"
+    t.string   "theme"
+    t.string   "author"
+    t.string   "year"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "labs", :force => true do |t|
+    t.string   "title"
+    t.string   "theme"
+    t.string   "number"
+    t.string   "variant"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "manuals", :force => true do |t|
     t.string   "title"
     t.string   "name"
@@ -123,10 +155,34 @@ ActiveRecord::Schema.define(:version => 20101115192355) do
     t.boolean  "commented",  :default => false, :null => false
   end
 
+  create_table "others", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "posts", :force => true do |t|
     t.text     "text"
     t.integer  "author_id"
     t.integer  "topic_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "presentations", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "referats", :force => true do |t|
+    t.string   "title"
+    t.string   "theme"
+    t.string   "author"
+    t.string   "year"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -180,6 +236,26 @@ ActiveRecord::Schema.define(:version => 20101115192355) do
     t.integer  "drupal_nid"
   end
 
+  create_table "term_papers", :force => true do |t|
+    t.string   "title"
+    t.string   "theme"
+    t.string   "author"
+    t.string   "year"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tests", :force => true do |t|
+    t.string   "title"
+    t.string   "theme"
+    t.string   "number"
+    t.string   "variant"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "topics", :force => true do |t|
     t.integer  "forum_id"
     t.string   "subject"
@@ -190,6 +266,16 @@ ActiveRecord::Schema.define(:version => 20101115192355) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "posts_count",  :default => 0
+  end
+
+  create_table "typical_calculations", :force => true do |t|
+    t.string   "title"
+    t.string   "theme"
+    t.string   "number"
+    t.string   "variant"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
