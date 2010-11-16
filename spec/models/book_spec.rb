@@ -1,19 +1,25 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe Book do
-  before(:each) do
-    @valid_attributes = {
-      :title => "value for title",
-      :name => "value for name",
-      :authors => "value for authors",
-      :publishing_company => "value for publishing_company",
-      :year => "value for year",
-      :contents => "value for contents",
-      :description => "value for description"
-    }
+  it "should create a new instance given valid attributes" do
+    Book.create!(:name => "Лала",
+                 :authors => "Петров Л.И.",
+                 :publishing_company => "БГУИР",
+                 :year => "2009",
+                 :contents => "value for contents",
+                 :description => "value for description"
+                 )
   end
 
-  it "should create a new instance given valid attributes" do
-    Book.create!(@valid_attributes)
+  it "should have correct titles" do
+    a = Book.create!(:name => "Лала", :authors => "Петров Л.И.", :publishing_company => "БГУИР", :year => "2009")
+    a.title.should eql('Лала. Петров Л.И., БГУИР 2010')
+
+    b = Book.create!(:name => "Лала.", :authors => "Петров Л.И.", :publishing_company => "БГУИР")
+    b.title.should eql('Лала. Петров Л.И., БГУИР')
+
+    c = Book.create!(:name => "Лала", :publishing_company => "БГУИР", :year => "2009")
+    c.title.should eql('Лала. БГУИР 2010')
   end
 end

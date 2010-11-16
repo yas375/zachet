@@ -14,9 +14,6 @@ module ActiveRecord
         has_one :author, :through => :material
 
         validates_presence_of :title
-
-        class_eval do
-        end
       end
     end
   end

@@ -1,9 +1,10 @@
+# -*- coding: undecided -*-
 require 'spec_helper'
 
 describe Other do
   before(:each) do
     @valid_attributes = {
-      :title => "value for title",
+      :title => "Программа для расчета задачи №2",
       :description => "value for description"
     }
   end
