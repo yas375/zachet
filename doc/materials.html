@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>materials</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2010-11-20 13:29:37 EET"/>
+<meta name="author" content="Victor Ilyukevich"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">materials</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Шпоры </a>
+<ul>
+<li><a href="#sec-1.1">1.1 Поля </a></li>
+<li><a href="#sec-1.2">1.2 Примеры построения заголовков </a>
+<ul>
+<li><a href="#sec-1.2.1">1.2.1 Магистерская шпора 2009, 1ый семестр. (Борбот Алина Юрьевна) [29/30 вопросов] </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-2">2 Курсовые </a>
+<ul>
+<li><a href="#sec-2.1">2.1 Поля </a></li>
+<li><a href="#sec-2.2">2.2 Примеры построение заголовков </a>
+<ul>
+<li><a href="#sec-2.2.1">2.2.1 Организация малого бизнеса в РБ. Иванов, 2010 </a></li>
+<li><a href="#sec-2.2.2">2.2.2 Организация малого бизнеса в РБ. 2010 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 Рефераты </a></li>
+<li><a href="#sec-4">4 Дипломы </a></li>
+<li><a href="#sec-5">5 Конспекты лекций </a>
+<ul>
+<li><a href="#sec-5.1">5.1 Поля </a></li>
+<li><a href="#sec-5.2">5.2 Заголовки </a>
+<ul>
+<li><a href="#sec-5.2.1">5.2.1 Лекции по СПО, Синяков Л.И. 2010, 2ой семестр </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-6">6 Лабораторные работы </a>
+<ul>
+<li><a href="#sec-6.1">6.1 Поля </a></li>
+<li><a href="#sec-6.2">6.2 Заголовок </a>
+<ul>
+<li><a href="#sec-6.2.1">6.2.1 Лаба №2. Командные файлы [Варинт 4] </a></li>
+<li><a href="#sec-6.2.2">6.2.2 Лаба №3-5. Лабы первого семестра [Варинт 4,5,7] </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-7">7 Методические пособия и лабораторные практикумы </a>
+<ul>
+<li><a href="#sec-7.1">7.1 Поля </a></li>
+<li><a href="#sec-7.2">7.2 Заголовки </a>
+<ul>
+<li><a href="#sec-7.2.1">7.2.1 История ВОВ. Новик Н.Я, Новик Я.И., БГУИР 2006 (Лаб. практикум) </a></li>
+<li><a href="#sec-7.2.2">7.2.2 История ВОВ. Новик Н.Я, Новик Я.И., БГУИР 2006 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-8">8 Книга </a>
+<ul>
+<li><a href="#sec-8.1">8.1 Поля </a></li>
+<li><a href="#sec-8.2">8.2 Заголовки </a>
+<ul>
+<li><a href="#sec-8.2.1">8.2.1 История ВОВ. Новик Н.Я, Новик Я.И., БГУИР 2006 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-9">9 Типовые расчеты </a>
+<ul>
+<li><a href="#sec-9.1">9.1 Поля </a></li>
+<li><a href="#sec-9.2">9.2 Заголовки </a>
+<ul>
+<li><a href="#sec-9.2.1">9.2.1 ТР №1. Операторный метод расчета цепей. Вариант 2 </a></li>
+<li><a href="#sec-9.2.2">9.2.2 Операторный метод. Вариант 3 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-10">10 Контрольные работы </a>
+<ul>
+<li><a href="#sec-10.1">10.1 Поля </a></li>
+<li><a href="#sec-10.2">10.2 Заголовки </a>
+<ul>
+<li><a href="#sec-10.2.1">10.2.1 КР №2. История развития. Вариант 3 </a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-11">11 Презентации </a>
+<ul>
+<li><a href="#sec-11.1">11.1 Поля </a></li>
+</ul>
+</li>
+<li><a href="#sec-12">12 Прочее </a>
+<ul>
+<li><a href="#sec-12.1">12.1 Поля </a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> <span class="todo TODO"> TODO</span> Шпоры </h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1.1" class="outline-3">
+<h3 id="sec-1.1"><span class="section-number-3">1.1</span> Поля </h3>
+<div class="outline-text-3" id="text-1.1">
+
+<ul>
+<li>
+Заголовок (формируется на основе того, что ввёл пользователь в других полях)
+При изменении других полей эта надпись меняется автоматом через js. Пользователь должен видеть какой заголовк получается. См. пример ниже
+</li>
+<li>
+Название (textfield)
+Например: <b>Шпора от Пети для 522234</b>
+</li>
+<li>
+Преподаватель (textfield с автодополнением)
+к экзамену которого подготавливались эти шпоры
+</li>
+<li>
+Номер семестра относительно начала изучения предмета (select с варантами: '1ый семестр', '2ой семестр', &hellip;, '6ой семестр')
+Например, если вы на первом курсе начали изучать физику только во втором полугодии, то укажите тут 1ый.
+</li>
+<li>
+Количество вопросов (всего) (textfield)
+Укажите именно общее количество вопросов к экзамену, а не количество ответов на вопросы в вашей шпоре. Это облегчит другим пользователем поиск необходимого им материала.
+</li>
+<li>
+Количество ответов на вопросы (textfield)
+А тут укажите именно количество вопросов, на которые есть ответы в вашей шпоре
+</li>
+<li>
+Список вопросов (textarea)
+</li>
+<li>
+Файлы (прикрепление нескольких файлов с возможностью указать описание для каждого)
+</li>
+<li>
+Примечания (textarea)
+Например укажите, готовы ли шпоры для печати, или же надо еще уменьшать размер шрифта.
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1.2" class="outline-3">
+<h3 id="sec-1.2"><span class="section-number-3">1.2</span> Примеры построения заголовков </h3>
+<div class="outline-text-3" id="text-1.2">
+
+
+</div>
+
+<div id="outline-container-1.2.1" class="outline-4">
+<h4 id="sec-1.2.1"><span class="section-number-4">1.2.1</span> Магистерская шпора 2009, 1ый семестр. (Борбот Алина Юрьевна) [29/30 вопросов] </h4>
+<div class="outline-text-4" id="text-1.2.1">
+
+<p>Название: Магистерская шпора 2009
+Семестр: 1ый семестр
+Преподаватель: Борбот Алина Юрьевна
+Количество вопросов: 30
+Ответов: 29
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> <span class="todo TODO"> TODO</span> Курсовые </h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2.1" class="outline-3">
+<h3 id="sec-2.1"><span class="section-number-3">2.1</span> Поля </h3>
+<div class="outline-text-3" id="text-2.1">
+
+<ul>
+<li>
+Заголовок (выстраивается автоматически из друших полей)
+</li>
+<li>
+Тема (textfield)
+</li>
+<li>
+Автор (textfield)
+</li>
+<li>
+Год (textfield)
+</li>
+<li>
+Описание (textarea)
+</li>
+<li>
+Файлы (прикрепление нескольких файлов с возможностью указать описание для каждого)
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-2.2" class="outline-3">
+<h3 id="sec-2.2"><span class="section-number-3">2.2</span> Примеры построение заголовков </h3>
+<div class="outline-text-3" id="text-2.2">
+
+
+</div>
+
+<div id="outline-container-2.2.1" class="outline-4">
+<h4 id="sec-2.2.1"><span class="section-number-4">2.2.1</span> Организация малого бизнеса в РБ. Иванов, 2010 </h4>
+<div class="outline-text-4" id="text-2.2.1">
+
+<p>Тема: Организация малого бизнеса в РБ
+Автор: Иванов
+Год: 2010
+</p></div>
+
+</div>
+
+<div id="outline-container-2.2.2" class="outline-4">
+<h4 id="sec-2.2.2"><span class="section-number-4">2.2.2</span> Организация малого бизнеса в РБ. 2010 </h4>
+<div class="outline-text-4" id="text-2.2.2">
+
+<p>Тема: Организация малого бизнеса в РБ
+Год: 2010
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> <span class="todo TODO"> TODO</span> Рефераты </h2>
+<div class="outline-text-2" id="text-3">
+
+<p>Аналогично, как у курсовых
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> <span class="todo TODO"> TODO</span> Дипломы </h2>
+<div class="outline-text-2" id="text-4">
+
+<p>Аналогично, как у курсовых
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> <span class="todo TODO"> TODO</span> Конспекты лекций </h2>
+<div class="outline-text-2" id="text-5">
+
+
+</div>
+
+<div id="outline-container-5.1" class="outline-3">
+<h3 id="sec-5.1"><span class="section-number-3">5.1</span> Поля </h3>
+<div class="outline-text-3" id="text-5.1">
+
+<ul>
+<li>
+Заголовок (форматируется автоматом)
+</li>
+<li>
+Название (textfield)
+</li>
+<li>
+Преподаватель (textfield с автодополнением)
+</li>
+<li>
+Номер семестра (select)
+</li>
+<li>
+Учебный год (textfield)
+</li>
+<li>
+Описание (textarea)
+</li>
+<li>
+Файлы (прикрепление нескольких файлов с возможностью указать описание для каждого)
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-5.2" class="outline-3">
+<h3 id="sec-5.2"><span class="section-number-3">5.2</span> Заголовки </h3>
+<div class="outline-text-3" id="text-5.2">
+
+
+</div>
+
+<div id="outline-container-5.2.1" class="outline-4">
+<h4 id="sec-5.2.1"><span class="section-number-4">5.2.1</span> Лекции по СПО, Синяков Л.И. 2010, 2ой семестр </h4>
+<div class="outline-text-4" id="text-5.2.1">
+
+<p>Название: Лекции по СПО
+Преподаватель: Синяков Л.И.
+Год: 2010
+Семестр: 2ой семестр
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> <span class="todo TODO"> TODO</span> Лабораторные работы </h2>
+<div class="outline-text-2" id="text-6">
+
+
+</div>
+
+<div id="outline-container-6.1" class="outline-3">
+<h3 id="sec-6.1"><span class="section-number-3">6.1</span> Поля </h3>
+<div class="outline-text-3" id="text-6.1">
+
+<ul>
+<li>
+Заголовок (формируются автоматом из других полей и пользователь его не редактирует)
+</li>
+<li>
+Тема (textfield)
+</li>
+<li>
+Номер лабораторной работы(textfield)
+</li>
+<li>
+Варинт (textfield)
+</li>
+<li>
+Описание (textarea)
+Например укажите тут задание к лабораторной работе или кому сдавалась эта лаба и в каком году.
+</li>
+<li>
+Файлы (прикрепление нескольких файлов с возможностью указать описание для каждого)
+Помимо решения тут можно прикрепить и задание
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-6.2" class="outline-3">
+<h3 id="sec-6.2"><span class="section-number-3">6.2</span> Заголовок </h3>
+<div class="outline-text-3" id="text-6.2">
+
+
+</div>
+
+<div id="outline-container-6.2.1" class="outline-4">
+<h4 id="sec-6.2.1"><span class="section-number-4">6.2.1</span> Лаба №2. Командные файлы [Варинт 4] </h4>
+<div class="outline-text-4" id="text-6.2.1">
+
+<p>Тема: Командные файлы
+Номер лабораторной работы: 2
+Вариант: 4
+</p></div>
+
+</div>
+
+<div id="outline-container-6.2.2" class="outline-4">
+<h4 id="sec-6.2.2"><span class="section-number-4">6.2.2</span> Лаба №3-5. Лабы первого семестра [Варинт 4,5,7] </h4>
+<div class="outline-text-4" id="text-6.2.2">
+
+<p>Тема: 3-5
+Номер лабораторной работы: Лабы первого семестра
+Вариант: 4,5,7
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> <span class="done DONE"> DONE</span> Методические пособия и лабораторные практикумы </h2>
+<div class="outline-text-2" id="text-7">
+
+
+</div>
+
+<div id="outline-container-7.1" class="outline-3">
+<h3 id="sec-7.1"><span class="section-number-3">7.1</span> Поля </h3>
+<div class="outline-text-3" id="text-7.1">
+
+<ul>
+<li>
+Заголовок (формируется автоматически)
+</li>
+<li>
+Название (textfield)
+Если есть деление по частям, то не забудьте тут указать и номер части.
+</li>
+<li>
+Авторы (textfield с автодополнением)
+</li>
+<li>
+Издательство (textfield)
+Например: <b>БГУИР</b> или <b>АВЕРСЭВ</b>&hellip;
+</li>
+<li>
+Год издания (textfield)
+</li>
+<li>
+Тип (select с вариантами: Методическое пособие, Учебный план, Лабораторный практикум, Другое)
+</li>
+<li>
+Содержание (textarea)
+</li>
+<li>
+Примечания (textarea)
+Например можно сюда указать для студентов каких факультетов предназначен этот материал.
+</li>
+<li>
+Файлы (прикрепление нескольких файлов с возможностью указать описание для каждого)
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-7.2" class="outline-3">
+<h3 id="sec-7.2"><span class="section-number-3">7.2</span> Заголовки </h3>
+<div class="outline-text-3" id="text-7.2">
+
+
+</div>
+
+<div id="outline-container-7.2.1" class="outline-4">
+<h4 id="sec-7.2.1"><span class="section-number-4">7.2.1</span> История ВОВ. Новик Н.Я, Новик Я.И., БГУИР 2006 (Лаб. практикум) </h4>
+<div class="outline-text-4" id="text-7.2.1">
+
+<p>Название: История ВОВ
+Авторы: Новик Н.Я., Новик Я.И.
+Издательство: БГУИР
+Год: 2006
+Тип: Лабораторный практукум
+</p></div>
+
+</div>
+
+<div id="outline-container-7.2.2" class="outline-4">
+<h4 id="sec-7.2.2"><span class="section-number-4">7.2.2</span> История ВОВ. Новик Н.Я, Новик Я.И., БГУИР 2006 </h4>
+<div class="outline-text-4" id="text-7.2.2">
+
+<p>Название: История ВОВ
+Авторы: Новик Н.Я., Новик Я.И.
+Издательство: БГУИР
+Год: 2006
+Тип: Другое
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> <span class="todo TODO"> TODO</span> Книга </h2>
+<div class="outline-text-2" id="text-8">
+
+
+</div>
+
+<div id="outline-container-8.1" class="outline-3">
+<h3 id="sec-8.1"><span class="section-number-3">8.1</span> Поля </h3>
+<div class="outline-text-3" id="text-8.1">
+
+<ul>
+<li>
+Заголовок (формируется автоматически)
+</li>
+<li>
+Название (textfield)
+Если есть деление по частям, то не забудьте тут указать и номер части.
+</li>
+<li>
+Авторы (textfield с автодополнением)
+</li>
+<li>
+Издательство (textfield)
+Например: <b>БГУИР</b> или <b>АВЕРСЭВ</b>&hellip;
+</li>
+<li>
+Год издания (textfield)
+</li>
+<li>
+Содержание (textarea)
+</li>
+<li>
+Примечания (textarea)
+Например можно сюда указать для студентов каких факультетов предназначен этот материал.
+</li>
+<li>
+Файлы (прикрепление нескольких файлов с возможностью указать описание для каждого)
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-8.2" class="outline-3">
+<h3 id="sec-8.2"><span class="section-number-3">8.2</span> Заголовки </h3>
+<div class="outline-text-3" id="text-8.2">
+
+
+</div>
+
+<div id="outline-container-8.2.1" class="outline-4">
+<h4 id="sec-8.2.1"><span class="section-number-4">8.2.1</span> История ВОВ. Новик Н.Я, Новик Я.И., БГУИР 2006 </h4>
+<div class="outline-text-4" id="text-8.2.1">
+
+<p>Название: История ВОВ
+Авторы: Новик Н.Я., Новик Я.И.
+Издательство: БГУИР
+Год: 2006
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> <span class="done DONE"> DONE</span> Типовые расчеты </h2>
+<div class="outline-text-2" id="text-9">
+
+
+</div>
+
+<div id="outline-container-9.1" class="outline-3">
+<h3 id="sec-9.1"><span class="section-number-3">9.1</span> Поля </h3>
+<div class="outline-text-3" id="text-9.1">
+
+<ul>
+<li>
+Заголовок (формируется автоматически)
+</li>
+<li>
+Тема (textfield)
+</li>
+<li>
+Номер типового расчета (textfield)
+</li>
+<li>
+Вариант (textfield)
+</li>
+<li>
+Описание (textarea)
+Например укажите тут задание или какое-либо примечание
+</li>
+<li>
+Файлы (прикрепление нескольких файлов с возможностью указать описание для каждого)
+Помимо решения тут так же можно прикрепить и задание
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-9.2" class="outline-3">
+<h3 id="sec-9.2"><span class="section-number-3">9.2</span> Заголовки </h3>
+<div class="outline-text-3" id="text-9.2">
+
+
+</div>
+
+<div id="outline-container-9.2.1" class="outline-4">
+<h4 id="sec-9.2.1"><span class="section-number-4">9.2.1</span> ТР №1. Операторный метод расчета цепей. Вариант 2 </h4>
+<div class="outline-text-4" id="text-9.2.1">
+
+<p>Название: Операторный метод расчета цепей
+Номер ТР: 1
+Вариант: 2
+</p></div>
+
+</div>
+
+<div id="outline-container-9.2.2" class="outline-4">
+<h4 id="sec-9.2.2"><span class="section-number-4">9.2.2</span> Операторный метод. Вариант 3 </h4>
+<div class="outline-text-4" id="text-9.2.2">
+
+<p>Название: Операторый метод
+Вариант: 3
+</p></div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> <span class="todo TODO"> TODO</span> Контрольные работы </h2>
+<div class="outline-text-2" id="text-10">
+
+
+</div>
+
+<div id="outline-container-10.1" class="outline-3">
+<h3 id="sec-10.1"><span class="section-number-3">10.1</span> Поля </h3>
+<div class="outline-text-3" id="text-10.1">
+
+<ul>
+<li>
+Заголовок (формируется автоматически)
+</li>
+<li>
+Тема (textfield)
+</li>
+<li>
+Номер контрольной (textfield)
+</li>
+<li>
+Вариант (textfield)
+</li>
+<li>
+Описание (textarea)
+Например укажите тут задание или какое-либо примечание
+</li>
+<li>
+Файлы (прикрепление нескольких файлов с возможностью указать описание для каждого)
+Помимо решения вы тут можете так же прикрепить и задание
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-10.2" class="outline-3">
+<h3 id="sec-10.2"><span class="section-number-3">10.2</span> Заголовки </h3>
+<div class="outline-text-3" id="text-10.2">
+
+
+</div>
+
+<div id="outline-container-10.2.1" class="outline-4">
+<h4 id="sec-10.2.1"><span class="section-number-4">10.2.1</span> КР №2. История развития. Вариант 3 </h4>
+<div class="outline-text-4" id="text-10.2.1">
+
+<p>Тема: История развития
+Номер: 2
+Вариант: 3
+</p></div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> <span class="todo TODO"> TODO</span> Презентации </h2>
+<div class="outline-text-2" id="text-11">
+
+
+</div>
+
+<div id="outline-container-11.1" class="outline-3">
+<h3 id="sec-11.1"><span class="section-number-3">11.1</span> Поля </h3>
+<div class="outline-text-3" id="text-11.1">
+
+<ul>
+<li>
+Название
+</li>
+<li>
+Описание
+</li>
+<li>
+Файлы (несколько файлов с описанием для каждого)
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-12" class="outline-2">
+<h2 id="sec-12"><span class="section-number-2">12</span> <span class="todo TODO"> TODO</span> Прочее </h2>
+<div class="outline-text-2" id="text-12">
+
+
+</div>
+
+<div id="outline-container-12.1" class="outline-3">
+<h3 id="sec-12.1"><span class="section-number-3">12.1</span> Поля </h3>
+<div class="outline-text-3" id="text-12.1">
+
+<ul>
+<li>
+Название (textfield)
+</li>
+<li>
+Описание (textarea)
+</li>
+<li>
+Файлы (несколько файлов с описанием)
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble">
+<p class="author"> Author: Victor Ilyukevich
+<a href="mailto:yas@yas-book.local">&lt;yas@yas-book.local&gt;</a>
+</p>
+<p class="date"> Date: 2010-11-20 13:29:37 EET</p>
+<p class="creator">HTML generated by org-mode 6.33x in emacs 23</p>
+</div>
+</div>
+</body>
+</html>
