@@ -6,8 +6,7 @@ class CreateManuals < ActiveRecord::Migration
       t.string :authors
       t.string :publishing_company
       t.string :year
-      t.string :kind
-      t.text :contents
+      t.text :content
       t.text :description
 
       t.timestamps

@@ -1,6 +1,6 @@
-class CreateBooks < ActiveRecord::Migration
+class CreateLaboratoryPracticals < ActiveRecord::Migration
   def self.up
-    create_table :books do |t|
+    create_table :laboratory_practicals do |t|
       t.string :title
       t.string :name
       t.string :authors
@@ -14,6 +14,6 @@ class CreateBooks < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :books
+    drop_table :laboratory_practicals
   end
 end

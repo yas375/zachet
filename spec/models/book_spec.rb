@@ -7,7 +7,7 @@ describe Book do
                  :authors => "Петров Л.И.",
                  :publishing_company => "БГУИР",
                  :year => "2009",
-                 :contents => "value for contents",
+                 :content => "value for content",
                  :description => "value for description"
                  )
   end

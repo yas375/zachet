@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101115202123) do
+ActiveRecord::Schema.define(:version => 20101120193156) do
 
   create_table "attaches", :force => true do |t|
     t.integer  "container_id",                      :null => false
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20101115202123) do
     t.string   "authors"
     t.string   "publishing_company"
     t.string   "year"
-    t.text     "contents"
+    t.text     "content"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -113,6 +113,18 @@ ActiveRecord::Schema.define(:version => 20101115202123) do
     t.datetime "updated_at"
   end
 
+  create_table "laboratory_practicals", :force => true do |t|
+    t.string   "title"
+    t.string   "name"
+    t.string   "authors"
+    t.string   "publishing_company"
+    t.string   "year"
+    t.text     "content"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "labs", :force => true do |t|
     t.string   "title"
     t.string   "theme"
@@ -129,8 +141,7 @@ ActiveRecord::Schema.define(:version => 20101115202123) do
     t.string   "authors"
     t.string   "publishing_company"
     t.string   "year"
-    t.string   "kind"
-    t.text     "contents"
+    t.text     "content"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
