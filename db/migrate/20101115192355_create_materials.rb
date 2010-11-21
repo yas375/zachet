@@ -2,7 +2,7 @@ class CreateMaterials < ActiveRecord::Migration
   def self.up
     create_table :materials do |t|
       t.string :title
-      t.references :author
+      t.references :created_by
       t.references :discipline
       t.boolean :commented, :default => false
       t.boolean :published, :default => false

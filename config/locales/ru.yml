@@ -13,6 +13,15 @@ ru:
     confirm: Уверен?
     created_at: Создано
     all: Все
+
+  semesters:
+    semester_1: '1ый семестр'
+    semester_2: '2ой семестр'
+    semester_3: '3ий семестр'
+    semester_4: '4ый семестр'
+    semester_5: '5ый семестр'
+    semester_6: '6ой семестр'
+
   activerecord:
     labels:
       title: Название

@@ -11,16 +11,16 @@ describe Lab do
 
   it "should have correct titles" do
     a = Lab.create!(:theme => "Лала", :number => "2", :variant => "3")
-    a.title.should eql('Лаба №2. Лала. [Вариант 3]')
+    a.title.should eql('Лаба №2. Лала. Вариант 3')
 
     a = Lab.create!(:theme => "Лала", :number => "2", :variant => "3,4")
-    a.title.should eql('Лаба №2. Лала. [Вариант 3,4]')
+    a.title.should eql('Лаба №2. Лала. Вариант 3,4')
 
-    a = Lab.create!(:theme => "Лала", :number => "2", :variant => "3-5")
-    a.title.should eql('Лаба №2. Лала. [Вариант 3-5]')
+    a = Lab.create!(:theme => "Лала   ", :number => "2", :variant => "3-5")
+    a.title.should eql('Лаба №2. Лала. Вариант 3-5')
 
     a = Lab.create!(:theme => "Лала", :number => "2-3", :variant => "3")
-    a.title.should eql('Лаба №2-3. Лала. [Вариант 3]')
+    a.title.should eql('Лаба №2-3. Лала. Вариант 3')
 
     a = Lab.create!(:theme => "Лала", :number => "2")
     a.title.should eql('Лаба №2. Лала')
@@ -29,7 +29,7 @@ describe Lab do
     a.title.should eql('Лаба №2. Лала')
 
     a = Lab.create!(:theme => "Лала.", :variant => "3")
-    a.title.should eql('Лала. [Вариант 3]')
+    a.title.should eql('Лала. Вариант 3')
 
     a = Lab.create!(:theme => "Лала")
     a.title.should eql('Лала')

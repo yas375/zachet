@@ -14,13 +14,13 @@ describe GraduateWork do
     a = GraduateWork.create!(:theme => "Лала", :author => "Иванов", :year => "2010")
     a.title.should eql('Лала. Иванов, 2010')
 
-    b= GraduateWork.create!(:theme => "Лала.", :author => "Иванов", :year => "2010")
+    b = GraduateWork.create!(:theme => "Лала.", :author => "Иванов", :year => "2010")
     b.title.should eql('Лала. Иванов, 2010')
 
-    c= GraduateWork.create!(:theme => "Лала", :year => "2010")
+    c = GraduateWork.create!(:theme => "  Лала", :year => "2010  ")
     c.title.should eql('Лала. 2010')
 
-    d= GraduateWork.create!(:theme => "Лала.")
+    d = GraduateWork.create!(:theme => "Лала.", :year => "")
     d.title.should eql('Лала')
   end
 end

@@ -14,11 +14,14 @@ describe TypicalCalculation do
     a = TypicalCalculation.create!(:theme => "Лала", :number => "2", :variant => "1")
     a.title.should eql('ТР №2. Лала. Вариант 1')
 
-    a = TypicalCalculation.create!(:theme => "Лала.", :number => "2", :variant => "1")
+    a = TypicalCalculation.create!(:theme => "  Лала. ", :number => "2", :variant => "1")
     a.title.should eql('ТР №2. Лала. Вариант 1')
 
     a = TypicalCalculation.create!(:theme => "Лала", :variant => "1")
     a.title.should eql('Лала. Вариант 1')
+
+    a = TypicalCalculation.create!(:theme => "  ", :variant => "1")
+    a.title.should eql('Вариант 1')
 
     a = TypicalCalculation.create!(:theme => "Лала", :number => "2")
     a.title.should eql('ТР №2. Лала')
@@ -26,7 +29,7 @@ describe TypicalCalculation do
     a = TypicalCalculation.create!(:theme => "Лала.", :number => "2")
     a.title.should eql('ТР №2. Лала')
 
-    a = TypicalCalculation.create!(:number => "2", :variant => "1")
-    a.title.should eql('ТР №2. Вариант 1')
+    a = TypicalCalculation.create!(:theme => " ", :number => "2")
+    a.title.should eql('ТР №2')
   end
 end

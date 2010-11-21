@@ -149,7 +149,7 @@ ActiveRecord::Schema.define(:version => 20101120193156) do
 
   create_table "materials", :force => true do |t|
     t.string   "title"
-    t.integer  "author_id"
+    t.integer  "created_by_id"
     t.integer  "discipline_id"
     t.boolean  "commented",     :default => false
     t.boolean  "published",     :default => false
