@@ -1,3 +1,6 @@
 [submodule "vendor/plugins/acts_as_visitable"]
 	path = vendor/plugins/acts_as_visitable
 	url = git://github.com/yas375/acts_as_visitable.git
+[submodule "vendor/plugins/acts_as_commentable"]
+	path = vendor/plugins/acts_as_commentable
+	url = git@github.com:yas375/acts_as_commentable.git

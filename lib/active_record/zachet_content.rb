@@ -8,6 +8,8 @@ module ActiveRecord
 
     module ClassMethods
       def acts_as_zachet_content
+        acts_as_commentable
+
         has_many :attaches, :dependent => :destroy, :as => :container
         accepts_nested_attributes_for :attaches
 

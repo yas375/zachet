@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101120193156) do
+ActiveRecord::Schema.define(:version => 20101208204249) do
 
   create_table "attaches", :force => true do |t|
     t.integer  "container_id",                      :null => false
@@ -37,6 +37,18 @@ ActiveRecord::Schema.define(:version => 20101120193156) do
     t.string   "subdomain"
     t.string   "abbr"
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "comments", :force => true do |t|
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.text     "text"
+    t.integer  "author_id"
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

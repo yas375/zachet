@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 class Newsitem < ActiveRecord::Base
   acts_as_visitable
+  acts_as_commentable
+
   belongs_to :author, :class_name => 'User'
   validates_presence_of :title, :body, :teaser
 
