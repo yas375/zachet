@@ -320,6 +320,7 @@ namespace :drupal do
         set_primary_key "nid"
         has_one :counter, :foreign_key => :nid, :class_name => 'DrupalNodeCount'
         has_many :drupal_node_revisions, :foreign_key => :nid
+        has_many :comments, :class_name => 'DrupalComment', :foreign_key => :nid
       end
 
       class DrupalNodeRevision < DrupalConnect
@@ -330,6 +331,36 @@ namespace :drupal do
       class DrupalNodeCount < DrupalConnect
         set_table_name "node_counter"
       end
+
+      class DrupalComment < DrupalConnect
+        set_table_name "comments"
+        set_primary_key "cid"
+        belongs_to :drupal_node
+        has_many :children, :class_name => 'DrupalComment', :foreign_key => :pid
+      end
+
+      def save_comment_with_children(comment, commentable, parent = nil)
+        @anonym ||= User.first(:conditions => ['login=?', 'anonym'])
+
+        new_comment = Comment.new
+        new_comment.commentable = commentable
+        new_comment.parent = parent || commentable.comments.root
+        new_comment.text = comment.comment
+        new_comment.author = User.first(:conditions => ['drupal_uid = ?', comment.uid]) || @anonym
+        new_comment.created_at = Time.at(comment.timestamp)
+        new_comment.updated_at = Time.at(comment.timestamp)
+
+        if new_comment.save
+          # save children
+          comment.children.each do |child|
+            save_comment_with_children(child, commentable, new_comment)
+          end
+        else
+          puts "Не удалось сохранить ответ #{comment.cid} для #{commentable.id}"
+          puts new_comment.errors.to_a.collect { |e| e.join(": ") }.join("\n")
+        end
+      end
+
 
       DrupalNode.inheritance_column = nil
       newsitems = DrupalNode.all(:conditions => {:type => 'news'})
@@ -363,7 +394,13 @@ namespace :drupal do
                                                    :updated_at => Time.at(drupal_newsitem.counter.timestamp)})
           VisitsCounter.record_timestamps = true
 
-
+          # comments
+          comments = drupal_newsitem.comments.all(:order => 'timestamp', :conditions => {:pid => 0})
+          if comments
+            comments.each do |comment|
+              save_comment_with_children(comment, newsitem)
+            end
+          end
         else
           error_counter += 1
           puts "Ошибка с # #{drupal_newsitem.nid} #{drupal_newsitem.title}"
