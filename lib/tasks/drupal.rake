@@ -767,7 +767,7 @@ namespace :drupal do
       end
 
       def present_and_not_empty(value)
-        value.present? && value != '<p>&nbsp;</p>' && value != '<P> </P>'
+        value.present? && !['<p>&nbsp;</p>', '<P> </P>', '<P><BR> </P>', '<P> </P>'].include?(value)
       end
 
       def get_details(node, params = {}, options = {})
@@ -822,6 +822,17 @@ namespace :drupal do
           end
         when "shpory"
         when "tr"
+          data = TypicalCalculation.new
+          data.theme = node.title
+          data.variant = ''
+          puts "<<<"
+          puts node.title
+          puts node.revision.body.inspect
+          puts present_and_not_empty(node.revision.body).to_yaml
+          puts ">>>"
+          data.description = node.revision.body if present_and_not_empty(node.revision.body)
+          details = get_details(node, :variant => 'variant')
+          data.variant = details['variant'] if details
         when "voprosy"
           data = Other.new
           data.title = node.title
@@ -846,7 +857,7 @@ namespace :drupal do
       @bsuir = College.first(:conditions => {:subdomain => 'bsuir'})
 
       DrupalNode.inheritance_column = nil
-      drupal_contents = DrupalNode.all(:conditions => ["type IN ('voprosy', 'other', 'konspekt')"], :include => :revision)
+      drupal_contents = DrupalNode.all(:conditions => ["type IN ('voprosy', 'other', 'konspekt', 'tr')"], :include => :revision)
 
       Material.record_timestamps = false
       drupal_contents.each do |node|
