@@ -825,11 +825,6 @@ namespace :drupal do
           data = TypicalCalculation.new
           data.theme = node.title
           data.variant = ''
-          puts "<<<"
-          puts node.title
-          puts node.revision.body.inspect
-          puts present_and_not_empty(node.revision.body).to_yaml
-          puts ">>>"
           data.description = node.revision.body if present_and_not_empty(node.revision.body)
           details = get_details(node, :variant => 'variant')
           data.variant = details['variant'] if details
