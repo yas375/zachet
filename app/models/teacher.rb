@@ -1,4 +1,6 @@
 class Teacher < ActiveRecord::Base
+  acts_as_visitable
+
   belongs_to :author, :class_name => 'User'
 
   validates_presence_of :last_name

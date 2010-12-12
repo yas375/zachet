@@ -428,6 +428,7 @@ namespace :drupal do
         set_table_name "node"
         set_primary_key "nid"
         has_many :drupal_node_revisions, :foreign_key => :nid
+        has_one :counter, :foreign_key => :nid, :class_name => 'DrupalNodeCount'
       end
 
       class DrupalNodeRevision < DrupalConnect
@@ -469,6 +470,9 @@ namespace :drupal do
         belongs_to :drupal_node_revision
       end
 
+      class DrupalNodeCount < DrupalConnect
+        set_table_name "node_counter"
+      end
 
       DrupalNode.inheritance_column = nil
       teachers = DrupalNode.all(:conditions => {:type => 'lecturer'})
@@ -531,6 +535,13 @@ namespace :drupal do
             puts "Не удалось сохранить работу у nid #{drupal_teacher.nid}"
             puts job.errors.to_a.collect { |e| e.join(": ") }.join("\n")
           end
+
+          # views counter
+          teacher.reload
+          VisitsCounter.record_timestamps = false
+          teacher.visits_counter.update_attributes({:count => drupal_teacher.counter.totalcount,
+                                                     :updated_at => Time.at(drupal_teacher.counter.timestamp)})
+          VisitsCounter.record_timestamps = true
         else
           error_counter += 1
           puts "Ошибка с # #{drupal_teacher.nid} #{drupal_teacher.title}"

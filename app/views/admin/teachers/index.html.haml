@@ -12,12 +12,14 @@
       %tr
         %th ФИО
         %th Где работает
+        %th Просмотров
         %th.last
           \&nbsp;
       - @teachers.each do |teacher|
         %tr{ :class => cycle("odd", "even") }
           %td= link_to teacher.name, admin_teacher_path(teacher)
           %td= teacher.colleges.collect(&:abbr).join(', ')
+          %td= teacher.visits
           %td.last
             = link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_admin_teacher_path(teacher)
             |
