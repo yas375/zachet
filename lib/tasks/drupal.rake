@@ -428,6 +428,7 @@ namespace :drupal do
         set_primary_key "nid"
         has_many :drupal_node_revisions, :foreign_key => :nid
         has_one :counter, :foreign_key => :nid, :class_name => 'DrupalNodeCount'
+        has_many :comments, :class_name => 'DrupalComment', :foreign_key => :nid
       end
 
       class DrupalNodeRevision < DrupalConnect
@@ -471,6 +472,13 @@ namespace :drupal do
 
       class DrupalNodeCount < DrupalConnect
         set_table_name "node_counter"
+      end
+
+      class DrupalComment < DrupalConnect
+        set_table_name "comments"
+        set_primary_key "cid"
+        belongs_to :drupal_node
+        has_many :children, :class_name => 'DrupalComment', :foreign_key => :pid
       end
 
       DrupalNode.inheritance_column = nil
@@ -541,6 +549,14 @@ namespace :drupal do
           teacher.visits_counter.update_attributes({:count => drupal_teacher.counter.totalcount,
                                                      :updated_at => Time.at(drupal_teacher.counter.timestamp)})
           VisitsCounter.record_timestamps = true
+
+          # comments
+          comments = drupal_teacher.comments.all(:order => 'timestamp', :conditions => {:pid => 0})
+          if comments
+            comments.each do |comment|
+              save_comment_with_children(comment, teacher)
+            end
+          end
         else
           error_counter += 1
           puts "Ошибка с # #{drupal_teacher.nid} #{drupal_teacher.title}"

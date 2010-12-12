@@ -13,6 +13,7 @@
         %th ФИО
         %th Где работает
         %th Просмотров
+        %th Мнений
         %th.last
           \&nbsp;
       - @teachers.each do |teacher|
@@ -20,6 +21,7 @@
           %td= link_to teacher.name, admin_teacher_path(teacher)
           %td= teacher.colleges.collect(&:abbr).join(', ')
           %td= teacher.visits
+          %td= teacher.comments.root.descendants.count
           %td.last
             = link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_admin_teacher_path(teacher)
             |
