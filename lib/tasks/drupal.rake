@@ -108,6 +108,8 @@ namespace :drupal do
       Rake::Task["drupal:import:teachers"].execute
       puts "\n\t=== Импортируется форум === \n"
       Rake::Task["drupal:import:forum"].execute
+      puts "\n\t=== Импортируется контент === \n"
+      Rake::Task["drupal:import:content"].execute
     end
 
     desc "Import users from drupal database"
