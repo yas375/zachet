@@ -2,6 +2,28 @@
 require 'yaml'
 drupal_settings = YAML.load_file('config/drupal.yml')
 
+def save_comment_with_children(comment, commentable, parent = nil)
+  @anonym ||= User.first(:conditions => ['login=?', 'anonym'])
+
+  new_comment = Comment.new
+  new_comment.commentable = commentable
+  new_comment.parent = parent || commentable.comments.root
+  new_comment.text = comment.comment
+  new_comment.author = User.first(:conditions => ['drupal_uid = ?', comment.uid]) || @anonym
+  new_comment.created_at = Time.at(comment.timestamp)
+  new_comment.updated_at = Time.at(comment.timestamp)
+
+  if new_comment.save
+    # save children
+    comment.children.each do |child|
+      save_comment_with_children(child, commentable, new_comment)
+    end
+  else
+    puts "Не удалось сохранить ответ #{comment.cid} для #{commentable.id}"
+    puts new_comment.errors.to_a.collect { |e| e.join(": ") }.join("\n")
+  end
+end
+
 namespace :drupal do
   desc "Get db from remote drupal site and save it to file"
   task :get_db do
@@ -338,29 +360,6 @@ namespace :drupal do
         belongs_to :drupal_node
         has_many :children, :class_name => 'DrupalComment', :foreign_key => :pid
       end
-
-      def save_comment_with_children(comment, commentable, parent = nil)
-        @anonym ||= User.first(:conditions => ['login=?', 'anonym'])
-
-        new_comment = Comment.new
-        new_comment.commentable = commentable
-        new_comment.parent = parent || commentable.comments.root
-        new_comment.text = comment.comment
-        new_comment.author = User.first(:conditions => ['drupal_uid = ?', comment.uid]) || @anonym
-        new_comment.created_at = Time.at(comment.timestamp)
-        new_comment.updated_at = Time.at(comment.timestamp)
-
-        if new_comment.save
-          # save children
-          comment.children.each do |child|
-            save_comment_with_children(child, commentable, new_comment)
-          end
-        else
-          puts "Не удалось сохранить ответ #{comment.cid} для #{commentable.id}"
-          puts new_comment.errors.to_a.collect { |e| e.join(": ") }.join("\n")
-        end
-      end
-
 
       DrupalNode.inheritance_column = nil
       newsitems = DrupalNode.all(:conditions => {:type => 'news'})
