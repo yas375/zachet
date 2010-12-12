@@ -710,5 +710,140 @@ namespace :drupal do
         end
       end# first_level.each do |forum_1|
     end# drupal:import:forum
+
+    desc "Import content from drupal database"
+    task :content => :environment do
+      class DrupalConnect < ActiveRecord::Base
+        drupal_settings = YAML.load_file('config/drupal.yml')
+        establish_connection(
+          :adapter  => "mysql",
+          :host     => drupal_settings['database']['host'],
+          :username => drupal_settings['database']['user'],
+          :password => drupal_settings['database']['pass'],
+          :database => drupal_settings['database']['db'],
+          :encoding => "utf8"
+        )
+      end
+
+      class DrupalNode < DrupalConnect
+        set_table_name "node"
+        set_primary_key "nid"
+        has_one :revision, :class_name => 'DrupalNodeRevision', :primary_key => :vid, :foreign_key => :vid
+        has_one :counter, :foreign_key => :nid, :class_name => 'DrupalNodeCount'
+        has_many :comments, :class_name => 'DrupalComment', :foreign_key => :nid
+      end
+
+      class DrupalNodeRevision < DrupalConnect
+        set_table_name "node_revisions"
+        set_primary_key "vid"
+        belongs_to :drupal_node, :foreign_key => :nid
+        has_one :drupal_content_field_predmet, :foreign_key => :vid
+        has_one :discipline, :through => :drupal_content_field_predmet
+      end
+
+      class DrupalNodeCount < DrupalConnect
+        set_table_name "node_counter"
+      end
+
+      class DrupalComment < DrupalConnect
+        set_table_name "comments"
+        set_primary_key "cid"
+        belongs_to :drupal_node
+        has_many :children, :class_name => 'DrupalComment', :foreign_key => :pid
+      end
+
+      class DrupalContentFieldPredmet < DrupalConnect
+        set_table_name "content_field_predmet"
+        belongs_to :drupal_node_revision
+        belongs_to :discipline, :class_name => 'DrupalDiscipline', :foreign_key => 'field_predmet_value', :primary_key => 'tid'
+      end
+
+      class DrupalDiscipline < DrupalConnect
+        set_table_name "term_data"
+        set_primary_key "tid"
+        default_scope :conditions => {:vid => 2}
+      end
+
+      def present_and_not_empty(value)
+        value.present? && value != '<p>&nbsp;</p>'
+      end
+
+      def content_data(node)
+        case node.type
+        when "konspekt"
+        when "laby"
+        when "metody"
+        when "other"
+        when "shpory"
+        when "tr"
+        when "voprosy"
+          data = Other.new
+          data.title = node.title
+          sql = ''.tap do |s|
+            s << "SELECT node_revisions.*, content_field_prim.field_prim_value as primechanie, content_field_text.field_text_value AS list_of_questions "
+            s << "FROM `node_revisions` "
+            s << "INNER JOIN `content_field_prim` ON node_revisions.vid = content_field_prim.vid "
+            s << "INNER JOIN `content_field_text` ON node_revisions.vid = content_field_text.vid "
+            s << "WHERE node_revisions.vid = #{node.revision.vid}"
+          end
+          details = DrupalNode.find_by_sql(sql).first
+          if details
+            data.description = ''.tap do |b|
+              b << details['list_of_questions'] if present_and_not_empty(details['list_of_questions'])
+              if present_and_not_empty(details['primechanie'])
+                b << "<hr />"
+                b << details['primechanie']
+              end
+            end
+          end
+        end
+
+        data.created_at = Time.at(node.created)
+        data.updated_at = Time.at(node.changed)
+
+        data
+      end
+
+      @bsuir = College.first(:conditions => {:subdomain => 'bsuir'})
+
+      DrupalNode.inheritance_column = nil
+      drupal_contents = DrupalNode.all(:conditions => {:type => 'voprosy'}, :include => :revision)
+
+      # TODO remove destroying of all materials
+      Material.destroy_all
+
+      Material.record_timestamps = false
+      drupal_contents.each do |node|
+        material = Material.new
+        material.created_by = User.first(:conditions => ['drupal_uid = ?', node.uid]) || anonym
+        material.discipline = Discipline.first(:conditions => {:drupal_tid => node.revision.discipline.tid})
+        material.commented = (node.comment > 0)
+        material.published = node.status
+        material.created_at = Time.at(node.created)
+
+        material.data = content_data(node)
+
+        if material.save!
+          material.title # to prevent updating updated_at when title will be firstly requested
+          material.update_attribute(:updated_at, Time.at(node.changed))
+
+          # views counter
+          material.reload
+          VisitsCounter.record_timestamps = false
+          material.visits_counter.update_attributes({:count => node.counter.totalcount,
+                                                   :updated_at => Time.at(node.counter.timestamp)})
+          VisitsCounter.record_timestamps = true
+
+          # comments
+          comments = node.comments.all(:order => 'timestamp', :conditions => {:pid => 0})
+          if comments
+            comments.each do |comment|
+              save_comment_with_children(comment, material)
+            end
+          end
+        end #if material.save!
+      end
+      Material.record_timestamps = true
+    end# drupal:import:content
   end# drupal:import
 end# drupal

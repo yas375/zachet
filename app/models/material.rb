@@ -1,7 +1,10 @@
 class Material < ActiveRecord::Base
+  acts_as_visitable
+  acts_as_commentable
+
   belongs_to :created_by, :class_name => 'User'
   belongs_to :discipline
-  belongs_to :data, :polymorphic => true
+  belongs_to :data, :polymorphic => true, :dependent => :destroy
 
   has_one :college, :through => :discipline
 
