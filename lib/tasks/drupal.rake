@@ -765,28 +765,65 @@ namespace :drupal do
       end
 
       def present_and_not_empty(value)
-        value.present? && value != '<p>&nbsp;</p>'
+        value.present? && value != '<p>&nbsp;</p>' && value != '<P> </P>'
+      end
+
+      def get_details(node, params = {}, options = {})
+        selects = []
+        joins = []
+        where = "WHERE node_revisions.vid = #{node.revision.vid}"
+
+        params.each do |param|
+          selects << "content_field_#{param[0].to_s}.field_#{param[0].to_s}_value as #{param[1]}"
+          joins << "INNER JOIN `content_field_#{param[0].to_s}` ON node_revisions.vid = content_field_#{param[0].to_s}.vid"
+        end
+        selects << options[:select] if options[:select]
+        joins << options[:join] if options[:join]
+        DrupalNode.find_by_sql("SELECT #{selects.join(', ')} FROM node_revisions #{joins.join(' ')} #{where}").first
+      end
+
+      def correct_semester(value = nil)
+        @possible_semesters ||= {
+          '1ый семестр' => :semester_1, '2ой семестр' => :semester_2, '3ий семестр' => :semester_3,
+          '4ый семестр' => :semester_4, '5ый семестр' => :semester_5, '6ой семестр' => :semester_6
+        }
+        @possible_semesters[value]
       end
 
       def content_data(node)
         case node.type
         when "konspekt"
+          data = Synopsis.new
+          details = get_details(node,
+                                {:name => 'name', :prepod => 'prepod', :sem => 'sem', :text => 'primechanie'},
+                                {:select => 'content_type_konspekt.field_year_value AS year', :join => 'INNER JOIN content_type_konspekt ON node_revisions.vid = content_type_konspekt.vid'})
+          if details
+            data.name = details['name']
+            data.teacher = details['prepod']
+            data.semester = correct_semester(details['sem'])
+            data.year = details['year']
+            data.description = details['primechanie'] if present_and_not_empty(details['primechanie'])
+          end
         when "laby"
         when "metody"
         when "other"
+          data = Other.new
+          data.title = node.title
+          details = get_details(node, :primechanie => 'primechanie')
+          if details
+            data.description = ''.tap do |b|
+              if present_and_not_empty(details['primechanie'])
+                b << "<hr />"
+                b << details['primechanie']
+              end
+            end
+          end
         when "shpory"
         when "tr"
         when "voprosy"
           data = Other.new
           data.title = node.title
-          sql = ''.tap do |s|
-            s << "SELECT node_revisions.*, content_field_prim.field_prim_value as primechanie, content_field_text.field_text_value AS list_of_questions "
-            s << "FROM `node_revisions` "
-            s << "INNER JOIN `content_field_prim` ON node_revisions.vid = content_field_prim.vid "
-            s << "INNER JOIN `content_field_text` ON node_revisions.vid = content_field_text.vid "
-            s << "WHERE node_revisions.vid = #{node.revision.vid}"
-          end
-          details = DrupalNode.find_by_sql(sql).first
+          details = get_details(node, :prim => 'primechanie', :text => 'list_of_questions')
           if details
             data.description = ''.tap do |b|
               b << details['list_of_questions'] if present_and_not_empty(details['list_of_questions'])
@@ -807,15 +844,12 @@ namespace :drupal do
       @bsuir = College.first(:conditions => {:subdomain => 'bsuir'})
 
       DrupalNode.inheritance_column = nil
-      drupal_contents = DrupalNode.all(:conditions => {:type => 'voprosy'}, :include => :revision)
-
-      # TODO remove destroying of all materials
-      Material.destroy_all
+      drupal_contents = DrupalNode.all(:conditions => ["type IN ('voprosy', 'other', 'konspekt')"], :include => :revision)
 
       Material.record_timestamps = false
       drupal_contents.each do |node|
         material = Material.new
-        material.created_by = User.first(:conditions => ['drupal_uid = ?', node.uid]) || anonym
+        material.created_by = User.first(:conditions => ['drupal_uid = ?', node.uid])
         material.discipline = Discipline.first(:conditions => {:drupal_tid => node.revision.discipline.tid})
         material.commented = (node.comment > 0)
         material.published = node.status
@@ -841,7 +875,7 @@ namespace :drupal do
               save_comment_with_children(comment, material)
             end
           end
-        end #if material.save!
+        end# if material.save!
       end
       Material.record_timestamps = true
     end# drupal:import:content
