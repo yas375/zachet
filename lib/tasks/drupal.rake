@@ -730,6 +730,9 @@ namespace :drupal do
       class DrupalNode < DrupalConnect
         set_table_name "node"
         set_primary_key "nid"
+        default_scope(:joins => "LEFT JOIN `content_field_missing_file` ON content_field_missing_file.vid = node.vid",
+                      :conditions => ['content_field_missing_file.field_missing_file_value IS NULL OR  content_field_missing_file.field_missing_file_value <> ?', 'да'])
+
         has_one :revision, :class_name => 'DrupalNodeRevision', :primary_key => :vid, :foreign_key => :vid
         has_one :counter, :foreign_key => :nid, :class_name => 'DrupalNodeCount'
         has_many :comments, :class_name => 'DrupalComment', :foreign_key => :nid
