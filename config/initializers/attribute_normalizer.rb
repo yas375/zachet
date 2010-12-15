@@ -1,6 +1,6 @@
 AttributeNormalizer.configure do |config|
   config.normalizers[:without_dot] = lambda do |value, options|
-    value.sub(/\.$/, '')
+    value.sub(/\.$/, '') if value.present?
   end
 
   # The default normalizers if no :with option or block is given is to apply the :strip and :blank normalizers (in that order).
