@@ -810,6 +810,27 @@ namespace :drupal do
             data.description = details['primechanie'] if present_and_not_empty(details['primechanie'])
           end
         when "laby"
+          data = Lab.new
+          details = get_details(node,
+                                { :name => 'theme',
+                                  :variant => 'variant', :reshenie_text => 'reshenie'},
+                                { :select => 'content_type_laby.field_nomer_value AS number, content_type_laby.field_zadanie_text_value AS zadanie',
+                                  :join => 'INNER JOIN content_type_laby ON node_revisions.vid = content_type_laby.vid'})
+          if details
+            data.theme = details['theme']
+            data.number = details['number']
+            data.variant =  details['variant']
+            data.description = ''.tap do |d|
+              if present_and_not_empty(details['zadanie'])
+                d << "<h3>Задание</h3>" if present_and_not_empty(details['reshenie'])
+                d << details['zadanie']
+              end
+              if present_and_not_empty(details['reshenie'])
+                d << "<h3>Решение</h3>" if d.present?
+                d << details['reshenie']
+              end
+            end
+          end
         when "metody"
         when "other"
           data = Other.new
@@ -844,18 +865,16 @@ namespace :drupal do
               end
             end
           end
-        end
-
+        end# case
         data.created_at = Time.at(node.created)
         data.updated_at = Time.at(node.changed)
-
         data
       end
 
       @bsuir = College.first(:conditions => {:subdomain => 'bsuir'})
 
       DrupalNode.inheritance_column = nil
-      drupal_contents = DrupalNode.all(:conditions => ["type IN ('voprosy', 'other', 'konspekt', 'tr')"], :include => :revision)
+      drupal_contents = DrupalNode.all(:conditions => ["type IN ('voprosy', 'other', 'konspekt', 'tr', 'laby')"], :include => :revision)
 
       Material.record_timestamps = false
       drupal_contents.each do |node|
