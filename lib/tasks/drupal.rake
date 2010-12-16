@@ -832,6 +832,36 @@ namespace :drupal do
             end
           end
         when "metody"
+          details = get_details(node,
+                                { :name => 'name', :primechanie => 'primechanie', :prim => 'content' },
+                                { :select => 'ctm.field_publish_year_value AS year, ctm.field_type_value AS type, ctm.field_izdatelstvo_value AS publisher, ctm.field_avtor_value AS authors',
+                                  :join => 'INNER JOIN content_type_metody AS ctm ON node_revisions.vid = ctm.vid'})
+          if details
+            case details['type']
+            when 'Методическое пособие', 'Лабораторный практикум', 'Книга'
+              data = case details['type']
+                     when 'Методическое пособие' then Manual.new
+                     when 'Лабораторный практикум' then LaboratoryPractical.new
+                     when 'Книга' then Book.new
+                     end
+              data.name = details['name']
+              data.authors = details['authors']
+              data.publishing_company = details['publisher']
+              data.year = details['year']
+              data.content = details['content']
+              data.description = details['description']
+            when 'План', 'Другое'
+              data = Other.new
+              data.title = node.title
+              data.description = ''.tap do |b|
+                b << details['content'] if present_and_not_empty(details['content'])
+                if present_and_not_empty(details['primechanie'])
+                  b << "<hr />" if b.present?
+                  b << details['primechanie']
+                end
+              end
+            end
+          end
         when "other"
           data = Other.new
           data.title = node.title
@@ -888,7 +918,7 @@ namespace :drupal do
       @bsuir = College.first(:conditions => {:subdomain => 'bsuir'})
 
       DrupalNode.inheritance_column = nil
-      drupal_contents = DrupalNode.all(:conditions => ["type IN ('voprosy', 'other', 'konspekt', 'tr', 'laby', 'shpory')"], :include => :revision)
+      drupal_contents = DrupalNode.all(:conditions => ["type IN ('voprosy', 'other', 'konspekt', 'tr', 'laby', 'shpory', 'metody')"], :include => :revision)
 
       Material.record_timestamps = false
       drupal_contents.each do |node|
