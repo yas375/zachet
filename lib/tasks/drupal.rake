@@ -845,6 +845,20 @@ namespace :drupal do
             end
           end
         when "shpory"
+          data = Crib.new
+          details = get_details(node,
+                                { :name => 'name', :prim => 'primechanie', :prepod => 'prepod', :sem => 'sem', :text => 'list_of_questions' },
+                                { :select => 'content_type_shpory.field_questions_count_value AS number_of_questions, content_type_shpory.field_done_questions_value AS number_of_questions_with_answers',
+                                  :join => 'INNER JOIN content_type_shpory ON node_revisions.vid = content_type_shpory.vid'})
+          if details
+            data.name = details['name']
+            data.teacher = details['prepod']
+            data.semester = correct_semester(details['sem'])
+            data.number_of_questions = details['number_of_questions']
+            data.number_of_questions_with_answers = details['number_of_questions_with_answers']
+            data.questions = details['list_of_questions'] if present_and_not_empty(details['list_of_questions'])
+            data.description = details['primechanie'] if present_and_not_empty(details['primechanie'])
+          end
         when "tr"
           data = TypicalCalculation.new
           data.theme = node.title
@@ -874,7 +888,7 @@ namespace :drupal do
       @bsuir = College.first(:conditions => {:subdomain => 'bsuir'})
 
       DrupalNode.inheritance_column = nil
-      drupal_contents = DrupalNode.all(:conditions => ["type IN ('voprosy', 'other', 'konspekt', 'tr', 'laby')"], :include => :revision)
+      drupal_contents = DrupalNode.all(:conditions => ["type IN ('voprosy', 'other', 'konspekt', 'tr', 'laby', 'shpory')"], :include => :revision)
 
       Material.record_timestamps = false
       drupal_contents.each do |node|
