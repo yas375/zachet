@@ -8,6 +8,9 @@ class Material < ActiveRecord::Base
 
   has_one :college, :through => :discipline
 
+  has_many :attaches, :dependent => :destroy, :as => :container
+  accepts_nested_attributes_for :attaches
+
   validates_presence_of :discipline, :created_by
 
   named_scope :find_by_college, lambda { |college|

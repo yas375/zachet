@@ -10,9 +10,6 @@ module ActiveRecord
       def acts_as_zachet_content
         acts_as_commentable
 
-        has_many :attaches, :dependent => :destroy, :as => :container
-        accepts_nested_attributes_for :attaches
-
         has_one :material, :as => :data
         has_one :discipline, :through => :material
         has_one :created_by, :through => :material

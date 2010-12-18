@@ -4,7 +4,7 @@ class Attach < ActiveRecord::Base
   has_attached_file :file
 
   validates_attachment_presence :file
-  validates_attachment_size :file, :less_than => 20.megabytes
+  validates_attachment_size :file, :less_than => 100.megabytes
 
   def name
     return description if description.present?

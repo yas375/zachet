@@ -715,6 +715,8 @@ namespace :drupal do
 
     desc "Import content from drupal database"
     task :content => :environment do
+      require 'php_serialize'
+
       class DrupalConnect < ActiveRecord::Base
         drupal_settings = YAML.load_file('config/drupal.yml')
         establish_connection(
@@ -744,6 +746,11 @@ namespace :drupal do
         belongs_to :drupal_node, :foreign_key => :nid
         has_one :drupal_content_field_predmet, :foreign_key => :vid
         has_one :discipline, :through => :drupal_content_field_predmet
+
+        has_many :reshenies, :class_name => 'DrupalContentFieldReshenieFile', :foreign_key => :vid
+        has_many :zadanies, :class_name => 'DrupalContentFieldZadanieFile', :foreign_key => :vid
+        has_many :konspekts, :class_name => 'DrupalContentFieldKonspekt', :foreign_key => :vid
+        has_many :uploads, :class_name => 'Upload', :foreign_key => :vid
       end
 
       class DrupalNodeCount < DrupalConnect
@@ -768,6 +775,52 @@ namespace :drupal do
         set_primary_key "tid"
         default_scope :conditions => {:vid => 2}
       end
+
+      class DrupalContentFieldReshenieFile < DrupalConnect
+        set_table_name "content_field_reshenie_file"
+        set_primary_key 'field_reshenie_file_fid'
+        default_scope :conditions => 'field_reshenie_file_fid IS NOT NULL'
+        has_one :file, :class_name => 'DrupalFile', :foreign_key => :fid
+        def description
+          descr = PHP.unserialize(field_reshenie_file_data)['description']
+          (descr.present?) ? descr : nil
+        end
+      end
+
+      class DrupalContentFieldZadanieFile < DrupalConnect
+        set_table_name "content_field_zadanie_file"
+        set_primary_key 'field_zadanie_file_fid'
+        default_scope :conditions => 'field_zadanie_file_fid IS NOT NULL'
+        has_one :file, :class_name => 'DrupalFile', :foreign_key => :fid
+        def description
+          descr = PHP.unserialize(field_zadanie_file_data)['description']
+          (descr.present?) ? descr : nil
+        end
+      end
+
+      class DrupalContentFieldKonspekt < DrupalConnect
+        set_table_name "content_field_konspekt"
+        set_primary_key 'field_konspekt_fid'
+        default_scope :conditions => 'field_konspekt_fid IS NOT NULL'
+        has_one :file, :class_name => 'DrupalFile', :foreign_key => :fid
+        def description
+          descr = PHP.unserialize(field_konspekt_data)['description']
+          (descr.present?) ? descr : nil
+        end
+      end
+
+      class DrupalUpload < DrupalConnect
+        set_table_name "upload"
+        set_primary_key 'fid'
+        has_one :file, :class_name => 'DrupalFile', :foreign_key => :fid
+      end
+
+
+      class DrupalFile < DrupalConnect
+        set_table_name "files"
+        set_primary_key "fid"
+      end
+
 
       def present_and_not_empty(value)
         value.present? && !['<p>&nbsp;</p>', '<P> </P>', '<P><BR> </P>', '<P> </P>'].include?(value)
@@ -931,7 +984,28 @@ namespace :drupal do
 
         material.data = content_data(node)
 
-        if material.save!
+        # add files
+        files = []
+
+        if ['voprosy', 'konspekt', 'metody', 'other']
+          files += node.revision.konspekts.collect { |k| [k.file.filepath, k.description] }
+        elsif ['laby', 'shpory']
+          files += node.revision.reshenies.collect { |k| [k.file.filepath, k.description] }
+        elsif ['laby']
+          files += node.revision.zadanies.collect { |k| [k.file.filepath, k.description] }
+        elsif ['tr', 'metody']
+          files += node.revision.uploads.collect { |k| [k.file.filepath, k.description] }
+        end
+
+        files.each do |file|
+          filepath = file[0].sub(/sites\/default\/files/, 'tmp/drupal_files')
+          description = nil
+          if File.exist?(filepath)
+            material.attaches.build(:file => File.open(filepath), :description => file[1])
+          end
+        end
+
+        if material.save
           material.title # to prevent updating updated_at when title will be firstly requested
           material.update_attribute(:updated_at, Time.at(node.changed))
 
@@ -949,6 +1023,9 @@ namespace :drupal do
               save_comment_with_children(comment, material)
             end
           end
+        else
+          puts "Не удалось сохранить материал с nid #{node.nid} (#{node.title})"
+          puts material.errors.to_a.collect { |e| e.join(": ") }.join("\n")
         end# if material.save!
       end
       Material.record_timestamps = true
