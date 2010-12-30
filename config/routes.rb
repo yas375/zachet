@@ -49,4 +49,6 @@ ActionController::Routing::Routes.draw do |map|
     main.root :controller => "home"
     main.resources :newsitems, :only => [:index, :show], :as => 'news'
   end
+
+  map.resource :downloads, :only => :show
 end
