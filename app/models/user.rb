@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_many :topics, :dependent => :nullify, :foreign_key => 'author_id'
   has_many :posts, :dependent => :nullify, :foreign_key => 'author_id'
   has_many :comments, :dependent => :nullify, :foreign_key => 'author_id'
+  has_many :visits, :class_name => 'VisitsLog', :dependent => :nullify
 
   symbolize :gender, :in => [:female, :male, :parquet], :allow_nil => true
 

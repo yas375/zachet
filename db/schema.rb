@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101208204249) do
+ActiveRecord::Schema.define(:version => 20110107105230) do
 
   create_table "attaches", :force => true do |t|
     t.integer  "container_id",                      :null => false
@@ -345,6 +345,14 @@ ActiveRecord::Schema.define(:version => 20101208204249) do
     t.integer  "visitable_id"
     t.string   "visitable_type"
     t.integer  "count",          :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "visits_logs", :force => true do |t|
+    t.integer  "loggable_id"
+    t.string   "loggable_type"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

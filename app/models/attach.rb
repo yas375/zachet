@@ -1,4 +1,6 @@
 class Attach < ActiveRecord::Base
+  acts_as_visitable :full_log => true
+
   belongs_to :container, :polymorphic => true
 
   has_attached_file(:file,
