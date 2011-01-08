@@ -13,6 +13,22 @@ Factory.sequence :name do |x|
   Faker::Lorem.sentence[3, 5] + " #{x}"
 end
 
+Factory.sequence :login do |x|
+  Faker::Internet.user_name("user#{x}")
+end
+
+Factory.sequence :email do |x|
+  Faker::Internet.email("asd#{x}")
+end
+
+#---------------------------------------------------------------------
+Factory.define :user do |f|
+  f.email                 { Factory.next(:email) }
+  f.login                 { Factory.next(:login) }
+  f.password              "password"
+  f.password_confirmation "password"
+  f.active                true
+end
 #---------------------------------------------------------------------
 Factory.define :college do |f|
   f.subdomain { Factory.next(:subdomain) }
@@ -57,24 +73,26 @@ Factory.define :teacher_subject do |f|
   f.teacher_job     { |a| a.association(:teacher_job) }
 end
 #---------------------------------------------------------------------
-# Factory.define :synopsis, :class => Synopsis do |f|
-#   f.title       { Faker::Lorem.sentence[3, 5] }
-#   f.body        { Faker::Lorem.paragraph }
-#   f.discipline  { |a| a.association(:discipline) }
-#   f.author      { |a| a.association(:user) }
-# end
-# #---------------------------------------------------------------------
-# Factory.define :crib, :class => Crib do |f|
-#   f.title       { Faker::Lorem.sentence[3, 5] }
-#   f.body        { Faker::Lorem.paragraph }
-#   f.discipline  { |a| a.association(:discipline) }
-#   f.author      { |a| a.association(:user) }
-# end
-# #---------------------------------------------------------------------
-# Factory.define :manual, :class => Manual do |f|
-#   f.title       { Faker::Lorem.sentence[3, 5] }
-#   f.body        { Faker::Lorem.paragraph }
-#   f.discipline  { |a| a.association(:discipline) }
-#   f.author      { |a| a.association(:user) }
-# end
+Factory.define :newsitem do |f|
+  f.title       { Faker::Lorem.sentence[3, 5] }
+  f.teaser      { Faker::Lorem.paragraph }
+  f.body        { Faker::Lorem.paragraph }
+  f.author      { |a| a.association(:user) }
+  f.published   true
+end
 #---------------------------------------------------------------------
+Factory.define :attach do |f|
+  f.container  { |a| a.association(:material) }
+  f.file   File.new(Rails.root.join('spec', 'fixtures', 'file.pdf'))
+end
+#---------------------------------------------------------------------
+Factory.define :material do |f|
+  f.created_by      { |a| a.association(:user) }
+  f.data            { |a| a.association(:other) }
+  f.discipline      { |a| a.association(:discipline) }
+end
+#---------------------------------------------------------------------
+Factory.define :other do |f|
+  f.title       { Faker::Lorem.sentence[3, 5] }
+  f.description { Faker::Lorem.paragraph }
+end
