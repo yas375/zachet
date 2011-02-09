@@ -3,3 +3,30 @@
   .inner
     - semantic_form_for @discipline, :url => admin_college_disciplines_path(params[:college_id]) do |f|
       = render :partial => "form", :locals => {:f => f}
+
+.block
+  .content
+    %h2.title Импорт из файла
+    .inner
+      %p
+        Чтобы создать сразу много предметов можно тут загрузить файл в
+        = link_to_function 'специальном формате', "$('#format_description').show()"
+        %br
+        Предметы, которые уже есть на сайте повторно добавлены не будут.
+        %br
+        По завершению операции будет выведен список добавленных и недобавленных предметов.
+      %div#format_description{:style => 'display: none'}
+        Сперва указывается название. Если есть аббревиатура, то далее указывается символ звёздочки '*' и аббревиатура. Пробелы вокруг звёздочки допускаются.
+        %br
+        %b Примеры:
+        %ul
+          %li Теория электрических цепей * ТЭЦ
+          %li Теория электрических цепей *ТЭЦ
+          %li Теория электрических цепей*ТЭЦ
+          %li Теория электрических цепей* ТЭЦ
+          %li Высшая математика
+
+      - semantic_form_for :disciplines, :url => import_admin_college_disciplines_path, :html => {:multipart => true} do |f|
+        - f.inputs do
+          = f.input :file, :as => :file
+        = f.buttons

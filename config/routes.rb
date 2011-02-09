@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.root :controller => 'admin/welcome', :action => 'index'
     admin.resources :newsitems, :controller => 'admin/newsitems', :as => 'news', :except => [:show]
     admin.resources :colleges, :controller => 'admin/colleges' do |college|
-      college.resources :disciplines, :controller => 'admin/disciplines', :except => [:show]
+      college.resources :disciplines, :controller => 'admin/disciplines', :except => [:show], :collection => {:import => :post}
       college.resources :faculties, :controller => 'admin/faculties', :except => [:show]
       college.resources :departments, :controller => 'admin/departments', :except => [:index, :show]
       college.resources :synopses, :controller => 'admin/synopses', :except => [:show]

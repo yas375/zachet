@@ -1,0 +1,27 @@
+- render :layout => 'admin/colleges/layout' do
+  %h2.title Импорт завершён
+  .inner
+    %h3 Успешно добавлены предметы:
+    %table.table
+      %tr
+        %th Название
+        %th Аббревиатура
+        - @success.each do |p|
+          %tr
+            %td= link_to p.name, edit_admin_college_discipline_path(p.college, p)
+            %td= p.abbr
+
+    %h3 Недобавлены:
+    %table.table
+      %tr
+        %th Название
+        %th Аббревиатура
+        %th Ошибка
+      - @failure.each do |p|
+        %tr
+          %td= p.name
+          %td= p.abbr
+          %td= p.errors.to_a.collect { |e| e.join(": ") }.join("<br />")
+
+
+

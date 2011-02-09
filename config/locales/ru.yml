@@ -37,6 +37,7 @@ ru:
     actions:
       create: 'Создать'
       update: 'Обновить'
+      submit: 'Ок'
 
       college:
         create: 'Добавить ВУЗ'
@@ -82,6 +83,7 @@ ru:
       subject: 'Тема'
       sticky: 'Закреплено'
       locked: 'Закрыто'
+      file: 'Файл'
 
       user:
         active: 'активирован'
