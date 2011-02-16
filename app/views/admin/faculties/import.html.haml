@@ -1,0 +1,57 @@
+- render :layout => 'admin/colleges/layout' do
+  %h2.title Импорт из файла
+  .inner
+    - if @success || @failure
+      - if @success[0].any?
+        %h3 Добавлены факультеты
+        %table.table
+          %tr
+            %th Название
+            %th Аббревиатура
+          - @success[0].each do |p|
+            %tr
+              %td= link_to p.name, edit_admin_college_faculty_path(p.college, p)
+              %td= p.abbr
+      - if @success[1].any?
+        %h3 Добавлены кафедры
+        %table.table
+          %tr
+            %th Название
+            %th Аббревиатура
+            %th Факультет
+          - @success[1].each do |p|
+            %tr
+              %td= link_to p.name, edit_admin_college_department_path(@college, p)
+              %td= p.abbr
+              %td= p.faculty.abbr || p.faculty.name
+      - if @failure[0].any?
+        %h3 Не удалось добавить факультеты:
+        %table.table
+          %tr
+            %th Название
+            %th Аббревиатура
+            %th Ошибка
+          - @failure[0].each do |p|
+            %tr
+              %td= p.name
+              %td= p.abbr
+              %td= p.errors.to_a.collect { |e| e.join(": ") }.join("<br />")
+      - if @failure[1].any?
+        %h4 Не удалось добавить кафедры:
+        %table.table
+          %tr
+            %th Название
+            %th Аббревиатура
+            %th Ошибка
+          - @failure[1].each do |p|
+            %tr
+              %td= p.name
+              %td= p.abbr
+              %td= p.errors.to_a.collect { |e| e.join(": ") }.join("<br />")
+    %h3 Формат файла
+    %p Тестовый файл. Строка с факультетом, затем строки с кафедрами этого факультета. Перед каждой кафедрой два пробела, чтобы скрипт понимал, что есть факультет, а что - его кафедры.
+    %p И факультеты и кафедры в формате: "Полное название * ПН". Т.е. аббревиатуру (если она имеется) надо указывать через звёздочку.
+    - semantic_form_for :faculties, :url => import_admin_college_faculties_path, :html => {:multipart => true} do |f|
+      - f.inputs do
+        = f.input :file, :as => :file
+      = f.buttons

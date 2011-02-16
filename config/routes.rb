@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :newsitems, :controller => 'admin/newsitems', :as => 'news', :except => [:show]
     admin.resources :colleges, :controller => 'admin/colleges' do |college|
       college.resources :disciplines, :controller => 'admin/disciplines', :except => [:show], :collection => {:import => :post}
-      college.resources :faculties, :controller => 'admin/faculties', :except => [:show]
+      college.resources :faculties, :controller => 'admin/faculties', :except => [:show], :collection => {:import => [:get, :post]}
       college.resources :departments, :controller => 'admin/departments', :except => [:index, :show]
       college.resources :synopses, :controller => 'admin/synopses', :except => [:show]
       college.resources :cribs, :controller => 'admin/cribs', :except => [:show]
