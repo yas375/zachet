@@ -137,6 +137,10 @@ namespace :drupal do
         belongs_to :drupal_user
       end
 
+      class DrupalUrlAlias < DrupalConnect
+        set_table_name "url_alias"
+      end
+
       users = DrupalUser.all(:include => :drupal_profile_values)
       @bsuir = College.first(:conditions => {:subdomain => 'bsuir'})
       users_counter = 0
@@ -194,6 +198,12 @@ namespace :drupal do
             User.record_timestamps = false
             user.update_attributes({:crypted_password => drupal_user.pass, :password_salt => ''})
             User.record_timestamps = true
+
+            system_drupal_path = "user/#{drupal_user.uid}"
+            RedirectionRule.create(:old_path => "/#{system_drupal_path}", :object => user, :subdomain => 'bsuir')
+            DrupalUrlAlias.all(:conditions => ['src = ?', system_drupal_path]).each do |a|
+              RedirectionRule.create(:old_path => "/#{a.dst}" , :object => user, :subdomain => 'bsuir')
+            end
           else
             error_users_counter += 1
             puts "Ошибка с #{drupal_user.uid} #{drupal_user.name}"
