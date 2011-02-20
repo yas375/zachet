@@ -137,7 +137,7 @@ namespace :drupal do
         belongs_to :drupal_user
       end
 
-      users = DrupalUser.all(:include => :drupal_profile_values )
+      users = DrupalUser.all(:include => :drupal_profile_values)
       @bsuir = College.first(:conditions => {:subdomain => 'bsuir'})
       users_counter = 0
       error_users_counter = 0
