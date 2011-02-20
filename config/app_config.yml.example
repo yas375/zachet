@@ -1,6 +1,7 @@
 common: &common
   host: localhost:3000
   mail_from: noreply@localhost
+  old_domain: bsuir-helper.ru
 
 production:
   <<: *common
