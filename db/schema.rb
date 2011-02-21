@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110220190941) do
+ActiveRecord::Schema.define(:version => 20110221190210) do
 
   create_table "attaches", :force => true do |t|
     t.integer  "container_id",                      :null => false
@@ -229,6 +229,7 @@ ActiveRecord::Schema.define(:version => 20110220190941) do
     t.string   "object_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "new_path"
   end
 
   add_index "redirection_rules", ["old_path"], :name => "index_redirection_rules_on_old_path", :unique => true

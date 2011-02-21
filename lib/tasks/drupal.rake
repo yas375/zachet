@@ -110,6 +110,16 @@ namespace :drupal do
       Rake::Task["drupal:import:forum"].execute
       puts "\n\t=== Импортируется контент === \n"
       Rake::Task["drupal:import:content"].execute
+      puts "\n\t=== Добавляются правила для глобальных редиректов === \n"
+      Rake::Task["drupal:import:redirection_rules"].execute
+    end
+
+    desc "Add redirection rules such as '/forum', '/predmet'"
+    task :redirection_rules => :environment do
+      RedirectionRule.create(:old_path => "/forum", :subdomain => 'forum', :new_path => '/')
+      RedirectionRule.create(:old_path => "/predmet", :subdomain => 'bsuir', :new_path => '/disciplines')
+      RedirectionRule.create(:old_path => "/lectors", :subdomain => 'bsuir', :new_path => '/teachers')
+      RedirectionRule.create(:old_path => "/news", :subdomain => 'bsuir', :new_path => '/news')
     end
 
     desc "Import users from drupal database"
