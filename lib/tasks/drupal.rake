@@ -514,6 +514,10 @@ namespace :drupal do
         has_many :children, :class_name => 'DrupalComment', :foreign_key => :pid
       end
 
+      class DrupalUrlAlias < DrupalConnect
+        set_table_name "url_alias"
+      end
+
       DrupalNode.inheritance_column = nil
       teachers = DrupalNode.all(:conditions => {:type => 'lecturer'})
 
@@ -582,6 +586,13 @@ namespace :drupal do
           teacher.visits_counter.update_attributes({:count => drupal_teacher.counter.totalcount,
                                                      :updated_at => Time.at(drupal_teacher.counter.timestamp)})
           VisitsCounter.record_timestamps = true
+
+          # collect redirection rules
+          system_drupal_path = "node/#{drupal_teacher.nid}"
+          RedirectionRule.create(:old_path => "/#{system_drupal_path}", :object => teacher, :subdomain => 'bsuir')
+          DrupalUrlAlias.all(:conditions => ['src = ?', system_drupal_path]).each do |a|
+            RedirectionRule.create(:old_path => "/#{a.dst}" , :object => teacher, :subdomain => 'bsuir')
+          end
 
           # comments
           comments = drupal_teacher.comments.all(:order => 'timestamp', :conditions => {:pid => 0})
