@@ -384,6 +384,10 @@ namespace :drupal do
         has_many :children, :class_name => 'DrupalComment', :foreign_key => :pid
       end
 
+      class DrupalUrlAlias < DrupalConnect
+        set_table_name "url_alias"
+      end
+
       DrupalNode.inheritance_column = nil
       newsitems = DrupalNode.all(:conditions => {:type => 'news'})
 
@@ -415,6 +419,12 @@ namespace :drupal do
           newsitem.visits_counter.update_attributes({:count => drupal_newsitem.counter.totalcount,
                                                    :updated_at => Time.at(drupal_newsitem.counter.timestamp)})
           VisitsCounter.record_timestamps = true
+
+          system_drupal_path = "node/#{drupal_newsitem.nid}"
+          RedirectionRule.create(:old_path => "/#{system_drupal_path}", :object => newsitem, :subdomain => 'bsuir')
+          DrupalUrlAlias.all(:conditions => ['src = ?', system_drupal_path]).each do |a|
+            RedirectionRule.create(:old_path => "/#{a.dst}" , :object => newsitem, :subdomain => 'bsuir')
+          end
 
           # comments
           comments = drupal_newsitem.comments.all(:order => 'timestamp', :conditions => {:pid => 0})
