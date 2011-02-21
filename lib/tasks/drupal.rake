@@ -884,10 +884,13 @@ namespace :drupal do
         has_one :file, :class_name => 'DrupalFile', :foreign_key => :fid
       end
 
-
       class DrupalFile < DrupalConnect
         set_table_name "files"
         set_primary_key "fid"
+      end
+
+      class DrupalUrlAlias < DrupalConnect
+        set_table_name "url_alias"
       end
 
 
@@ -1084,6 +1087,13 @@ namespace :drupal do
           material.visits_counter.update_attributes({:count => node.counter.totalcount,
                                                    :updated_at => Time.at(node.counter.timestamp)})
           VisitsCounter.record_timestamps = true
+
+          # rules for redirects
+          system_drupal_path = "node/#{node.nid}"
+          RedirectionRule.create(:old_path => "/#{system_drupal_path}", :object => material, :subdomain => 'bsuir')
+          DrupalUrlAlias.all(:conditions => ['src = ?', system_drupal_path]).each do |a|
+            RedirectionRule.create(:old_path => "/#{a.dst}", :object => material, :subdomain => 'bsuir')
+          end
 
           # comments
           comments = node.comments.all(:order => 'timestamp', :conditions => {:pid => 0})
