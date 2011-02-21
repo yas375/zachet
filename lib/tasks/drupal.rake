@@ -664,6 +664,10 @@ namespace :drupal do
         set_table_name "comments"
       end
 
+      class DrupalUrlAlias < DrupalConnect
+        set_table_name "url_alias"
+      end
+
       DrupalNode.inheritance_column = nil
 
       # destroy all forums
@@ -681,6 +685,14 @@ namespace :drupal do
         new_forum.title = forum_1.name
         new_forum.description = forum_1.description
         if new_forum.save
+          # rules for redirects
+          system_drupal_path = "taxonomy/term/#{forum_1.tid}"
+          RedirectionRule.create(:old_path => "/#{system_drupal_path}", :object => new_forum, :subdomain => 'forum')
+          RedirectionRule.create(:old_path => "/forum/#{forum_1.tid}", :object => new_forum, :subdomain => 'forum')
+          DrupalUrlAlias.all(:conditions => ['src = ?', system_drupal_path]).each do |a|
+            RedirectionRule.create(:old_path => "/#{a.dst}" , :object => new_forum, :subdomain => 'forum')
+          end
+
           # get all children
           children_ids = DrupalTermHierarchy.all(:conditions => ['parent = ?', forum_1.tid]).collect(&:tid)
           children = DrupalTermData.all(:conditions => "tid IN (#{children_ids.join(',')})")
@@ -692,6 +704,14 @@ namespace :drupal do
             new_child.description = drupal_child.description
 
             if new_child.save
+              # rules for redirects
+              system_drupal_path = "taxonomy/term/#{drupal_child.tid}"
+              RedirectionRule.create(:old_path => "/#{system_drupal_path}", :object => new_child, :subdomain => 'forum')
+              RedirectionRule.create(:old_path => "/forum/#{drupal_child.tid}", :object => new_child, :subdomain => 'forum')
+              DrupalUrlAlias.all(:conditions => ['src = ?', system_drupal_path]).each do |a|
+                RedirectionRule.create(:old_path => "/#{a.dst}" , :object => new_child, :subdomain => 'forum')
+              end
+
               # fill content
               drupal_child.drupal_term_nodes.each do |term_node|
                 revision = term_node.drupal_node_revision
@@ -704,7 +724,14 @@ namespace :drupal do
                 topic.sticky = node.sticky
                 topic.created_at = Time.at(node.created)
                 topic.updated_at = Time.at(node.changed)
-                unless topic.save
+                if topic.save
+                  # rules for redirects
+                  system_drupal_path = "node/#{node.nid}"
+                  RedirectionRule.create(:old_path => "/#{system_drupal_path}", :object => topic, :subdomain => 'forum')
+                  DrupalUrlAlias.all(:conditions => ['src = ?', system_drupal_path]).each do |a|
+                    RedirectionRule.create(:old_path => "/#{a.dst}" , :object => topic, :subdomain => 'forum')
+                  end
+                else
                   puts "Не удалось сохранить топик форум nid #{node.nid}"
                   puts topic.errors.to_a.collect { |e| e.join(": ") }.join("\n")
                 end

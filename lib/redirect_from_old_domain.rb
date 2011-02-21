@@ -12,26 +12,32 @@ class RedirectFromOldDomain
                                    :request_uri => env['REQUEST_URI'],
                                    :env => Marshal.dump(env.to_yaml))
 
-      destination = "http://bsuir.#{AppConfig.host}/"
+      destination = AppConfig.host
 
       unless env['REQUEST_URI'] == '/'
         new = RedirectionRule.first(:conditions => ['old_path = ?', env['REQUEST_URI']])
         if new
+          destination = "#{new.subdomain}.#{destination}" if new.subdomain
           log.redirection_rule = new
           case new.object_type
           when 'User'
-            destination << "users/#{new.object_id}"
+            destination << "/users/#{new.object_id}"
           when 'Newsitem'
-            destination << "news/#{new.object_id}"
+            destination << "/news/#{new.object_id}"
           when 'Material'
-            destination << "materials/#{new.object_id}"
+            destination << "/materials/#{new.object_id}"
           when 'Discipline'
-            destination << "disciplines/#{new.object_id}"
+            destination << "/disciplines/#{new.object_id}"
           when 'Teacher'
-            destination << "lectors/#{new.object_id}"
+            destination << "/lectors/#{new.object_id}"
+          when 'Forum'
+            destination << "/forums/#{new.object_id}"
+          when 'Topic'
+            destination << "/topics/#{new.object_id}"
           end
         end
       end
+      destination = "http://#{destination}"
       log.destination = destination
       log.save
 
