@@ -6,7 +6,7 @@ describe VisitsLog do
     @attach = Factory(:attach)
     @attach.reload
     @user = Factory(:user)
-    2.times { @attach.add_log(@user) }
+    2.times { @attach.add_log(@user, '127.0.0.1') }
   end
 
   it "should have right log record" do
