@@ -25,6 +25,8 @@ class RedirectFromOldDomain
             destination << "news/#{new.object_id}"
           when 'Material'
             destination << "materials/#{new.object_id}"
+          when 'Discipline'
+            destination << "disciplines/#{new.object_id}"
           end
         end
       end

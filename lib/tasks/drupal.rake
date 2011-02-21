@@ -232,6 +232,10 @@ namespace :drupal do
         set_table_name "term_data"
       end
 
+      class DrupalUrlAlias < DrupalConnect
+        set_table_name "url_alias"
+      end
+
       disciplines = DrupalTermData.all(:conditions => {:vid => 2})
       @bsuir = College.first(:conditions => {:subdomain => 'bsuir'})
       disciplines_counter = 0
@@ -253,6 +257,13 @@ namespace :drupal do
 
         if discipline.save
           disciplines_counter += 1
+
+          system_drupal_path = "taxonomy/term/#{drupal_discipline.tid}"
+          RedirectionRule.create(:old_path => "/#{system_drupal_path}", :object => discipline, :subdomain => 'bsuir')
+          DrupalUrlAlias.all(:conditions => ['src = ?', system_drupal_path]).each do |a|
+            RedirectionRule.create(:old_path => "/#{a.dst}" , :object => discipline, :subdomain => 'bsuir')
+          end
+
         else
           error_disciplines_counter += 1
           puts "Ошибка с #{drupal_discipline.tid} #{drupal_discipline.name}"
