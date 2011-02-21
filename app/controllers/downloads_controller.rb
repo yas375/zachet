@@ -3,7 +3,7 @@ class DownloadsController < ApplicationController
     attach = Attach.find(params[:id].to_i)
 
     # checking permissions and incrementing download counter goes here
-    attach.add_log(current_user)
+    attach.add_log(current_user, request.remote_addr)
 
     head(:x_accel_redirect => attach.file.path.sub(RAILS_ROOT, ''),
          :content_type => attach.file.content_type)
