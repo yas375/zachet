@@ -8,6 +8,7 @@ class TopicsController < ApplicationController
   def show
     @posts = @topic.posts.paginate(:order => 'created_at', :include => :author, :page => params[:page])
     @new_post = @topic.posts.new unless @topic.locked
+    @topic.increment_visits
   end
 
   def new
