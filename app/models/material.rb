@@ -13,9 +13,8 @@ class Material < ActiveRecord::Base
 
   validates_presence_of :discipline, :created_by
 
-  named_scope :find_by_college, lambda { |college|
-    { :joins => ['LEFT JOIN disciplines d on discipline_id = d.id'],
-      :conditions => ['d.college_id=?', college.id] }
+  scope :find_by_college, lambda { |college|
+    joins('LEFT JOIN disciplines d on discipline_id = d.id').where('d.college_id=?', college.id)
   }
 
   def title

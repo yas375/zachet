@@ -5,7 +5,7 @@ class Attach < ActiveRecord::Base
 
   has_attached_file(:file,
                     :url => '/system/files/:id/:basename.:extension',
-                    :path => "#{RAILS_ROOT}/files/:class/:id/:basename.:extension")
+                    :path => "#{Rails.root}/files/:class/:id/:basename.:extension")
 
 
   validates_attachment_presence :file
