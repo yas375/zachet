@@ -5,7 +5,29 @@ gem 'rails', '3.0.4'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem 'authlogic'
+gem 'attribute_normalizer'
+gem 'awesome_nested_set', :git => 'https://github.com/galetahub/awesome_nested_set.git'
+gem 'formtastic'
+gem 'haml'
+gem 'jrails'
 gem 'mysql2'
+gem 'meta_search'
+gem 'paperclip'
+gem 'php-serialize', :require => false
+gem 'russian'
+gem 'simple-navigation'
+gem 'symbolize'
+gem 'will_paginate'
+
+group :development, :test do
+  gem 'cucumber-rails'
+  gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'shoulda'
+  gem 'rspec-rails'
+  gem 'webrat'
+end
 
 # Use unicorn as the web server
 # gem 'unicorn'
