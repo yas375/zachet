@@ -23,7 +23,6 @@ gem 'will_paginate'
 group :development, :test do
   gem 'cucumber-rails'
   gem 'factory_girl_rails'
-  gem 'faker'
   gem 'shoulda'
   gem 'rspec-rails'
   gem 'webrat'

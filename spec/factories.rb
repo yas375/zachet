@@ -1,24 +1,22 @@
 # -*- coding: utf-8 -*-
-require 'faker'
-
 Factory.sequence :subdomain do |x|
-  Faker::Internet.domain_word + 'a' * x
+  "ab" * x
 end
 
 Factory.sequence :abbr do |x|
-  Faker::Lorem.words[1].upcase + "_#{x}"
+  "АББР#{x}"
 end
 
 Factory.sequence :name do |x|
-  Faker::Lorem.sentence[3, 5] + " #{x}"
+  "Какое-то уникальное имя #{x}"
 end
 
 Factory.sequence :login do |x|
-  Faker::Internet.user_name("user#{x}")
+  "user_#{x}"
 end
 
 Factory.sequence :email do |x|
-  Faker::Internet.email("asd#{x}")
+  "mymail#{x}@gmail.com"
 end
 
 #---------------------------------------------------------------------
@@ -38,28 +36,28 @@ end
 #---------------------------------------------------------------------
 Factory.define :discipline do |f|
   f.name      { Factory.next(:name) }
-  f.abbr      { Faker::Lorem.words[1].upcase }
+  f.abbr      { 'ОАиП' }
   f.college   { |a| a.association(:college) }
 end
 #---------------------------------------------------------------------
 Factory.define :faculty do |f|
   f.name      { Factory.next(:name) }
-  f.abbr      { Faker::Lorem.words[1].upcase }
+  f.abbr      { 'ФИТУ' }
   f.college   { |a| a.association(:college) }
 end
 #---------------------------------------------------------------------
 Factory.define :department do |f|
   f.name      { Factory.next(:name) }
-  f.abbr      { Faker::Lorem.words[1].upcase }
+  f.abbr      { 'ИТАС' }
   f.faculty   { |a| a.association(:faculty) }
 end
 #---------------------------------------------------------------------
 Factory.define :teacher do |f|
-  f.first_name       { Faker::Name.first_name }
-  f.middle_name      { Faker::Name.first_name }
-  f.last_name        { Faker::Name.last_name }
-  f.email            { Faker::Internet.email }
-  f.text             { "<p>#{Faker::Lorem.paragraphs(7).join('</p><p>')}</p>" }
+  f.first_name       { 'Василий' }
+  f.middle_name      { 'Иванович' }
+  f.last_name        { 'Пупкин' }
+  f.email            { 'asd@asd.sd' }
+  f.text             { '<p>Описание преподавателя.</p>' * 3 }
 end
 #---------------------------------------------------------------------
 Factory.define :teacher_job do |f|
@@ -74,9 +72,9 @@ Factory.define :teacher_subject do |f|
 end
 #---------------------------------------------------------------------
 Factory.define :newsitem do |f|
-  f.title       { Faker::Lorem.sentence[3, 5] }
-  f.teaser      { Faker::Lorem.paragraph }
-  f.body        { Faker::Lorem.paragraph }
+  f.title       { 'Пенная вечеринка' }
+  f.teaser      { 'Все студенты приглащаются.' }
+  f.body        { 'В программе: то-то и то-то' }
   f.author      { |a| a.association(:user) }
   f.published   true
 end
@@ -93,6 +91,6 @@ Factory.define :material do |f|
 end
 #---------------------------------------------------------------------
 Factory.define :other do |f|
-  f.title       { Faker::Lorem.sentence[3, 5] }
-  f.description { Faker::Lorem.paragraph }
+  f.title       { 'Отчет по походу на выставку' }
+  f.description { 'Ходили на выставку в БелЭкспо...' }
 end
