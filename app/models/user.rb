@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :login, :email
   belongs_to :college
 
+  scope :active, where(:active => true)
+
   def full_name
     ''.tap do |a|
       a << first_name if first_name

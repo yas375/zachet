@@ -7,7 +7,7 @@ module NewsitemsHelper
     else
       scope = scope.global
     end
-    newsitem = scope.published.descend_by_created_at.first
+    newsitem = scope.published.order(:created_at.desc).first
     if newsitem
       res = content_tag(:h1, h(newsitem.title))
       res << newsitem.teaser
@@ -17,7 +17,7 @@ module NewsitemsHelper
   end
 
   def latest_news(college, without_first = nil)
-    scope = Newsitem.news_on_main.published.descend_by_created_at
+    scope = Newsitem.news_on_main.published.order(:created_at.desc)
     if college == nil
       scope = scope.global
     elsif college == :all

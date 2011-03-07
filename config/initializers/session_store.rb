@@ -1,6 +1,6 @@
 # Be sure to restart your server when you modify this file.
 
-Zachet::Application.config.session_store :cookie_store, :key => '_zachet_session'
+Zachet::Application.config.session_store :cookie_store, :key => '_zachet_session', :domain => :all
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information

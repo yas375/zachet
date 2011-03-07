@@ -3,15 +3,16 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  include UrlHelper
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
 
-  helper_method :current_user_session, :current_user
+  helper_method :current_user_session, :current_user, :current_subdomain
 
-    private
+  private
       def current_user_session
         return @current_user_session if defined?(@current_user_session)
         @current_user_session = UserSession.find
@@ -47,5 +48,9 @@ class ApplicationController < ActionController::Base
       def redirect_back_or_default(default)
         redirect_to(session[:return_to] || default)
         session[:return_to] = nil
+      end
+
+      def current_subdomain
+        request.subdomain.present? && request.subdomain
       end
 end

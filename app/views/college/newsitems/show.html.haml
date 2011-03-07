@@ -1,4 +1,4 @@
-%h1= h @newsitem.title
-%div= @newsitem.teaser
-%div= @newsitem.body
+%h1= @newsitem.title
+%div= @newsitem.teaser.html_safe
+%div= @newsitem.body.html_safe
 %p= "Просмотров: #{@newsitem.visits}"

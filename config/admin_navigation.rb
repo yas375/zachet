@@ -33,30 +33,30 @@ SimpleNavigation::Configuration.run do |navigation|
     #primary.item :users, 'Пользователи', users_path
 
     # Add an item which has a sub navigation (same params, but with block)
-    primary.item :colleges, 'ВУЗы', admin_colleges_path do |colleges|
-      colleges.item :all_colleges, 'Все универы', admin_colleges_path
+    primary.item :colleges, 'ВУЗы', colleges_path do |colleges|
+      colleges.item :all_colleges, 'Все универы', colleges_path
       College.all(:include => :disciplines).each do |college|
-        colleges.item :"college_#{college.id}", college.abbr, admin_college_path(college) do |category|
-          category.item :"college_#{college.id}_show", 'Просмотр', admin_college_path(college)
-          category.item :"college_#{college.id}_edit", 'Редактировать', edit_admin_college_path(college)
-          category.item :"college_#{college.id}_disciplines", 'Предметы', admin_college_disciplines_path(college)
-          category.item :"college_#{college.id}_faculties", 'Факультеты', admin_college_faculties_path(college)
-          category.item :"college_#{college.id}_synopses", 'Конспекты', admin_college_synopses_path(college)
-          category.item :"college_#{college.id}_cribs", 'Шпоры', admin_college_cribs_path(college)
-          category.item :"college_#{college.id}_manuals", 'Методы', admin_college_manuals_path(college)
+        colleges.item :"college_#{college.id}", college.abbr, college_path(college) do |category|
+          category.item :"college_#{college.id}_show", 'Просмотр', college_path(college)
+          category.item :"college_#{college.id}_edit", 'Редактировать', edit_college_path(college)
+          category.item :"college_#{college.id}_disciplines", 'Предметы', college_disciplines_path(college)
+          category.item :"college_#{college.id}_faculties", 'Факультеты', college_faculties_path(college)
+          category.item :"college_#{college.id}_synopses", 'Конспекты', college_synopses_path(college)
+          category.item :"college_#{college.id}_cribs", 'Шпоры', college_cribs_path(college)
+          category.item :"college_#{college.id}_manuals", 'Методы', college_manuals_path(college)
         end
       end
     end
 
-    primary.item :news, 'Новости', admin_newsitems_path do |sub_nav|
+    primary.item :news, 'Новости', newsitems_path do |sub_nav|
       # Add an item to the sub navigation (same params again)
-      sub_nav.item :new_newsitem, 'Новое', new_admin_newsitem_path
+      sub_nav.item :new_newsitem, 'Новое', new_newsitem_path
       #sub_nav.item :show_newsitem, 'Show', admin_newsitem_path
       #sub_nav.item :edit, 'Редактирование', edit_admin_newsitem_path
     end
 
-    primary.item :teachers, 'Преподаватели', admin_teachers_path
-    primary.item :users, 'Пользователи', admin_users_path
+    primary.item :teachers, 'Преподаватели', teachers_path
+    primary.item :users, 'Пользователи', users_path
 
     # You can also specify a condition-proc that needs to be fullfilled to display an item.
     # Conditions are part of the options. They are evaluated in the context of the views,
@@ -71,7 +71,5 @@ SimpleNavigation::Configuration.run do |navigation|
 
     # You can turn off auto highlighting for a specific level
     # primary.auto_highlight = false
-
   end
-
 end

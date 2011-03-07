@@ -10,7 +10,7 @@ class ForumsController < ApplicationController
     @topic_counter = Topic.all.count
     @posts_counter = Post.all.count
     @users_counter = User.active.count
-    @last_user = User.active.last(:order => 'created_at')
+    @last_user = User.active.order(:created_at.desc).first
   end
 
   def show

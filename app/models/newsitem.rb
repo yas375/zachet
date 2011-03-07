@@ -25,4 +25,6 @@ class Newsitem < ActiveRecord::Base
 
   # ограницение для новостей на главных страницах
   scope :news_on_main, limit(5)
+
+  scope :published, where(:published => true)
 end

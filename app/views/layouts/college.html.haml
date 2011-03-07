@@ -3,7 +3,7 @@
   %head
     %title= h current_college.name
     = stylesheet_link_tag 'college_layout'
-    = college_custom_head
+    = college_custom_head.html_safe
     = yield(:head)
   %body
     #header

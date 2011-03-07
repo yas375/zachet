@@ -6,7 +6,7 @@
       .actions-bar.wat-cf
         .actions
           .create_button
-            = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить Пользователя", new_admin_user_path, :class => 'button'
+            = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить Пользователя".html_safe, new_user_path, :class => 'button'
           .clear
         = will_paginate @users
       %table.table
@@ -21,15 +21,15 @@
         - @users.each do |user|
           %tr{ :class => cycle("odd", "even") }
             %td.first= user.id
-            %td{:class => 'avatar'}= link_to(image_tag(user.avatar.url(:thumb)), edit_admin_user_path(user)) if user.avatar.file?
-            %td= link_to user.name, edit_admin_user_path(user)
+            %td{:class => 'avatar'}= link_to(image_tag(user.avatar.url(:thumb)), edit_user_path(user)) if user.avatar.file?
+            %td= link_to user.name, edit_user_path(user)
             %td= user.email
             %td= user.college.abbr if user.college
             %td= 'да' if user.active?
-            %td.last= link_to "#{t("web-app-theme.delete", :default => "Delete")}", admin_user_path(user), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
+            %td.last= link_to "#{t("web-app-theme.delete", :default => "Delete")}".html_safe, user_path(user), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
       .actions-bar.wat-cf
         .actions
           .create_button
-            = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить Пользователя", new_admin_user_path, :class => 'button'
+            = link_to "#{image_tag 'web-app-theme/tick.png'} Добавить Пользователя".html_safe, new_user_path, :class => 'button'
           .clear
         = will_paginate @users

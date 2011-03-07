@@ -1,6 +1,6 @@
+# -*- coding: utf-8 -*-
 class Admin::CollegesController < Admin::AdminController
   def new
-     current_navigation :colleges
      @college = College.new
   end
 
@@ -24,7 +24,6 @@ class Admin::CollegesController < Admin::AdminController
 
   def edit
     @college = College.find(params[:id])
-    current_navigation :"college_#{@college.id}"
   end
 
   def update

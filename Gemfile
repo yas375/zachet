@@ -13,12 +13,13 @@ gem 'haml'
 gem 'jrails'
 gem 'mysql2'
 gem 'meta_search'
+gem 'meta_where'
 gem 'paperclip'
 gem 'php-serialize', :require => false
 gem 'russian'
 gem 'simple-navigation'
 gem 'symbolize'
-gem 'will_paginate'
+gem "will_paginate", "~> 3.0.pre2"
 
 group :development, :test do
   gem 'cucumber-rails'
