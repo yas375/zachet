@@ -1,6 +1,4 @@
 class Admin::NewsitemsController < Admin::AdminController
-  before_filter :set_current_navigation
-
   # GET /newsitems
   def index
     @newsitems = Newsitem.paginate(:order => 'created_at DESC', :include => [:colleges, :author], :page => params[:page])
@@ -47,11 +45,5 @@ class Admin::NewsitemsController < Admin::AdminController
     @newsitem.destroy
 
     redirect_to(admin_newsitems_url)
-  end
-
-  private
-
-  def set_current_navigation
-    current_navigation :news
   end
 end

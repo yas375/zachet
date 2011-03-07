@@ -6,7 +6,7 @@ module ForumsHelper
       actions << link_to(image_tag('arrow_down.png'), move_down_forum_path(forum)) if forum.right_sibling
       actions << link_to(image_tag('web-app-theme/application_edit.png'), edit_forum_path(forum))
       actions << link_to(image_tag('web-app-theme/cross.png'), forum, :confirm => 'Точно удалить?', :method => :delete)
-    end
+    end.html_safe
   end
 
   def forum_breadcrumbs(forum, include_self = false)
@@ -18,6 +18,6 @@ module ForumsHelper
     end
     parents.shift
     parents.each{|p| crumbs << link_to(p.title, forum_path(p))}
-    content_tag :div, crumbs.join(' > '), :class => 'breadcrumbs'
+    content_tag(:div, crumbs.join(' > ').html_safe, :class => 'breadcrumbs')
   end
 end

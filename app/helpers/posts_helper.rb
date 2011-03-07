@@ -14,6 +14,6 @@ module PostsHelper
       a << link_to(post.author.name, user_path(post.author))
       a << format_date_and_time(post.created_at)
     end
-    a.join('<br />')
+    a.join('<br />').html_safe
   end
 end

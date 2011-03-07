@@ -2,9 +2,11 @@ require 'spec_helper'
 
 describe TeacherSubject do
   context "validations" do
-    it "should require teacher's job  and discipline" do
-      should validate_presence_of :teacher_job, :discipline
+    context "presence" do
+      it { should validate_presence_of(:teacher_job) }
+      it { should validate_presence_of(:discipline) }
     end
+
     it "should require the same college for discipline and teacher_job" do
       bsuir = Factory(:college)
       bsu = Factory(:college)

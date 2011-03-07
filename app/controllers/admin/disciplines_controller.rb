@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 class Admin::DisciplinesController < Admin::AdminController
-  before_filter :find_college, :set_current_navigation
+  before_filter :find_college
 
   # TODO: needs some refactor. use @college before getting disciplines
   def index
-    @disciplines = Discipline.paginate(:include => :college, :conditions => {:college_id => params[:college_id]}, :order => :name, :page => params[:page])
+    @disciplines = @college.disciplines.paginate(:include => :college, :order => :name, :page => params[:page])
   end
 
   def new
@@ -60,11 +60,5 @@ class Admin::DisciplinesController < Admin::AdminController
     else
       redirect_to({:action => :new}, :notice => 'Надо указать файл')
     end
-  end
-
-  private
-
-  def set_current_navigation
-    current_navigation :"college_#{params[:college_id]}_disciplines"
   end
 end

@@ -1,6 +1,6 @@
 - render :layout => 'admin/colleges/layout' do
   %h2.title Редактирование
   .inner
-    - semantic_form_for @college, :url => admin_college_path(@college) do |f|
+    = semantic_form_for @college, :url => college_path(@college) do |f|
       = render :partial => "form", :locals => {:f => f}
 

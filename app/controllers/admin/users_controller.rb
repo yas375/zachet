@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 class Admin::UsersController < Admin::AdminController
-  before_filter :set_current_navigation
-
   def new
     @user = User.new
   end
@@ -40,11 +38,5 @@ class Admin::UsersController < Admin::AdminController
     @user.destroy
 
     redirect_to :action => :index
-  end
-
-  private
-
-  def set_current_navigation
-    current_navigation :users
   end
 end

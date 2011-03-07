@@ -16,7 +16,7 @@
           = post_actions(post)
         %i= format_date_and_time(post.created_at)
         %hr
-        = post.text
+        = post.text.html_safe
 = will_paginate @posts
 - if @new_post
   %h3 Ответить

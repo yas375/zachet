@@ -5,13 +5,14 @@ describe Faculty do
   end
 
   context 'validations' do
-    it "should require college and name" do
-      should validate_presence_of :college, :name
+    context "presence" do
+      it { should validate_presence_of(:college) }
+      it { should validate_presence_of(:name) }
     end
 
-    it "should require unique name for each college" do
-      Factory(:faculty, :college => mock_model(College))
-      should validate_uniqueness_of :name, :scope => :college_id, :case_sensitive => false
+    context "uniqueness" do
+      before(:each) { Factory(:faculty, :college => mock_model(College)) }
+      it { should validate_uniqueness_of(:name).scoped_to(:college_id).case_insensitive }
     end
   end
 end

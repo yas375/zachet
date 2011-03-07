@@ -2,6 +2,6 @@
   .content
     %h2.title Редактирование пользователя
     .inner
-      - semantic_form_for @user, :url => admin_user_path(@user), :html => { :multipart => true } do |f|
+      = semantic_form_for @user, :url => user_path(@user), :html => { :multipart => true } do |f|
         = render :partial => "form", :locals => {:f => f}
 

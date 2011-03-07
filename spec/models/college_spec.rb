@@ -1,13 +1,18 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 describe College do
   context "validations" do
-    it "should require abbr, name and subdomain" do
-      should validate_presence_of :abbr, :name, :subdomain
+    context "presence" do
+      it { should validate_presence_of(:abbr) }
+      it { should validate_presence_of(:name) }
+      it { should validate_presence_of(:subdomain) }
     end
 
-    it "should be uniquieness values of attr, name and subdomain" do
-      Factory.create(:college)
-      should validate_uniqueness_of :abbr, :name, :subdomain, :case_sensitive => false
+    context "uniquieness values" do
+      before(:each) { Factory.create(:college) }
+      it { should validate_uniqueness_of(:abbr).case_insensitive }
+      it { should validate_uniqueness_of(:name).case_insensitive }
+      it { should validate_uniqueness_of(:subdomain).case_insensitive }
     end
 
     it "should allow only a-z for subdomain" do
