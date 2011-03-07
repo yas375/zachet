@@ -6,8 +6,7 @@ class Department < ActiveRecord::Base
   has_one :college, :through => :faculty
 
   scope :by_college, lambda { |college_id|
-    { :joins => "LEFT JOIN faculties f ON departments.faculty_id = f.id",
-      :conditions => ["f.college_id = ?", college_id] }
+    joins("LEFT JOIN faculties f ON departments.faculty_id = f.id").where("f.college_id = ?", college_id)
   }
 
   def title
