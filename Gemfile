@@ -2,6 +2,9 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.4'
 
+gem 'mysql'
+# for mashpit
+gem 'sqlite3', :require => false
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -11,12 +14,12 @@ gem 'awesome_nested_set', :git => 'https://github.com/galetahub/awesome_nested_s
 gem 'formtastic'
 gem 'haml'
 gem 'jrails'
-gem 'mysql2'
 gem 'meta_search'
 gem 'meta_where'
 gem 'paperclip'
 gem 'php-serialize', :require => false
 gem 'russian'
+gem 'rake', "0.8.7", :require => false
 gem 'simple-navigation'
 gem 'symbolize'
 gem "will_paginate", "~> 3.0.pre2"
